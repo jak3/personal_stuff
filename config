@@ -1,0 +1,164 @@
+aliases = {
+  LAZY = "SET autocreate_own_query OFF;SET use_status_window OFF;SET use_msgs_window ON;SET autoclose_windows OFF;SET reuse_unused_windows ON;SET autocreate_own_query OFF;SET autocreate_query_level NONE;SET use_status_window OFF;SET use_msgs_window OFF;SET reuse_unused_windows ON;SET windows_auto_renumber OFF;SET autostick_split_windows OFF;SET autoclose_windows OFF;SET print_active_channel ON";
+  ATAG = "WINDOW SERVER";
+  B = "ban";
+  BYE = "quit";
+  C = "clear";
+  CALC = "exec - if which bc &>/dev/null\\; then echo '$*' | bc | awk '{print \"$*=\"$$1}'\\; else echo bc was not found\\; fi";
+  DESCRIBE = "action";
+  EXEMPTLIST = "mode $C +e";
+  GOTO = "sb goto";
+  HOST = "userhost";
+  IGN = "ignore";
+  INVITELIST = "mode $C +I";
+  J = "join";
+  K = "kick";
+  KB = "kickban";
+  KO = "knockout";
+  LAST = "lastlog";
+  LOAD = "SCRIPT LOAD";
+  M = "msg";
+  MUB = "unban *";
+  N = "names";
+  Q = "window close";
+  SAY = "msg *";
+  SB = "scrollback";
+  SBAR = "STATUSBAR";
+  SV = "say Irssi $J ($V) - http://irssi.org/";
+  T = "topic";
+  UB = "unban";
+  UMODE = "mode $N";
+  UNIG = "unignore";
+  W = "who";
+  WI = "whois";
+  WII = "whois $0 $0";
+  WJOIN = "join -window";
+  WN = "window next";
+  WQ = "window close";
+  WQUERY = "query -window";
+  WS = "window show 2";
+  WW = "whowas";
+};
+
+completions = {
+  sid = { value = "http://scripts.irssi.de/"; };
+  ios = { value = "http://irssi.org/scripts/"; };
+  ":9" = { value = ":)"; auto = "yes"; };
+};
+
+servers = (
+  {
+    address = "irc.freenode.net";
+    chatnet = "freenode";
+    port = "7000";
+    use_ssl = "yes";
+    ssl_verify = "no";
+    autoconnect = "yes";
+  },
+  {
+    address = "irc.smashthestack.org";
+    chatnet = "smashthestack";
+    port = "6697";
+    use_ssl = "yes";
+    ssl_verify = "no";
+    autoconnect = "yes";
+  },
+  {
+    address = "irc.gonullyourself.org";
+    chatnet = "gonullyourself";
+    port = "6697";
+    use_ssl = "yes";
+    ssl_verify = "no";
+    autoconnect = "yes";
+  }
+);
+
+chatnets = {
+  freenode = {
+    type = "IRC";
+    autosendcmd = ":msg nickserv identify @c353n4h4ck@;wait 2000";
+  };
+  smashthestack = {
+    type = "IRC";
+    autosendcmd = ":nick jake;wait 2000;:msg nickserv identify @bl4k1ck4ss@;wait 2000";
+  };
+  gonullyourself = { type = "IRC"; };
+};
+
+channels = (
+  { name = "#io"; chatnet = "smashthestack"; autojoin = "yes"; },
+  { name = "#tux"; chatnet = "smashthestack"; autojoin = "yes"; },
+  { name = "#twits"; chatnet = "smashthestack"; autojoin = "yes"; },
+  { name = "#ptracesecurity"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#anapnea"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#nmap"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#cesena"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#nmap"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#gny"; chatnet = "gonullyourself"; autojoin = "yes"; },
+  { name = "#nmap"; chatnet = "gonullyourself"; autojoin = "yes"; }
+);
+
+
+statusbar = {
+  default = {
+    window = {
+      items = {
+        barstart = { priority = "100"; };
+        time = { };
+        user = { };
+        window = { };
+        window_empty = { };
+        lag = { priority = "-1"; };
+        act = { priority = "10"; };
+        more = { priority = "-1"; alignment = "right"; };
+        barend = { priority = "100"; alignment = "right"; };
+        vim_mode = { };
+        vim_windows = { };
+      };
+    };
+
+    prompt = {
+      items = {
+        uberprompt = { priority = "-1"; };
+        input = { priority = "10"; };
+      };
+      position = "100";
+    };
+  };
+};
+settings = {
+  core = {
+    real_name = "Giacomo";
+    user_name = "jake";
+    nick = "j4ke";
+    cmdchars = ":";
+  };
+  "fe-text" = { actlist_sort = "refnum"; };
+  "fe-common/core" = {
+    beep_msg_level = "MSGS NOTICES DCC DCCMSGS HILIGHT";
+    bell_beeps = "yes";
+    autolog_PATH = "";
+    autolog = "no";
+  };
+};
+ignores = (
+  { mask = "LOGIN"; level = "ALL"; channels = ( "*" ); },
+  { mask = "JOINS"; level = "ALL"; channels = ( "*" ); },
+  {
+    level = "ACTIONS";
+    pattern = "(away|gone|back|playin|weg|wech|returned)";
+    regexp = "yes";
+    channels = ( "##slackware" );
+  },
+  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#gny" ); },
+  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#irssi" ); },
+  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#vim" ); },
+  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#python" ); },
+  { level = "JOINS PARTS QUITS"; channels = ( "#io" ); },
+  { level = "JOINS PARTS QUITS"; channels = ( "#tux" ); },
+  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#nmap" ); },
+  { level = "JOINS PARTS QUITS"; channels = ( "#gsoc" ); },
+  { level = "JOINS PARTS QUITS"; channels = ( "#anapnea" ); },
+  { level = "CTCPS DCC"; }
+);
+logs = { };
