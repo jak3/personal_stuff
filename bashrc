@@ -41,7 +41,7 @@ export LS_COLORS='rs=0:di=01;34:ln=01;36:hl=44;37:pi=40;33:so=01;35:do=01;35:bd=
 ##Alias-------------------------------------------------------------------------
 # Set current directory ad default dir to new screen windows
 alias cudir='screen -X eval "chdir $PWD"'
-alias network='wpa_supplicant -D wext -i wlan1 -c /etc/wpa_supplicant.conf &'
+alias network='wpa_supplicant -D nl80211 -i wlan1 -c /etc/wpa_supplicant.conf &'
 alias network2='dhcpcd wlan1'
 alias netrestart='/etc/rc.d/rc.inet1 eth0_restart'
 alias grep='grep  --color=auto'
