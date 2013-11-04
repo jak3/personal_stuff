@@ -9,14 +9,14 @@
 ! urxvt
 URxvt*termName:     rxvt-unicode
 URxvt*modifier:     alt
-URxvt*perl-lib:     ~/.urxvt/ext
+URxvt*perl-lib:     /home/jack/.urxvt/ext
 !Color and % when lost focus
 URxvt*fadeColor:    #2B2B2B
 URxvt*fading:       90
 !Visual bit depth
 URxvt*depth:        32
 !Darken (0..99) lighten (101..200) 100 no shading
-URxvt*shading:      108
+URxvt*shading:      8
 URxvt*transparent:  true
 
 ! URxvt*background:   rgba:0000/0000/0000/dddd
@@ -58,12 +58,19 @@ URxvt*font:     xft:Monospace:pixelsize=14
 URxvt*boldFont: xft:Monospace:bold:pixelsize=14
 
 !urxvt extensions:
-URxvt.perl-ext-common:default,clipboard,matcher,keyboard-select
+URxvt.perl-ext-common:default,clipboard,matcher,keyboard-select,url-select,word-translator
 URxvt.keysym.M-u:     perl:url-select:select_next
+URxvt.keysym.M-t:     perl:word-select:select_next
 URxvt.keysym.M-Escape:perl:keyboard-select:activate
 URxvt.keysym.M-c:     perl:clipboard:copy
 URxvt.keysym.M-v:     perl:clipboard:paste
 URxvt.keysym.M-C-v:   perl:clipboard:paste_escaped
+URxvt.url-select.autocopy:  false
+URxvt.url-select.button:    1
+URxvt.url-select.launcher:  /usr/bin/firefox
+URxvt.url-select.underline: true
+URxvt.word-select.button:    1
+URxvt.word-select.launcher:  /usr/bin/firefox
 !URxvt.copyCommand:   xsel -ib
 !URxvt.pasteCommand:  xsel -ob
 
