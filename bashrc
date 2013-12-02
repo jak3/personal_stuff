@@ -15,7 +15,6 @@ fi
 STUFF="$HOME/personal_stuff"
 
 source $STUFF/shell/functions
-source $STUFF/shell/environment
 source $STUFF/shell/aliases 
 
 source $STUFF/scripts/git-completion.bash
@@ -38,9 +37,9 @@ export VORTEX=vortex.labs.overthewire.org
 #-------------------------------------------------------------
 if [ `/usr/bin/whoami` = 'root' ]
 then
-    export PS1='\[\033[01;31m\]\u|\[\033[00m\]\[\033[01;34m\] \w \[\033[00m\]\$ '
+    export PS1='\[\033[01;31m\]\u\[\033[00m\]\[\033[01;34m\] \w \[\033[00m\]\$ '
 else  
-    export PS1='\[\033[1;32m\]\u|\[\033[1;34m\] \w \$ \[\033[00m\] (__git_ps1 " (%s)")]\$ '
+    export PS1='\[\033[1;32m\]\u\[\033[1;34m\] \w \$ \[\033[00m\]'
 fi
 
 #-------------------------------------------------------------
@@ -139,4 +138,3 @@ fi
 # with the second env, if we type a command starting with a space
 # it wont show up in history
 # HISTSIZE=0 # don't save history
-     :stdin .?pb%pb\%:?lbLine %lb:?bbByte %bb:-...'
