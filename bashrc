@@ -12,10 +12,9 @@ if [[ $- != *i* ]] ; then
 	return
 fi
 
-STUFF="$HOME/personal_stuff"
 
-source $STUFF/shell/functions
-source $STUFF/shell/aliases 
+source /home/jack/personal_stuff/shell/functions
+source /home/jack/personal_stuff/shell/aliases 
 
 ## Italian keyboard
 setxkbmap -model pc104 -layout it
