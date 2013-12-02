@@ -20,6 +20,10 @@ let g:jedi#popup_on_dot = 0
 filetype on
 filetype plugin indent on
 
+"backup file only to /tmp 
+set backupdir-=.
+set backupdir^=~/tmp,/tmp
+
 " Tabstops are 4 spaces
 set tabstop=4
 set shiftwidth=4
