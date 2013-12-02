@@ -1,38 +1,40 @@
 "-------------------------------------------------------------------------------
 " This .pentadactylrc is made from strach by me
-" Last changes  : Mon 15 Apr 2013 09:54:52 PM CEST
+" Last changes  : Mon 02 Dec 2013 07:52:33 PM CET
 " Author        : jake
 " License       : GPLv3
 "-------------------------------------------------------------------------------
 
+"set guioptions+=B
+
 "Mapping
-map , <Leader>
+map l gt
+map h gT
 map <S-j> <C-f>
 map <S-k> <C-b>
 map <C-N> :tab liberomail.libero.it<CR>
 map <C-n> :o liberomail.libero.it<CR>
-map <Leader>t    :tabopen http://translate.google.it/#en|it|
-map <Leader>T    :tabopen http://translate.google.it/#it|en|
-map <Leader>d    :tabopen http://dictionary.reference.com/browse/
-map <Leader>u    :tabopen http://www.urbandictionary.com/define.php?term=
-map <Leader>i    :tabopen http://www.irssi.org/documentation<CR>
-map <Leader>a    :tabopen http://www.asciitable.com/index/asciifull.gif<CR>
-map <Leader>v    :tabopen http://www.virginradio.it/webradio/virgin-fm<CR>
-map <Leader>V    :tabopen http://www.virginradio.it/webradio/virgin-hard-rock<CR>
-map <Leader>y    :tabopen https://www.youtube.com/results?search_query=
-map <Leader>w    :tabopen http://wayback.archive.org/web/*/
-map <Leader>p    :tabopen http://www.phrack.org/search.html?key=
-map <Leader>c    :tabopen http://meteo.it/previsioni/Cesena/istat-40007<CR>
-map <Leader>h    :tabopen http://5digits.org/help/pentadactyl/<CR>
-map <Leader>n    :nohlsearch<CR>
-map <Leader>s    :stopall<CR>
-map <Leader>r    :flt<CR>
 map <C-a> <C-v><C-a>
 map <C-c> <C-v><C-c>
 map <C-x> <C-v><C-x>
-map -b l gt
-map -b h gT
 map <A-r> :restart<CR>
+map <A-S-s> :set nst!=<A-Tab>
+map ,t    :tabopen http://translate.google.it/#en|it|
+map ,T    :tabopen http://translate.google.it/#it|en|
+map ,d    :tabopen http://dictionary.reference.com/browse/
+map ,u    :tabopen http://www.urbandictionary.com/define.php?term=
+map ,i    :tabopen http://www.irssi.org/documentation<CR>
+map ,a    :tabopen http://www.asciitable.com/index/asciifull.gif<CR>
+map ,v    :tabopen http://www.virginradio.it/webradio/virgin-fm/<CR>
+map ,V    :tabopen http://www.virginradio.it/webradio/virgin-hard-rock/<CR>
+map ,y    :tabopen https://www.youtube.com/results?search_query=
+map ,w    :tabopen http://wayback.archive.org/web/*/
+map ,p    :tabopen http://www.phrack.org/search.html?key=
+map ,C    :tabopen http://meteo.it/previsioni/Cesena/istat-40007<CR>
+map ,h    :tabopen http://5digits.org/help/pentadactyl/<CR>
+map ,r    :flt<CR>
+map ,n    :nohlsearch<CR>
+map ,s    :stopall<CR>
 
 "-------------------------------------------------------------------------------
 " The lines below were pasted from FileName: zenburn.penta
