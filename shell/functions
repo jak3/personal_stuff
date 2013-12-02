@@ -1,0 +1,192 @@
+#!/bin/bash
+
+git_push_all() {
+  if [ $# -gt 0 ] ; then
+    BRANCH=$1
+  else
+    BRANCH=master
+  fi
+  for r in `git remote` ; do
+    git push $r $BRANCH
+  done
+}
+
+save_dir() {
+	pwd > ~/.lastdir	
+}
+
+cd_last_dir() {
+	cd "`cat ~/.lastdir`"
+}
+
+cd_and_ls() {
+  cd $@
+  if [[ $(ls -C | wc -l) -lt 30 ]] ; then
+    ls --color=auto -X
+  else
+    echo -e "\e[0;31mLots of items...\e[0m"
+  fi
+}
+
+#-------------------------------------------------------------
+# Make the following commands run in background automatically:
+#-------------------------------------------------------------
+
+function firefox() { command firefox "$@" &> /dev/null & }
+function xpdf() { command xpdf "$@" &> /dev/null & }
+
+#-------------------------------------------------------------
+# File & string-related functions:
+#-------------------------------------------------------------
+
+# Find a file with a pattern in name:
+function ff() { find . -type f -iname '*'$*'*' -ls ; }
+
+# Find a file with pattern $1 in name and Execute $2 on it:
+function fe()
+{ find . -type f -iname '*'${1:-}'*' -exec ${2:-file} {} \;  ; }
+
+# Find a pattern in a set of files and highlight them:
+# (needs a recent version of egrep)
+function fstr()
+{
+    OPTIND=1
+    local case=""
+    local usage="fstr: find string in files.
+    Usage: fstr [-i] \"pattern\" [\"filename pattern\"] "
+    while getopts :it opt
+    do
+        case "$opt" in
+            i) case="-i " ;;
+        *) echo "$usage"; return;;
+    esac
+    done
+    shift $(( $OPTIND - 1 ))
+    if [ "$#" -lt 1 ]; then
+    echo "$usage"
+    return;
+    fi
+    find . -type f -name "${2:-*}" -print0 | \
+    xargs -0 egrep --color=always -sn ${case} "$1" 2>&- | more 
+}
+
+function lowercase()  # move filenames to lowercase
+{
+    for file ; do
+        filename=${file##*/}
+        case "$filename" in
+            */*) dirname==${file%/*} ;;
+        *) dirname=.;;
+    esac
+    nf=$(echo $filename | tr A-Z a-z)
+    newname="${dirname}/${nf}"
+    if [ "$nf" != "$filename" ]; then
+        mv "$file" "$newname"
+        echo "lowercase: $file --> $newname"
+    else
+        echo "lowercase: $file not changed."
+    fi
+    done
+}
+
+
+function swap()  # Swap 2 filenames around, if they exist
+{                #(from Uzi's bashrc).
+    local TMPFILE=tmp.$$ 
+
+    [ $# -ne 2 ] && echo "swap: 2 arguments needed" && return 1
+    [ ! -e $1 ] && echo "swap: $1 does not exist" && return 1
+    [ ! -e $2 ] && echo "swap: $2 does not exist" && return 1
+
+    mv "$1" $TMPFILE 
+    mv "$2" "$1"
+    mv $TMPFILE "$2"
+}
+
+function extract()      # Handy Extract Program.
+{
+    if [ -f $1 ] ; then
+        case $1 in
+            *.tar.bz2)   tar xvjf $1     ;;
+        *.tar.gz)    tar xvzf $1     ;;
+    *.bz2)       bunzip2 $1      ;;
+             *.rar)       unrar x $1      ;;
+             *.gz)        gunzip $1       ;;
+         *.tar)       tar xvf $1      ;;
+     *.tbz2)      tar xvjf $1     ;;
+ *.tgz)       tar xvzf $1     ;;
+             *.zip)       unzip $1        ;;
+         *.Z)         uncompress $1   ;;
+     *.7z)        7z x $1         ;;
+ *)           echo "'$1' cannot be extracted via >extract<" ;;
+         esac
+     else
+         echo "'$1' is not a valid file"
+     fi
+}
+
+#-------------------------------------------------------------
+# Process/system related functions:
+#-------------------------------------------------------------
+
+function my_ps() { ps $@ -u $USER -o pid,%cpu,%mem,bsdtime,command ; }
+function pp() { my_ps f | awk '!/awk/ && $0~var' var=${1:-".*"} ; }
+
+function killps()                 # Kill by process name.
+{
+     local pid pname sig="-TERM"   # Default signal.
+     if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
+         echo "Usage: killps [-SIGNAL] pattern"
+         return;
+     fi
+     if [ $# = 2 ]; then sig=$1 ; fi
+     for pid in $(my_ps| awk '!/awk/ && $0~pat { print $1 }' pat=${!#} ) ; do
+         pname=$(my_ps | awk '$1~var { print $5 }' var=$pid )
+         if ask "Kill process $pid <$pname> with signal $sig?"
+         then kill $sig $pid
+         fi
+     done
+}
+
+#-------------------------------------------------------------
+# Misc utilities:
+#-------------------------------------------------------------
+
+function repeat()       # Repeat n times command.
+{
+     local i max
+     max=$1; shift;
+     for ((i=1; i <= max ; i++)); do  # --> C-like syntax
+         eval "$@";
+     done
+}
+
+function ask()          # See 'killps' for example of use.
+{
+     echo -n "$@" '[y/n] ' ; read ans
+     case "$ans" in
+         y*|Y*) return 0 ;;
+     *) return 1 ;;
+ esac
+}
+
+function get_xserver ()
+{
+    case $TERM in
+        xterm )
+            XSERVER=$(whoami | awk '{print $NF}' | tr -d ')''(' ) 
+            # Ane-Pieter Wieringa suggests the following alternative:
+            # I_AM=$(whoami)
+            # SERVER=${I_AM#*(}
+            # SERVER=${SERVER%*)}
+
+            XSERVER=${XSERVER%%:*}
+            ;;
+        aterm | rxvt)
+            # Find some code that works here. ...
+            ;;
+    esac  
+}
+## My _dirty_ sudo alternative
+function sudo(){ su; $*; }
+ 

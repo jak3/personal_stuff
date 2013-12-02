@@ -1,0 +1,146 @@
+#!/bin/bash
+# ALIASES
+
+## Distro dependent aliases
+
+grep --quiet Gentoo /proc/version
+GENTOO=$?
+
+if [ $GENTOO -eq 0 ]; then
+	alias halt='sudo halt'
+	alias poweroff='sudo poweroff'
+	alias reboot='sudo reboot'
+	alias hibernate='dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Hibernate'
+	alias suspend='dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Suspend'
+	alias update-grub='sudo grub-mkconfig -o /boot/grub2/grub.cfg'
+	alias markdown='markdown_py'
+	alias sdc='sudo dispatch-conf'
+else
+	alias poweroff='sudo poweroff'
+	alias reboot='sudo reboot'
+	alias hibernate='systemctl hibernate'
+	alias suspend='systemctl suspend'
+	alias wifi-menu='sudo wifi-menu'
+	alias netcfg='sudo netcfg'
+	alias netcfg-menu='sudo netcfg-menu'
+	alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+fi
+
+## Linux commangs
+alias ll="ls -l --group-directories-first"
+alias ls='ls -hFX --color' # add colors for filetype recognition
+alias lx='ls -lXB'         # sort by extension
+alias lk='ls -lSr'         # sort by size, biggest last
+alias lc='ls -ltcr'        # sort by and show change time, most recent last
+alias lu='ls -ltur'        # sort by and show access time, most recent last
+alias lt='ls -ltr'         # sort by date, most recent last
+alias lm='ls -al |more'    # pipe through 'more'
+alias lr='ls -lR'          # recursive ls
+alias las='ls -las'
+
+# Set current directory ad default dir to new screen windows
+alias cudir='screen -X eval "chdir $PWD"'
+
+alias network='wpa_supplicant -D nl80211 -i wlan1 -c /etc/wpa_supplicant.conf &'
+alias network2='dhcpcd wlan1'
+alias netrestart='/etc/rc.d/rc.inet1 eth0_restart'
+
+
+alias vimdiff='gvimdiff'
+alias vimtutot='gvimtutor'
+
+alias halt='su -c halt'
+alias reboot='su -c reboot'
+alias shutdown='su -c shutdown'
+alias mkdir='mkdir -p'
+
+alias bye='shutdown -h now'
+alias h='history'
+alias j='jobs -l'
+alias which='type -a'
+alias path='echo -e ${PATH//:/\\n}'
+alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
+alias sudo='su -c'
+alias pu='pushd'
+alias po='popd'
+alias gdb='gdb -q'
+alias bc='bc -q'
+alias ..='cd ..'
+alias cdb='cd ..'
+alias cdbb='cd ../../'
+alias cdbbb='cd ../../../'
+ 
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+alias c='clear'
+alias ca='clear;history -c;dirs -c'
+alias cp='cp -i'
+alias mv='mv -i'
+alias cdl=cd_last_dir
+alias cd=cd_and_ls
+
+## Typo aliases
+alias xs='cd'
+alias vf='cd'
+alias moer='more'
+alias moew='more'
+alias kk='ll'
+alias celar=clear
+alias clera=clear
+alias cl=clear
+alias s=ls
+
+## Utilities
+alias ungcc="gcc -z execstack -fno-stack-protector -fno-pie"
+alias ocvc="g++ \`pkg-config opencv --cflags --libs\`"
+alias runonce="$STUFF/scripts/run_once.sh"
+alias nvidiaoff="sudo $STUFF/scripts/nvidiaoff.sh"
+alias fixjava="wmname LG3D"
+alias irc="(sleep 10 && bash $STUFF/scripts/run_once.sh notify-listener.py $STUFF/scripts/notify-listener.py > /dev/null 2>&1) & irssi"
+alias mkd="$STUFF/scripts/mkd.sh"
+alias initlatex="mkdir tmp; mkdir bib; touch bib/bib.bib; cp $STUFF/templates/template.tex main.tex; touch main.tex.latexmain"
+alias initc="mkdir src; cp $STUFF/templates/Makefile.c ./Makefile"
+alias pass="/bin/true"
+alias to_c_string="hexdump -v -e '\"\\\\\\x\" 1/1 \"%02x\"'"
+alias machete="sudo kill -9"
+
+#alias lsize="ls -lR | grep -e "^-" | awk '{sum+=\$5} END {if [ $A ] ; then if [ $A = \"K\" ] ; then print sum/1024 ; elif [ $A = \"M\" ] ; then print sum/1024/1024 ; elif [ $A = \"G\" ] ; then print sum/1024/1024/1024 ; else ; print sum ; fi ; else ; print sum ; fi'}"
+
+## Mount
+alias dlist="udisks --enumerate-device-files"
+alias dmount="udisksctl mount -b"
+alias dumount="udisksctl unmount -b"
+
+## Folders
+alias psim='cd ~/Dropbox/University/Progetto\ di\ Reti\ di\ Telecomunicazioni\ LM/Simulator/'
+alias uni='cd ~/Dropbox/University'
+alias prj='cd ~/Dropbox/Projects'
+alias shared='cd ~/Documents/Virtual\ Machines/Shared'
+alias sec='cd ~/Dropbox/IT/Security'
+alias drp='cd ~/Dropbox'
+alias iss='cd ~/Dropbox/University/Ingegneria\ dei\ Sistemi\ Software\ LM/Git/group14work/'
+alias hwe='cd ~/Dropbox/University/Elaborazione\ delle\ Immagini\ LM/HomeworksGit/BellavistaHomeworks'
+alias mmsd='cd ~/Dropbox/University/Metodi\ e\ Modelli\ per\ il\ Supporto\ alle\ Decisioni\ LM/Project/knapsackkbest/'
+alias gtd='cd /mnt/shared/gtd/'
+
+## Git
+alias gc='git commit -m'
+alias gcheck='git checkout'
+alias ga='git add'
+alias gap='git add --patch'
+alias gpa='git_push_all'
+alias gp='git push'
+alias gpo='git push origin'
+alias gpom='git push origin master'
+alias gplo='git pull origin'
+alias gplom='git pull origin master'
+alias gfo='git pull fetch'
+alias gfom='git fetch origin master'
+alias grfh='git rebase FETCH_HEAD'
+alias gst='git status'
+alias gsa='git stash apply'
+alias gss='git stash save'
+alias gd='git diff'
+alias grm="git ls-files -deleted | xargs git rm"

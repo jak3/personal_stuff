@@ -1,0 +1,66 @@
+# Filter file for find_external_SlackPkg_files
+
+/boot/boot_message.txt
+/etc/adjtime					hwclock
+/etc/asound.state				alsactl
+/etc/fstab
+/etc/group-
+/etc/gshadow-
+/etc/gtk-*/*/im-multipress.conf			update-gtk-immodules
+/etc/hardwareclock
+/etc/httpd/mod_php.conf				php
+/etc/httpd/php.ini				php
+/etc/ld.so.cache				ldconfig
+/etc/lilo.conf					lilo
+/etc/ntp/drift					ntpd
+/etc/passwd-
+/etc/random-seed
+/etc/rc.d/rc.gpm				gpm
+/etc/rc.d/rc.gpm-sample				gpm
+/etc/rc.d/rc.keymap
+/etc/rndc.key					rndc
+/etc/shadow-
+/etc/slackpkg/mirrors				slackpkg
+/etc/ssl/certs/*				update-ca-certificates
+/etc/termcap
+/etc/udev/rules.d/70-persistent-cd.rules	udevd
+/etc/udev/rules.d/70-persistent-net.rules	udevd
+/home
+/lost+found
+/media
+/mnt
+/tmp
+/lib*/libcidn.so.1				ldconfig
+/usr/X11R6
+/usr/bin/htmlview				pkgtool
+/usr/doc/kbd-*/utf/*
+/usr/info/dir
+/usr/lib*/gdk-pixbuf-*/loaders.cache		gdk-pixbuf-query-loaders
+/usr/lib*/lib3dkit.so.1				svgakeymap
+/usr/lib*/libncurses.so.5			tset
+/usr/lib*/libncursesw.so.5			tset
+/usr/man/whatis					whatis
+/usr/local/man/whatis				whatis
+/usr/share/applications/mimeinfo.cache		update-desktop-database
+/usr/share/fonts/*/fonts.dir			mkfontdir
+/usr/share/fonts/*/encodings.dir		mkfontdir
+/usr/share/fonts/*/fonts.scale			mkfontscale
+/usr/share/icons/*/icon-theme.cache		gtk-update-icon-cache
+/usr/share/mime					update-mime-database
+/usr/share/mplayer/subfont.ttf			mplayer
+/usr/share/texmf-*/ls-R				mktexlsr
+/var/*/acpid*					acpi
+/var/*/dhcpcd					dhcpcd
+/var/cache/fontconfig				fc-cache
+/var/cache/ldconfig				ldconfig
+/var/cache/packages				slackpkg
+/var/lib/rpm/Packages				rpm
+/var/lib/slackpkg				slackpkg
+/var/log/Xorg.*					X
+/var/log/btmp
+/var/log/dmesg
+/var/log/httpd					httpd
+/var/run/dbus*					dbus-daemon
+/var/tmp/kdecache-*				kde-mv
+/var/spool/clientmqueue				sendmail
+/var/spool/cron					crond

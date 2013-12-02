@@ -1,0 +1,6 @@
+modprobe -r b43
+modprobe b43 pio=1 qos=0
+ifconfig wlan0 down
+ifconfig wlan0 up
+wpa_supplicant -Dnl80211 -iwlan0 -c/etc/wpa_supplicant.conf -d > /dev/null &
+dhclient wlan0
