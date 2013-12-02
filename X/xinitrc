@@ -12,7 +12,10 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 [ -f $usermodmap ] && /usr/bin/xmodmap $usermodmap
 [ -f $bg ] && /usr/bin/xpmroot $bg &
 eval $(cat ~/.fehbg)
+eval `dircolors $HOME/.dir_colors`
 xscreensaver &
+
+export STUFF="$HOME/personal_stuff/"
 
 if [ -z "$DESKTOP_SESSION" -a -x /usr/bin/ck-launch-session ]; then
   exec ck-launch-session dbus-launch --exit-with-session /usr/bin/xmonad

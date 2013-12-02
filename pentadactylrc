@@ -5,15 +5,12 @@
 " License       : GPLv3
 "-------------------------------------------------------------------------------
 
-set guioptions+=B
-
 "Mapping
 map , <Leader>
 map <S-j> <C-f>
 map <S-k> <C-b>
 map <C-N> :tab liberomail.libero.it<CR>
 map <C-n> :o liberomail.libero.it<CR>
-map <C-l> :noscript toggletemp<CR>
 map <Leader>t    :tabopen http://translate.google.it/#en|it|
 map <Leader>T    :tabopen http://translate.google.it/#it|en|
 map <Leader>d    :tabopen http://dictionary.reference.com/browse/

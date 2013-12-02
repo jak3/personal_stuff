@@ -18,6 +18,9 @@ source $STUFF/shell/functions
 source $STUFF/shell/environment
 source $STUFF/shell/aliases 
 
+source $STUFF/scripts/git-completion.bash
+source $STUFF/scripts/git-prompt.sh
+
 ## Italian keyboard
 setxkbmap -model pc104 -layout it
 
@@ -35,9 +38,9 @@ export VORTEX=vortex.labs.overthewire.org
 #-------------------------------------------------------------
 if [ `/usr/bin/whoami` = 'root' ]
 then
-    export PS1='\[\033[01;31m\]\u@\h\[\033[00m\]\[\033[01;34m\] \w \[\033[00m\]\$ '
+    export PS1='\[\033[01;31m\]\u|\[\033[00m\]\[\033[01;34m\] \w \[\033[00m\]\$ '
 else  
-    export PS1='\[\033[1;32m\]\u@\h\[\033[1;34m\] \w \$ \[\033[00m\]'
+    export PS1='\[\033[1;32m\]\u|\[\033[1;34m\] \w \$ \[\033[00m\] (__git_ps1 " (%s)")]\$ '
 fi
 
 #-------------------------------------------------------------

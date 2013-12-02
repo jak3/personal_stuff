@@ -1,7 +1,7 @@
 "-------------------------------------------------------------------------------
 " This .vimrc was made from Derek Wyatt's template. You should visited his site
 " if you love vim : derekwyatt.org
-" Last changes  : Mon 07 Oct 2013 08:43:56 PM CEST
+" Last changes  : Mon 02 Dec 2013 02:35:25 PM CET
 " Author        : jake
 " License       : GPLv3
 "-------------------------------------------------------------------------------
@@ -22,7 +22,7 @@ filetype plugin indent on
 
 "backup file only to /tmp 
 set backupdir-=.
-set backupdir^=~/tmp,/tmp
+set backupdir^=/tmp/filebackups
 
 " Tabstops are 4 spaces
 set tabstop=4
