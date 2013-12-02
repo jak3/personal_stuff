@@ -19,5 +19,5 @@ the configuration by means of symlinks.
 The VIM plugins (in `vim/vim/bundle`) are all submodule! Remember to launch
 
 ```
-git submodule init && git submodule update --init --recursive && git submodule foreach --recursive git pull origin master
+git submodule init && git submodule update --init --recursive && git submodule foreach git pull origin master
 ```  
