@@ -21,7 +21,7 @@ cd_last_dir() {
 
 cd_and_ls() {
   cd $@
-  if [[ $(ls -C | wc -l) -lt 30 ]] ; then
+  if [[ $(ls -C | wc -l) -lt 80 ]] ; then
     ls --color=auto -X
   else
     echo -e "\e[0;31mLots of items...\e[0m"
