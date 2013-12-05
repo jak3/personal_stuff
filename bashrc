@@ -117,6 +117,7 @@ date
 if [ -x /usr/games/fortune ]; then
     /usr/games/fortune -s    # Makes our day a bit more fun.... :-)
 fi
+ 
 
 #-------------------------------------------------------------
 # tailoring 'less'
