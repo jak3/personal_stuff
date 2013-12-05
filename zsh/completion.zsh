@@ -28,8 +28,6 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-
 # list of completers to use
 zstyle ':completion:*::::' completer _expand _complete _ignored _approximate
 
-zstyle ':completion:*' menu select=1 _complete _ignored _approximate
-
 # insert all expansions for expand completer
 # zstyle ':completion:*:expand:*' tag-order all-expansions
  
