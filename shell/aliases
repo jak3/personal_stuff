@@ -26,6 +26,23 @@ else
 	alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 fi
 
+## ZSH only
+if [ $SHELL = '/bin/zsh' ];then
+    #{{{ Suffixes...
+    if [[ $DISPLAY = '' ]] then
+    else
+      alias -s jpg=xv
+    fi
+    
+    #}}}
+
+    #{{{ Globals...
+    alias -g G="| grep"
+    alias -g L="| less"
+    #}}}
+
+fi
+
 ## Linux commangs
 alias ll="ls -l --group-directories-first"
 alias ls='ls -hF --color'  # add colors for filetype recognition
