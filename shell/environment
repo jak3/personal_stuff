@@ -1,0 +1,7 @@
+#!/bin/bash
+export XDG_CONFIG_HOME="$HOME/.config"
+export STUFF="$HOME/personal_stuff"
+
+export PATH=$PATH:/opt/bin
+eval `dircolors $HOME/.dircolors`
+stty -ixon

@@ -49,3 +49,12 @@
 [submodule "vim/bundle/vim-surround"]
 	path = vim/bundle/vim-surround
 	url = http://github.com/tpope/vim-surround.git
+[submodule "zsh/zsh-syntax-highlighting"]
+	path = zsh/zsh-syntax-highlighting
+	url = git@github.com:zsh-users/zsh-syntax-highlighting.git
+[submodule "zsh/zsh-completions"]
+	path = zsh/zsh-completions
+	url = git@github.com:zsh-users/zsh-completions.git
+[submodule "zsh/zsh-git-prompt"]
+	path = zsh/zsh-git-prompt
+	url = git@github.com:olivierverdier/zsh-git-prompt.git

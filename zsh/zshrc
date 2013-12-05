@@ -79,19 +79,13 @@ emacs-backward-word() {
 
 # SOURCES {{{
 
-STUFF=$HOME/linux
+STUFF=$HOME/personal_stuff
 
 source $STUFF/shell/environment
 source $STUFF/shell/functions
 source $STUFF/shell/aliases
 
-#source $STUFF/shell/asciiart
-
-export __GIT_PROMPT_DIR=$STUFF/zsh/git-prompt
-
 source $STUFF/zsh/history-substring-search.zsh
-source $STUFF/zsh/git-prompt/zshprompt.sh
-source $STUFF/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # }}}
 
