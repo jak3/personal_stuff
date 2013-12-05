@@ -35,5 +35,5 @@ function spectrum_bls() {
   done
 }
 
-PROMPT="$(git_super_status) %{$reset_color%}%{$FG[034]%}%~ > %{$reset_color%}"
+PROMPT="$(git_super_status) %{$reset_color%}%{$FG[220]%}%~ > %{$reset_color%}"
 RPROMPT="%{$FG[172]%}[%?] %{$reset_color%}%{$FG[220]%}%n%{$reset_color%}"

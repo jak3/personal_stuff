@@ -44,7 +44,7 @@ import qualified Data.Map as M
 
 -- Config {{{
 -- Define Terminal
-myTerminal      = "urxvt -e /bin/bash -c screen"
+myTerminal      = "urxvt -e /bin/zsh -c screen"
 -- Define modMask
 modMask' :: KeyMask
 modMask' = mod4Mask
