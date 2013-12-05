@@ -3,6 +3,9 @@
 
 ## Distro dependent aliases
 
+grep --quiet Gentoo /proc/version
+GENTOO=$?
+
 if [ $GENTOO -eq 0 ]; then
 	alias halt='sudo halt'
 	alias poweroff='sudo poweroff'

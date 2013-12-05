@@ -1,7 +1,5 @@
 # To install source this file from your .zshrc file
 
-# Change this to reflect your installation directory
-export __GIT_PROMPT_DIR=~/personal_stuff/zsh/git-prompt
 # Initialize colors.
 autoload -U colors
 colors
@@ -90,5 +88,3 @@ ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg[blue]%}✚"
 ZSH_THEME_GIT_PROMPT_REMOTE=""
 ZSH_THEME_GIT_PROMPT_UNTRACKED="…"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}✔"
-
-
