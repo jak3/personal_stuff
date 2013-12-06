@@ -1,8 +1,8 @@
-#Git-status from oh my zsh
+# Git-status from oh my zsh
 # ZSH Git Prompt Plugin from:
 # http://github.com/olivierverdier/zsh-git-prompt
 
-export __GIT_PROMPT_DIR=$STUFF/zsh/git-prompt
+export __GIT_PROMPT_DIR=$STUFF/zsh
 # Initialize colors.
 autoload -U colors
 colors
@@ -53,12 +53,6 @@ function prompt_git_info() {
 echo "(%{${fg[red]}%}$__CURRENT_GIT_STATUS[1]%{${fg[default]}%}$__CURRENT_GIT_STATUS[2]%{${fg[magenta]}%}$__CURRENT_GIT_STATUS[3]%{${fg[default]}%})"
     fi
 }
-
-# Set the prompt.
-#PROMPT='%B%m%~%b$(prompt_git_info) %# '
-# for a right prompt:
-#RPROMPT='%b$(prompt_git_info)'
-#RPROMPT='$(prompt_git_info)'
 
 #Imported from oh-my-zsh project
 #--- https://raw.github.com/robbyrussell/oh-my-zsh/master/lib/spectrum.zsh
