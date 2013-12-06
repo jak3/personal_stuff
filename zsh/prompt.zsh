@@ -2,7 +2,7 @@
 # ZSH Git Prompt Plugin from:
 # http://github.com/olivierverdier/zsh-git-prompt
 
-export __GIT_PROMPT_DIR=$STUFF/zsh
+export __GIT_PROMPT_DIR=$HOME/.git-prompt
 # Initialize colors.
 autoload -U colors
 colors

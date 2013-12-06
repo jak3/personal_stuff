@@ -2,7 +2,7 @@
 export XDG_CONFIG_HOME="$HOME/.config"
 export STUFF="$HOME/personal_stuff"
 
-export PATH=$PATH:/opt/bin
+export PATH=$PATH:/opt/bin:/opt/mingw-w64-i686/bin:/opt/mingw-w64-x86_64/bin
 
 # Enable color in grep
 export GREP_OPTIONS='--color=auto'
