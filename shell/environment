@@ -16,4 +16,7 @@ export __GIT_PROMPT_DIR=$STUFF/zsh/git-prompt
 #Export LS_COLORS
 eval `dircolors $HOME/.dircolors`
 
+#set it mapping without problems
+setxkbmap -layout it -model pc104
+
 stty -ixon

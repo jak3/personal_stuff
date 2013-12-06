@@ -40,7 +40,7 @@ if [ $SHELL = '/bin/zsh' ];then
     alias -g G="| grep"
     alias -g L="| less"
     #}}}
-
+    alias su='su -s /bin/zsh'
 fi
 
 ## Linux commangs

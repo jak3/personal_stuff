@@ -22,7 +22,6 @@ source $STUFF/zsh/completion.zsh
 source $STUFF/zsh/setopt.zsh
 source $STUFF/zsh/zsh_hooks.zsh
 source $STUFF/zsh/history-substring-search.zsh
-source $STUFF/zsh/git-prompt/zshrc.sh
 source $STUFF/zsh/prompt.zsh
 
 # }}}
