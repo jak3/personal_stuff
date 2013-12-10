@@ -1,4 +1,3 @@
--- Wed 09 Oct 2013 03:25:03 PM CEST
 -- Imports {{{
 import XMonad
 -- Prompt
@@ -12,7 +11,6 @@ import System.IO
 import System.Exit
 
 import XMonad.Util.Run
-
 
 import XMonad.Actions.CycleWS
 
@@ -46,14 +44,14 @@ import qualified Data.Map as M
 -- Define Terminal
 myTerminal      = "urxvt -e /bin/zsh -c screen"
 -- Define modMask
-modMask' :: KeyMask
-modMask' = mod4Mask
+mymodMask :: KeyMask
+mymodMask = mod4Mask
 -- Define workspaces
-myWorkspaces    = ["1:main","2:www","3:code", "4:misc"]
+myWorkspaces    = ["1:main","2:www","3:code", "4:misc", "5:♪"]
 -- Dzen/Conky
-myXmonadBar = "dzen2 -x '1440' -y '0' -h '24' -w '640' -ta 'l' -fg '#FFFFFF' -bg '#1B1D1E'"
-myStatusBar = "conky -c /home/jake/.xmonad/.conky_dzen | dzen2 -x '2080' -w '1040' -h '24' -ta 'r' -bg '#1B1D1E' -fg '#FFFFFF' -y '0'"
-myBitmapsDir = "/home/jake/.xmonad/dzen2"
+myXmonadBar = "dzen2 -x '1440' -y '0' -h '20' -w '500' -ta 'l' -fg '#FFFFFF' -bg '#1B1D1E'"
+myStatusBar = "conky -c $HOME/.xmonad/.conky_dzen | dzen2 -x '2080' -w '1040' -h '20' -ta 'r' -bg '#1B1D1E' -fg '#FFFFFF' -y '0'"
+myBitmapsDir = "$HOME/.xmonad/dzen2"
 --}}}
 -- Main {{{
 main = do
@@ -62,28 +60,28 @@ main = do
     xmonad $ withUrgencyHookC dzenUrgencyHook { args = ["-bg", "red", "fg", "black", "-xs", "1", "-y", "25"] } urgencyConfig { remindWhen = Every 15 } $ defaultConfig
       { terminal            = myTerminal
       , workspaces          = myWorkspaces
-      , keys                = keys'
-      , modMask             = modMask'
-      , layoutHook          = layoutHook'
-      , manageHook          = manageHook'
-      , logHook             = myLogHook dzenLeftBar >> fadeInactiveLogHook 0xdddddddd
+      , keys                = mykeys
+      , modMask             = mymodMask
+      , layoutHook          = mylayoutHook
+      , manageHook          = mymanageHook
+      , logHook             = myLogHook dzenLeftBar >> fadeInactiveLogHook 0.9
       , normalBorderColor   = colorNormalBorder
       , focusedBorderColor  = colorFocusedBorder
-      , borderWidth         = 2
+      , borderWidth         = 1
       , startupHook         = setWMName "LG3D"
 }
 --}}}
 
-
 -- Hooks {{{
 -- ManageHook {{{
-manageHook' :: ManageHook
-manageHook' = (composeAll . concat $
+mymanageHook :: ManageHook
+mymanageHook = (composeAll . concat $
     [ [resource     =? r            --> doIgnore            |   r   <- myIgnores] -- ignore desktop
-    , [className    =? c            --> doShift  "1:main"   |   c   <- myDev    ] -- move dev to main
-    , [className    =? c            --> doShift  "2:www"    |   c   <- myWww    ] -- move webs to main
-    , [className    =? c            --> doShift  "3:code"   |   c   <- myVim    ] -- move webs to main
-    , [className    =? c            --> doShift	 "4:misc"   |   c   <- myMisc   ] 
+    , [className    =? c            --> doShift  "1:main"     |   c   <- myDev    ] -- move dev to main
+    , [className    =? c            --> doShift  "2:www"      |   c   <- myWww    ] -- move webs to main
+    , [className    =? c            --> doShift  "3:code"     |   c   <- myVim    ] 
+    , [className    =? c            --> doShift	 "4:misc"     |   c   <- myMisc   ] 
+    , [className    =? c            --> doShift	 "5:♪"        |   c   <- myMus    ] 
     , [className    =? c            --> doCenterFloat       |   c   <- myFloats ] -- float my floats
     , [name         =? n            --> doCenterFloat       |   n   <- myNames  ] -- float my names
     , [isFullscreen                 --> myDoFullFloat                           ]
@@ -97,9 +95,10 @@ manageHook' = (composeAll . concat $
         -- classnames
         myFloats  = ["Smplayer","MPlayer","VirtualBox","Xmessage","XFontSel","Downloads","Nm-connection-editor"]
         myWww     = ["Firefox","Google-chrome","Chromium", "Chromium-browser", "Iceweasel", "Vidalia"]
-        myMisc    = [""]
+        myMisc    = ["VirtualBox"]
         myDev	  = [""]
         myVim	  = [""]
+        myMus	  = [""]
 
         -- resources
         myIgnores = ["desktop","desktop_window","notify-osd","stalonetray","trayer"]
@@ -111,7 +110,7 @@ manageHook' = (composeAll . concat $
 myDoFullFloat :: ManageHook
 myDoFullFloat = doF W.focusDown <+> doFullFloat
 -- }}}
-layoutHook'  =  onWorkspaces ["1:main","5:music"] customLayout $ 
+mylayoutHook  =  onWorkspaces ["1:main","5:♪"] customLayout $ 
                 onWorkspaces ["2:www","4:misc"] customLayout2 $
                 customLayout2
 
@@ -187,100 +186,74 @@ largeXPConfig = mXPConfig
                 }
 -- }}}
 -- Key mapping {{{
-keys' conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
-
+mykeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- launch terminal default (screen)
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
-
-    -- launch terminal without screen
-    , ((modm .|. shiftMask, xK_t     ), spawn "urxvt")
-
-    -- launch firefox
+    , ((modm .|. shiftMask, xK_t     ), spawn "urxvt -e /bin/zsh")
     , ((modm,               xK_f     ), spawn "firefox")
-
-    -- launch dmenu
-    , ((modm,               xK_p     ), spawn "dmenu_run")
-
-    -- launch gmrun
-    , ((modm .|. shiftMask, xK_p     ), spawn "gmrun")
-
+    , ((modm .|. shiftMask, xK_l     ), spawn "xscreensaver-command -lock")
+    , ((modm .|. shiftMask, xK_r     ), spawn "/opt/redshift/bin/redshift -c $HOME/personal_stuff/X/redshift.conf &")
+    , ((modm .|. controlMask, xK_l), spawn "cmus-remote -p") -- play/pause song
+    , ((modm .|. controlMask, xK_h), spawn "cmus-remote -u") -- stop playback
+    , ((modm .|. controlMask, xK_k), spawn "cmus-remote -r") -- previous song
+    , ((modm .|. controlMask, xK_j), spawn "cmus-remote -n") -- next song
+    , ((modm .|. controlMask, xK_r), spawn "cmus-remote -R") -- repeat
     -- close focused window
     , ((modm .|. shiftMask, xK_c     ), kill)
-
-     -- Rotate through the available layout algorithms
+    -- Rotate through the available layout algorithms
     , ((modm,               xK_space ), sendMessage NextLayout)
-
     --  Reset the layouts on the current workspace to default
     , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
-
     -- Resize viewed windows to the correct size
     , ((modm,               xK_n     ), refresh)
-
     -- Move focus to the next window
     , ((modm,               xK_Tab   ), windows W.focusDown)
-
     -- Move focus to the next window
     , ((modm,               xK_j     ), windows W.focusDown)
-
     -- Move focus to the previous window
     , ((modm,               xK_k     ), windows W.focusUp  )
-
     -- Move focus to the master window
     , ((modm,               xK_m     ), windows W.focusMaster  )
-
     -- Swap the focused window and the master window
     , ((modm,               xK_Return), windows W.swapMaster)
-
     -- Swap the focused window with the next window
     , ((modm .|. shiftMask, xK_j     ), windows W.swapDown  )
-
     -- Swap the focused window with the previous window
     , ((modm .|. shiftMask, xK_k     ), windows W.swapUp    )
-
     -- Shrink the master area
     , ((modm,               xK_h     ), sendMessage Shrink)
-
     -- Expand the master area
     , ((modm,               xK_l     ), sendMessage Expand)
-
     -- Push window back into tiling
     , ((modm,               xK_t     ), withFocused $ windows . W.sink)
-
     -- Increment the number of windows in the master area
     , ((modm              , xK_comma ), sendMessage (IncMasterN 1))
-
     -- Deincrement the number of windows in the master area
     , ((modm              , xK_period), sendMessage (IncMasterN (-1)))
-
     -- Toggle the status bar gap
     -- Use this binding with avoidStruts from Hooks.ManageDocks.
     -- See also the statusBar function from Hooks.DynamicLog.
     --
     -- , ((modm              , xK_b     ), sendMessage ToggleStruts)
-
     -- Quit xmonad
     , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
-
     -- Restart xmonad
-    , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")
+    , ((modm              , xK_q     ), spawn "xmonad --recompile && xmonad --restart")
     ]
     ++
-
     --
     -- mod-[1..9], Switch to workspace N
     -- mod-shift-[1..9], Move client to workspace N
     --
     [((m .|. modm, k), windows $ f i)
-        | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
-        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+    | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
+    , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
     ++
-
     --
     -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
     -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
     --
     [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
-        | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
-        , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
-
--- EOF vim: set ts=4 sw=4 tw=80 :
+    | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
+    , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
+    -- EOF vim: set ts=4 sw=4 tw=80 :

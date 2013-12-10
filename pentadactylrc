@@ -32,6 +32,7 @@ map ,w    :tabopen http://wayback.archive.org/web/*/
 map ,p    :tabopen http://www.phrack.org/search.html?key=
 map ,C    :tabopen http://meteo.it/previsioni/Cesena/istat-40007<CR>
 map ,h    :tabopen http://5digits.org/help/pentadactyl/<CR>
+map ,s    :tabopen http://slackbuilds.org/result/?search=
 map ,r    :flt<CR>
 map ,n    :nohlsearch<CR>
 map ,s    :stopall<CR>

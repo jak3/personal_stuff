@@ -12,9 +12,8 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 [ -f $usermodmap ] && /usr/bin/xmodmap $usermodmap
 [ -f $bg ] && /usr/bin/xpmroot $bg &
 eval $(cat ~/.fehbg)
-eval $(dircolors $HOME/.dir_colors)
-eval $(/opt/redshift/bin/redshift -c $HOME/personal_stuff/X/redshift.conf &)
-eval $(xscreensaver &)
+eval $(dircolors $HOME/.dircolors)
+xscreensaver &
 
 export STUFF="$HOME/personal_stuff/"
 

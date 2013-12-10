@@ -174,11 +174,11 @@ let mapleader = ","
 let java_allow_cpp_keywords = 1
 
 " set makeprg
-nmap ,ma :set makeprg=gcc\\ -Wall\\ -ggdb3\\ -o\\ %<\\ %<CR>
+nmap <Leader>ma :set makeprg=gcc\\ -Wall\\ -ggdb3\\ -o\\ %<\\ %<CR>
 " set makeprg for test
-nmap ,mt :set makeprg=gcc\\ -Wall\\ -ggdb3\\ -o\\ /tmp/%<\\ %<CR>
+nmap <Leader>mt :set makeprg=gcc\\ -Wall\\ -ggdb3\\ -o\\ /tmp/%<\\ %<CR>
 " set makeprg for test with c99 standard
-nmap ,m9 :set makeprg=gcc\\ -Wall\\ -std=c99\\ -ggdb3\\ -o\\ /tmp/%<\\ %<CR>
+nmap <Leader>m9 :set makeprg=gcc\\ -Wall\\ -std=c99\\ -ggdb3\\ -o\\ /tmp/%<\\ %<CR>
 
 " tags
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
@@ -187,53 +187,53 @@ map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 "-------------------------------------------------------------------------------
 
 " Wipe out all buffers
-nmap <silent> ,wa :1,9000bwipeout<cr>
+nmap <silent> <Leader>wa :1,9000bwipeout<cr>
 
 " Toggle paste mode
-nmap <silent> ,p :set invpaste<CR>:set paste?<CR>
+nmap <silent> <Leader>p :set invpaste<CR>:set paste?<CR>
 
 " cd to the directory containing the file in the buffer
-nmap <silent> ,cd :lcd %:h<CR>
-nmap <silent> ,md :!mkdir -p %:p:h<CR>
+nmap <silent> <Leader>cd :lcd %:h<CR>
+nmap <silent> <Leader>md :!mkdir -p %:p:h<CR>
 
 " Turn off that stupid highlight search
-nmap <silent> ,n :nohls<CR>
+nmap <silent> <Leader>n :nohls<CR>
 
 " Show all available VIM servers
-nmap <silent> ,ss :echo serverlist()<CR>
+nmap <silent> <Leader>ss :echo serverlist()<CR>
 
 " The following beast is something i didn't write... it will return the
 " syntax highlighting group that the current "thing" under the cursor
 " belongs to -- very useful for figuring out what to change as far as
 " syntax highlighting goes.
-nmap <silent> ,qq :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+nmap <silent> <Leader>qq :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " Make shift-insert work like in Xterm
 map <S-Insert> <MiddleMouse>
 map! <S-Insert> <MiddleMouse>
 
 " set text wrapping toggles
-nmap <silent> ,ww :set invwrap<CR>:set wrap?<CR>
+nmap <silent> <Leader>ww :set invwrap<CR>:set wrap?<CR>
 
 " Maps to make handling windows a bit easier
-noremap <silent> ,cj :wincmd j<CR>:close<CR>
-noremap <silent> ,ck :wincmd k<CR>:close<CR>
-noremap <silent> ,ch :wincmd h<CR>:close<CR>
-noremap <silent> ,cl :wincmd l<CR>:close<CR>
-noremap <silent> ,cc :close<CR>
-noremap <silent> ,cw :cclose<CR>
-noremap <silent> ,ml <C-W>L
-noremap <silent> ,mk <C-W>K
-noremap <silent> ,mh <C-W>H
-noremap <silent> ,mj <C-W>J
+noremap <silent> <Leader>cj :wincmd j<CR>:close<CR>
+noremap <silent> <Leader>ck :wincmd k<CR>:close<CR>
+noremap <silent> <Leader>ch :wincmd h<CR>:close<CR>
+noremap <silent> <Leader>cl :wincmd l<CR>:close<CR>
+noremap <silent> <Leader>cc :close<CR>
+noremap <silent> <Leader>cw :cclose<CR>
+noremap <silent> <Leader>ml <C-W>L
+noremap <silent> <Leader>mk <C-W>K
+noremap <silent> <Leader>mh <C-W>H
+noremap <silent> <Leader>mj <C-W>J
 
 " Maps to make handling buffer a bit easier 
 noremap <silent> <C-n> :bn<CR>
 noremap <silent> <C-p> :bp<CR>
 
 " Edit the vimrc file
-nmap <silent> ,ev :e $MYVIMRC<CR>
-nmap <silent> ,sv :so $MYVIMRC<CR>
+nmap <silent> <Leader>ev :e $MYVIMRC<CR>
+nmap <silent> <Leader>sv :so $MYVIMRC<CR>
 
 " Make horizontal scrolling easier
 nmap <silent> <C-o> 10zl
@@ -243,46 +243,50 @@ nmap <silent> <C-i> 10zh
 imap <C-J>d <C-r>=substitute(system("uuidgen"), '.$', '', 'g')<CR>
 
 " Search the current file for what's currently in the search register and display matches
-nmap <silent> ,gs :vimgrep /<C-r>// %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
+nmap <silent> <Leader>gs :vimgrep /<C-r>// %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
 
 " Search the current file for the word under the cursor and display matches
-nmap <silent> ,gw :vimgrep /<C-r><C-w>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
+nmap <silent> <Leader>gw :vimgrep /<C-r><C-w>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
 
 " Search the current file for the WORD under the cursor and display matches
-nmap <silent> ,gW :vimgrep /<C-r><C-a>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
+nmap <silent> <Leader>gW :vimgrep /<C-r><C-a>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
 
 " Spellcheck
-nmap <silent> ,S :w!<cr>:!aspell check %<cr>:e! <cr>
+nmap <silent> <Leader>S :w!<cr>:!aspell check %<cr>:e! <cr>
 
 " Swap two words
 nmap <silent> gw :s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>`'
 
 " Underline the current line with '='
-nmap <silent> ,uL :t.\|s/./=/g\|:nohls<cr>
+nmap <silent> <Leader>uL :t.\|s/./=/g\|:nohls<cr>
  
 " Underline the current line with '-'
-nmap <silent> ,ul :t.\|s/./-/g\|:nohls<cr>
+nmap <silent> <Leader>ul :t.\|s/./-/g\|:nohls<cr>
 
 " Underline the current line with '~'
-nmap <silent> ,ut :t.\|s/./\\~/g\|:nohls<cr>
+nmap <silent> <Leader>ut :t.\|s/./\\~/g\|:nohls<cr>
 
 " Shrink the current window to fit the number of lines in the buffer. Useful
 " for those buffers that are only a few lines
-nmap <silent> ,sw :execute ":resize " . line('$')<cr>
+nmap <silent> <Leader>sw :execute ":resize " . line('$')<cr>
 
 " Insert current date
-nmap <silent> ,cu "=strftime("%c")<cr>P
+nmap <silent> <Leader>cu "=strftime("%c")<cr>P
 
 " Use the bufkill plugin to eliminate a buffer but keep the window layout
-nmap ,bd :bd<cr>
+nmap <Leader>bd :bd<cr>
 
 " Alright... let's try this out
 imap jj <esc>
 
 " Clear the text using a motion / text object and then move the character to the
 " next word
-nmap <silent> ,C :set opfunc=ClearText<CR>g@
-vmap <silent> ,C :<C-U>call ClearText(visual(), 1)<CR>
+nmap <silent> <Leader>C :set opfunc=ClearText<CR>g@
+vmap <silent> <Leader>C :<C-U>call ClearText(visual(), 1)<CR>
+
+"Substitude word under cursor (%s///g)
+nnoremap <Leader>s :%s/<C-r><C-w>//g<Left><Left>
+
 
 function! ClearText(type, ...)
 let sel_save = &selection
