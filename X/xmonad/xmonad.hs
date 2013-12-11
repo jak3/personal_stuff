@@ -51,7 +51,7 @@ myWorkspaces    = ["1:main","2:www","3:code", "4:misc", "5:♪"]
 -- Dzen/Conky
 myXmonadBar = "dzen2 -x '1440' -y '0' -h '20' -w '500' -ta 'l' -fg '#FFFFFF' -bg '#1B1D1E'"
 myStatusBar = "conky -c $HOME/.xmonad/.conky_dzen | dzen2 -x '2080' -w '1040' -h '20' -ta 'r' -bg '#1B1D1E' -fg '#FFFFFF' -y '0'"
-myBitmapsDir = "$HOME/.xmonad/dzen2"
+myBitmapsDir = "$HOME/personal_stuff/X/xmoand/dzen2"
 --}}}
 -- Main {{{
 main = do
@@ -79,13 +79,13 @@ mymanageHook = (composeAll . concat $
     [ [resource     =? r            --> doIgnore            |   r   <- myIgnores] -- ignore desktop
     , [className    =? c            --> doShift  "1:main"     |   c   <- myDev    ] -- move dev to main
     , [className    =? c            --> doShift  "2:www"      |   c   <- myWww    ] -- move webs to main
-    , [className    =? c            --> doShift  "3:code"     |   c   <- myVim    ] 
-    , [className    =? c            --> doShift	 "4:misc"     |   c   <- myMisc   ] 
-    , [className    =? c            --> doShift	 "5:♪"        |   c   <- myMus    ] 
+    , [className    =? c            --> doShift  "3:code"     |   c   <- myVim    ]
+    , [className    =? c            --> doShift	 "4:misc"     |   c   <- myMisc   ]
+    , [className    =? c            --> doShift	 "5:♪"        |   c   <- myMus    ]
     , [className    =? c            --> doCenterFloat       |   c   <- myFloats ] -- float my floats
     , [name         =? n            --> doCenterFloat       |   n   <- myNames  ] -- float my names
     , [isFullscreen                 --> myDoFullFloat                           ]
-    ]) 
+    ])
 
     where
 
@@ -110,7 +110,7 @@ mymanageHook = (composeAll . concat $
 myDoFullFloat :: ManageHook
 myDoFullFloat = doF W.focusDown <+> doFullFloat
 -- }}}
-mylayoutHook  =  onWorkspaces ["1:main","5:♪"] customLayout $ 
+mylayoutHook  =  onWorkspaces ["1:main","5:♪"] customLayout $
                 onWorkspaces ["2:www","4:misc"] customLayout2 $
                 customLayout2
 
@@ -155,7 +155,7 @@ colorGreen          = "#A6E22E"
 colorBlue           = "#66D9EF"
 colorYellow         = "#E6DB74"
 colorWhite          = "#CCCCC6"
- 
+
 colorNormalBorder   = "#CCCCC6"
 colorFocusedBorder  = "#fd971f"
 
@@ -177,7 +177,7 @@ mXPConfig =
                     , height                = 14
                     , historyFilter         = deleteConsecutive
                     }
- 
+
 -- Run or Raise Menu
 largeXPConfig :: XPConfig
 largeXPConfig = mXPConfig
