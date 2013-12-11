@@ -1,7 +1,6 @@
 "-------------------------------------------------------------------------------
 " This .vimrc was made from Derek Wyatt's template. You should visited his site
 " if you love vim : derekwyatt.org
-" Last changes  : Mon 02 Dec 2013 02:35:25 PM CET
 " Author        : jake
 " License       : GPLv3
 "-------------------------------------------------------------------------------
@@ -668,5 +667,10 @@ endif
 "-------------------------------------------------------------------------------
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
+
+" One way to make sure to remove all trailing whitespace in a file is to set an
+" autocmd in your .vimrc file. Every time the user issues a :w command, Vim will
+" automatically remove all trailing whitespace before saving.
+autocmd BufWritePre * :%s/\s\+$//e
 
 "EOF vim: set ts=4 sw=4 tw=80 :

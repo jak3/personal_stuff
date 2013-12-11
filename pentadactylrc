@@ -5,7 +5,7 @@
 " License       : GPLv3
 "-------------------------------------------------------------------------------
 
-"set guioptions+=B
+set go=CrsN
 
 "Mapping
 map l gt
