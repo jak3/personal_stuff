@@ -76,7 +76,7 @@ def install(src, dst):
     if os.path.exists(src):
         if os.path.lexists(dst):
             typef = str_filetype(dst)
-        if query_yes_no(WARNING + "\t[^] " + dst + " already exists (it's a " \
+        if query_yes_no(WARNING + "\t[^] " + dst + " already exists (it's a "
                         + typef + "), override?" + ENDC):
             os.remove_path(dst)
             doit = True
@@ -103,7 +103,8 @@ if __name__ == "__main__":
         if len(sys.argv) > 0:
             STUFF = sys.argv[0]
     else:
-        print FAIL, " [#] Export $STUFF or supply <linux_stuff_directory>", ENDC
+        print FAIL,\
+            " [#] Export $STUFF or supply <linux_stuff_directory>", ENDC
         sys.exit(1)
 
     files = {}
@@ -116,6 +117,6 @@ if __name__ == "__main__":
     print "  LINUX STUFF INSTALL CONFIGURATION TOOL!"
     print " =========================================\n\n", ENDC
 
-    for k, (src,dst) in files.iteritems():
-        print OKBLUE, " [*] Installing", k, "configuration" , ENDC
+    for k, (src, dst) in files.iteritems():
+        print OKBLUE, " [*] Installing", k, "configuration", ENDC
         install(src, dst)

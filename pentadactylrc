@@ -6,6 +6,7 @@
 "-------------------------------------------------------------------------------
 
 set go=CrsN
+set showtabline=multitab
 
 "Mapping
 map l gt
