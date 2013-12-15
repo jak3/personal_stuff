@@ -15,18 +15,7 @@ fi
 
 source /home/jack/personal_stuff/shell/functions
 source /home/jack/personal_stuff/shell/aliases 
-
-## Italian keyboard
-setxkbmap -model pc104 -layout it
-
-# Export
-export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
-    vim -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' \
-    -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
-    -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
-export HISTCONTROL=ignoredups
-export ANA=jake@anapnea.net #xn--phnix-ibb.net
-export VORTEX=vortex.labs.overthewire.org
+source /home/jack/personal_stuff/shell/environment 
 
 #-------------------------------------------------------------
 # Shell Prompt
@@ -41,7 +30,6 @@ fi
 #-------------------------------------------------------------
 # Source global definitions (if any)
 #-------------------------------------------------------------
-
 if [ -f /etc/bashrc ]; then
     . /etc/bashrc   # --> Read /etc/bashrc, if present.
 fi
@@ -54,7 +42,6 @@ fi
 # troublesome).
 # I have not found a 'universal' method yet.
 #-------------------------------------------------------------
-
 if [ -z ${DISPLAY:=""} ]; then
     get_xserver
     if [[ -z ${XSERVER}  || ${XSERVER} == $(hostname) || \
@@ -70,7 +57,6 @@ export DISPLAY
 #-------------------------------------------------------------
 # Some settings
 #-------------------------------------------------------------
-
 ulimit -S -c 0          # Don't want any coredumps.
 set -o notify
 set -o noclobber
@@ -97,7 +83,6 @@ unset MAILCHECK         # Don't want my shell to warn me of incoming mail.
 export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
 export HISTTIMEFORMAT="%H:%M > "
 export HISTIGNORE="&:bg:fg:ll:h"
-export HOSTFILE=$HOME/.hosts    # Put list of remote hosts in ~/.hosts ...
 
 #-------------------------------------------------------------
 # Greeting, motd etc...

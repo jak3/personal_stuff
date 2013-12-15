@@ -37,6 +37,7 @@ setopt VI
 
 # why would you type 'cd dir' if you could just type 'dir'?
 setopt AUTO_CD
+setopt CDABLE_VARS
 
 # Allow comments even in interactive shells (especially for Muness)
 setopt INTERACTIVE_COMMENTS

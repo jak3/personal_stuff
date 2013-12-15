@@ -6,12 +6,18 @@ export PATH=$PATH:/opt/bin:/opt/mingw-w64-i686/bin:/opt/mingw-w64-x86_64/bin
 
 # Enable color in grep
 export GREP_OPTIONS='--color=auto'
-#export GREP_COLOR='3;33'
 
+export HISTCONTROL=ignoredups
+export ANA=jake@anapnea.net #xn--phnix-ibb.net
+export VORTEX=vortex.labs.overthewire.org
+ 
 export LESS='--ignore-case --raw-control-chars'
-export PAGER='less'
+export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
+    vim -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' \
+    -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
+    -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
 export EDITOR='vim'
-export __GIT_PROMPT_DIR=$STUFF/zsh/git-prompt
+export __GIT_PROMPT_DIR=$STUFF/zsh/
 
 #Export LS_COLORS
 eval `dircolors $HOME/.dircolors`
