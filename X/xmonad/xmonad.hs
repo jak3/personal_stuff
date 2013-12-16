@@ -41,6 +41,7 @@ import qualified Data.Map as M
 --}}}
 
 -- Config {{{
+
 -- Define Terminal
 myTerminal      = "urxvt -e /bin/zsh -c screen"
 -- Define modMask
@@ -55,16 +56,28 @@ myBitmapsDir = "$HOME/personal_stuff/X/xmoand/dzen2"
 --}}}
 -- Main {{{
 main = do
-    dzenLeftBar <- spawnPipe myXmonadBar
-    dzenRightBar <- spawnPipe myStatusBar
-    xmonad $ withUrgencyHookC dzenUrgencyHook { args = ["-bg", "red", "fg", "black", "-xs", "1", "-y", "25"] } urgencyConfig { remindWhen = Every 15 } $ defaultConfig
+    --dzen2 ones
+    --dzenLeftBar  <- spawnPipe myXmonadBar
+    --dzenRightBar <- spawnPipe myStatusBar
+    --xmobar one
+    xmproc <- spawnPipe "/usr/bin/xmobar $HOME/personal_stuff/X/xmonad/xmobarrc"   
+    --dzen2 one
+    --xmonad $ withUrgencyHookC dzenUrgencyHook { args = ["-bg", "red", "fg", "black", "-xs", "1", "-y", "25"] } urgencyConfig { remindWhen = Every 15 } $ defaultConfig
+    --xmobar one
+    xmonad $ defaultConfig   
       { terminal            = myTerminal
       , workspaces          = myWorkspaces
       , keys                = mykeys
       , modMask             = mymodMask
-      , layoutHook          = mylayoutHook
-      , manageHook          = mymanageHook
-      , logHook             = myLogHook dzenLeftBar >> fadeInactiveLogHook 0.9
+      , layoutHook          = avoidStruts $ mylayoutHook
+      --dzen2 one
+      --, manageHook          = mymanageHook
+      --xmobar one
+      , manageHook = manageDocks <+> manageHook defaultConfig  
+      --dzen2 one
+      --, logHook             = myLogHook dzenLeftBar >> fadeInactiveLogHook 0.9
+      --xmobar one
+      , logHook = myLogHook xmproc
       , normalBorderColor   = colorNormalBorder
       , focusedBorderColor  = colorFocusedBorder
       , borderWidth         = 1
@@ -110,33 +123,42 @@ mymanageHook = (composeAll . concat $
 myDoFullFloat :: ManageHook
 myDoFullFloat = doF W.focusDown <+> doFullFloat
 -- }}}
-mylayoutHook  =  onWorkspaces ["1:main","5:♪"] customLayout $
+mylayoutHook  = onWorkspaces ["1:main","5:♪"] customLayout $
                 onWorkspaces ["2:www","4:misc"] customLayout2 $
                 customLayout2
 
 --Bar
 myLogHook :: Handle -> X ()
-myLogHook h = dynamicLogWithPP $ defaultPP
-    {
-        ppCurrent           =   dzenColor "#ebac54" "#1B1D1E" . pad
-      , ppVisible           =   dzenColor "white" "#1B1D1E" . pad
-      , ppHidden            =   dzenColor "white" "#1B1D1E" . pad
-      , ppHiddenNoWindows   =   dzenColor "#7b7b7b" "#1B1D1E" . pad
-      , ppUrgent            =   dzenColor "black" "red" . pad
-      , ppWsSep             =   " "
-      , ppSep               =   "  |  "
-      , ppLayout            =   dzenColor "#ebac54" "#1B1D1E" .
-                                (\x -> case x of
-                                    "ResizableTall"             ->      "^i(" ++ myBitmapsDir ++ "/tall.xbm)"
-                                    "Mirror ResizableTall"      ->      "^i(" ++ myBitmapsDir ++ "/mtall.xbm)"
-                                    "Full"                      ->      "^i(" ++ myBitmapsDir ++ "/full.xbm)"
-                                    "Simple Float"              ->      "~"
-                                    _                           ->      x
-                                )
-      , ppTitle             =   (" " ++) . dzenColor "white" "#1B1D1E" . dzenEscape
-      , ppOutput            =   hPutStrLn h
-    }
-
+--dzen2 one
+--myLogHook h = dynamicLogWithPP $ defaultPP
+--    {
+--        ppCurrent           =   dzenColor "#ebac54" "#1B1D1E" . pad
+--      , ppVisible           =   dzenColor "white" "#1B1D1E" . pad
+--      , ppHidden            =   dzenColor "white" "#1B1D1E" . pad
+--      , ppHiddenNoWindows   =   dzenColor "#7b7b7b" "#1B1D1E" . pad
+--      , ppUrgent            =   dzenColor "black" "red" . pad
+--      , ppWsSep             =   " "
+--      , ppSep               =   "  |  "
+--      , ppLayout            =   dzenColor "#ebac54" "#1B1D1E" .
+--                                (\x -> case x of
+--                                    "ResizableTall"             ->      "^i(" ++ myBitmapsDir ++ "/tall.xbm)"
+--                                    "Mirror ResizableTall"      ->      "^i(" ++ myBitmapsDir ++ "/mtall.xbm)"
+--                                    "Full"                      ->      "^i(" ++ myBitmapsDir ++ "/full.xbm)"
+--                                    "Simple Float"              ->      "~"
+--                                    _                           ->      x
+--                                )
+--      , ppTitle             =   (" " ++) . dzenColor "white" "#1B1D1E" . dzenEscape
+--      , ppOutput            =   hPutStrLn h
+--    }
+--xmobar one
+myLogHook h = dynamicLogWithPP $ defaultPP 
+    {   ppOutput = hPutStrLn h
+        ,ppVisible = xmobarColor "white" "#1B1D1E" . shorten 50
+        , ppCurrent           =   xmobarColor "#ebac54" "#1B1D1E" . shorten 50
+        , ppHidden            =   xmobarColor "white" "#1B1D1E" . shorten 50
+        , ppHiddenNoWindows   =   xmobarColor "#7b7b7b" "#1B1D1E" . shorten 50
+    }                     
+ 
 -- Layout
 customLayout = avoidStruts $ tiled ||| Mirror tiled ||| Full ||| simpleFloat
   where
