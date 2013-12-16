@@ -69,11 +69,8 @@ main = do
       , workspaces          = myWorkspaces
       , keys                = mykeys
       , modMask             = mymodMask
-      , layoutHook          = avoidStruts $ mylayoutHook
-      --dzen2 one
-      --, manageHook          = mymanageHook
-      --xmobar one
-      , manageHook = manageDocks <+> manageHook defaultConfig  
+      , layoutHook          = mylayoutHook
+      , manageHook          = mymanageHook
       --dzen2 one
       --, logHook             = myLogHook dzenLeftBar >> fadeInactiveLogHook 0.9
       --xmobar one
