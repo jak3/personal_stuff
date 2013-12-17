@@ -11,6 +11,7 @@ import System.IO
 import System.Exit
 
 import XMonad.Util.Run
+import Graphics.X11.ExtraTypes.XF86
 
 import XMonad.Actions.CycleWS
 
@@ -217,6 +218,9 @@ mykeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. controlMask, xK_k), spawn "cmus-remote -r") -- previous song
     , ((modm .|. controlMask, xK_j), spawn "cmus-remote -n") -- next song
     , ((modm .|. controlMask, xK_r), spawn "cmus-remote -R") -- repeat
+    , ((0, xF86XK_AudioMute     ),          spawn "amixer set Master toggle")
+    , ((0, xF86XK_AudioRaiseVolume     ),   spawn "amixer set Master 10+")
+    , ((0, xF86XK_AudioLowerVolume     ),   spawn "amixer set Master 10-")
     -- close focused window
     , ((modm .|. shiftMask, xK_c     ), kill)
     -- Rotate through the available layout algorithms
