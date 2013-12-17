@@ -151,7 +151,7 @@ myLogHook :: Handle -> X ()
 myLogHook h = dynamicLogWithPP $ defaultPP 
     {   ppOutput = hPutStrLn h
         ,ppVisible = xmobarColor "white" "#1B1D1E" . shorten 50
-        , ppCurrent           =   xmobarColor "#ebac54" "#1B1D1E" . shorten 50
+        , ppCurrent           =   xmobarColor "#ee9a00" "#1B1D1E" . shorten 50
         , ppHidden            =   xmobarColor "white" "#1B1D1E" . shorten 50
         , ppHiddenNoWindows   =   xmobarColor "#7b7b7b" "#1B1D1E" . shorten 50
     }                     
