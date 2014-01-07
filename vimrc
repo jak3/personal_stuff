@@ -9,11 +9,6 @@ let PAGER='' "ensure using vim's man and not the system one remapped in bashrc
 "-------------------------------------------------------------------------------
 " Global Stuff
 "-------------------------------------------------------------------------------
-" Get pathogen up and running
-execute pathogen#infect()
-set completeopt=longest,menuone
-set wildmode=list:longest,list:full
-let g:jedi#popup_on_dot = 0
 
 " Set filetype stuff to on
 filetype on
@@ -323,24 +318,6 @@ else
 endif
 
 "-------------------------------------------------------------------------------
-" NERD Tree Plugin Settings
-"-------------------------------------------------------------------------------
-" Toggle the NERD Tree on an off with F7
-nmap <F7> :NERDTreeToggle<CR>
-
-" Close the NERD Tree with Shift-F7
-nmap <S-F7> :NERDTreeClose<CR>
-
-" Show the bookmarks table on startup
-let NERDTreeShowBookmarks=1
-
-" Don't display these kinds of files
-let NERDTreeIgnore=[ '\.ncb$', '\.suo$', '\.vcproj\.RIMNET', '\.obj$',
-                   \ '\.ilk$', '^BuildLog.htm$', '\.pdb$', '\.idb$',
-                   \ '\.embed\.manifest$', '\.embed\.manifest.res$',
-                   \ '\.intermediate\.manifest$', '^mt.dep$' ]
-
-"-------------------------------------------------------------------------------
 " FSwitch mappings
 "-------------------------------------------------------------------------------
 nmap <silent> ,of :FSHere<CR>
@@ -352,31 +329,6 @@ nmap <silent> ,ok :FSAbove<CR>
 nmap <silent> ,oK :FSSplitAbove<CR>
 nmap <silent> ,oj :FSBelow<CR>
 nmap <silent> ,oJ :FSSplitBelow<CR>
-
-"-------------------------------------------------------------------------------
-" TwitVim settings
-"-------------------------------------------------------------------------------
-let twitvim_enable_perl = 1
-let twitvim_browser_cmd = 'firefox'
-nmap ,tw :FriendsTwitter<cr>
-nmap ,tm :UserTwitter<cr>
-nmap ,tM :MentionsTwitter<cr>
-function! TwitVimMappings()
-    nmap <buffer> U :exe ":UnfollowTwitter " . expand("<cword>")<cr>
-    nmap <buffer> F :exe ":FollowTwitter " . expand("<cword>")<cr>
-    nmap <buffer> 7 :BackTwitter<cr>
-    nmap <buffer> 8 :ForwardTwitter<cr>
-    nmap <buffer> 1 :PreviousTwitter<cr>
-    nmap <buffer> 2 :NextTwitter<cr>
-    nmap <buffer> ,sf :SearchTwitter #scala OR #akka<cr>
-    nmap <buffer> ,ss :SearchTwitter #scala<cr>
-    nmap <buffer> ,sa :SearchTwitter #akka<cr>
-    nmap <buffer> ,sv :SearchTwitter #vim<cr>
-endfunction
-augroup derek_twitvim
-    au!
-    au FileType twitvim call TwitVimMappings()
-augroup END
 
 "-------------------------------------------------------------------------------
 " Functions
@@ -510,45 +462,6 @@ endfunction
 command! -complete=command -nargs=+ RedirToYankRegister
   \ silent! call RedirToYankRegisterF(<f-args>)
 
-function! ToggleMinimap()
-    if exists("s:isMini") && s:isMini == 0
-        let s:isMini = 1
-    else
-        let s:isMini = 0
-    end
-
-    if (s:isMini == 0)
-        " save current visible lines
-        let s:firstLine = line("w0")
-        let s:lastLine = line("w$")
-
-        " make font small
-        exe "set guifont=" . g:small_font
-        " highlight lines which were visible
-        let s:lines = ""
-        for i in range(s:firstLine, s:lastLine)
-            let s:lines = s:lines . "\\%" . i . "l"
-
-            if i < s:lastLine
-                let s:lines = s:lines . "\\|"
-            endif
-        endfor
-
-        exe 'match Visible /' . s:lines . '/'
-        hi Visible guibg=lightblue guifg=black term=bold
-        nmap <s-j> 10j
-        nmap <s-k> 10k
-    else
-        exe "set guifont=" . g:main_font
-        hi clear Visible
-        nunmap <s-j>
-        nunmap <s-k>
-    endif
-endfunction
-
-command! ToggleMinimap call ToggleMinimap()
-nnoremap <space> :ToggleMinimap<CR>
-
 " Append modeline after last line in buffer.
 " Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
 " files.
@@ -673,4 +586,66 @@ autocmd QuickFixCmdPost    l* nested lwindow
 " automatically remove all trailing whitespace before saving.
 autocmd BufWritePre * :%s/\s\+$//e
 
+" Section: Pathogen {{{
+" Get pathogen up and running
+execute pathogen#infect()
+set completeopt=longest,menuone
+set wildmode=list:longest,list:full
+" }}}
+
+" Section: Syntastic {{{
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_mode_map = { 'mode': 'active', \ 'active_filetypes': [], \ 'passive_filetypes': [] }
+let g:syntastic_c_checkers = ['ycm']
+let g:syntastic_python_checkers = ['pyflakes']
+let g:syntastic_html_checkers = ['tidy']
+" }}}
+
+" Section: Jedi {{{ 
+let g:jedi#popup_on_dot = 0
+" }}}
+
+" Section: NERDTree {{{
+" Toggle the NERD Tree on an off with F7
+nmap <F7> :NERDTreeToggle<CR>
+
+" Close the NERD Tree with Shift-F7
+nmap <S-F7> :NERDTreeClose<CR>
+
+" Show the bookmarks table on startup
+let NERDTreeShowBookmarks=1
+
+" Don't display these kinds of files
+let NERDTreeIgnore=[ '\.ncb$', '\.suo$', '\.vcproj\.RIMNET', '\.obj$',
+                   \ '\.ilk$', '^BuildLog.htm$', '\.pdb$', '\.idb$',
+                   \ '\.embed\.manifest$', '\.embed\.manifest.res$',
+                   \ '\.intermediate\.manifest$', '^mt.dep$' ]
+" }}}
+
+" Section: Twitvim {{{
+let twitvim_enable_perl = 1
+let twitvim_browser_cmd = 'firefox'
+nmap ,tw :FriendsTwitter<cr>
+nmap ,tm :UserTwitter<cr>
+nmap ,tM :MentionsTwitter<cr>
+function! TwitVimMappings()
+    nmap <buffer> U :exe ":UnfollowTwitter " . expand("<cword>")<cr>
+    nmap <buffer> F :exe ":FollowTwitter " . expand("<cword>")<cr>
+    nmap <buffer> 7 :BackTwitter<cr>
+    nmap <buffer> 8 :ForwardTwitter<cr>
+    nmap <buffer> 1 :PreviousTwitter<cr>
+    nmap <buffer> 2 :NextTwitter<cr>
+    nmap <buffer> ,sf :SearchTwitter #scala OR #akka<cr>
+    nmap <buffer> ,ss :SearchTwitter #scala<cr>
+    nmap <buffer> ,sa :SearchTwitter #akka<cr>
+    nmap <buffer> ,sv :SearchTwitter #vim<cr>
+endfunction
+augroup derek_twitvim
+    au!
+    au FileType twitvim call TwitVimMappings()
+augroup END
+" }}}
+ 
 "EOF vim: set ts=4 sw=4 tw=80 :
