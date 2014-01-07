@@ -8,7 +8,7 @@ Config { font = "xft:Bitstream Vera Sans Mono:size=9:bold:antialias=true"
                     , Run Network "wlan0" ["-L","0","-H","70","--normal","green","--high","red"] 10   
                     , Run Memory ["-t","Mem: <usedratio>%"] 10  
                     , Run BatteryP ["BAT0"]
-                        ["-t", "<acstatus> <left>% "
+                        ["-t", "<acstatus> <left> "
                         , "-L", "10", "-H", "80"
                         , "-l", "red", "-h", "green"
                         , "--", "-O", "<fc=red>⚡⚡⚡⚡⚡</fc>", "-o", ""
@@ -19,6 +19,6 @@ Config { font = "xft:Bitstream Vera Sans Mono:size=9:bold:antialias=true"
                     ]  
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader%}{<fc=grey>%cpu%</fc><fc=grey> | %memory% | %eth0%%wlan0%</fc> | <fc=#ee9a00>%date%</fc> | Vol: <fc=green>%volume%</fc> | %battery% "  
+       , template = "%StdinReader%}{ | <fc=grey>%cpu%</fc><fc=grey> | %memory% | %eth0%%wlan0%</fc> | <fc=#ee9a00>%date%</fc> | Vol: <fc=green>%volume%</fc> | %battery% "  
        }
      }  
