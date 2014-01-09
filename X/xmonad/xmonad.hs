@@ -213,8 +213,8 @@ mykeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_f     ), spawn "firefox")
     , ((modm .|. shiftMask, xK_l     ), spawn "xscreensaver-command -lock")
     , ((modm, xK_y     ), spawn "/opt/redshift/bin/redshift -c $HOME/personal_stuff/X/redshift.conf")
-    , ((modm .|. controlMask, xK_l), spawn "cmus-remote -p") -- play/pause song
-    , ((modm .|. controlMask, xK_h), spawn "cmus-remote -u") -- stop playback
+    , ((modm .|. controlMask, xK_l), spawn "cmus-remote -k +10") -- seek 10s
+    , ((modm .|. controlMask, xK_h), spawn "cmus-remote -u") -- pause
     , ((modm .|. controlMask, xK_k), spawn "cmus-remote -r") -- previous song
     , ((modm .|. controlMask, xK_j), spawn "cmus-remote -n") -- next song
     , ((modm .|. controlMask, xK_r), spawn "cmus-remote -R") -- repeat
