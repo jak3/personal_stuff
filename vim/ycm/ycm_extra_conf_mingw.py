@@ -71,6 +71,10 @@ flags = [
 '~/.vim/bundle/YouCompleteMe/cpp/ycm/ClangCompleter',
 '-isystem',
 '/opt/mingw-w64-x86_64/include/',
+'-isystem',
+'/opt/mingw-w64-x86_64/lib/gcc/x86_64-w64-mingw32/4.8.2/include',
+'-isystem',
+'/opt/mingw-w64-x86_64/lib/gcc/x86_64-w64-mingw32/4.8.2/include-fixed'
 ]
 
 

@@ -173,6 +173,10 @@ nmap <Leader>ma :set makeprg=gcc\\ -Wall\\ -ggdb3\\ -o\\ %<\\ %<CR>
 nmap <Leader>mt :set makeprg=gcc\\ -Wall\\ -ggdb3\\ -o\\ /tmp/%<\\ %<CR>
 " set makeprg for test with c99 standard
 nmap <Leader>m9 :set makeprg=gcc\\ -Wall\\ -std=c99\\ -ggdb3\\ -o\\ /tmp/%<\\ %<CR>
+" set makeprg for mingw64
+nmap <Leader>m6 :set makeprg=/opt/mingw-w64-x86_64/bin/x86_64-w64-mingw32-gcc\\ -m32\\ -o\\ %<.exe\\ %<CR>
+" set makeprg for mingw
+nmap <Leader>mw :set makeprg=/opt/mingw-w64-i686/bin/i686-w64-mingw32-gcc\\ -o\\ %<.exe\\ %<CR>
 
 " tags
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
@@ -516,6 +520,7 @@ augroup Binary
 augroup END
 
 au BufEnter *.nse setl filetype=lua tabstop=4 shiftwidth=4
+au BufNewFile,BufRead * if &ft == '' | set ft=text | endif
 
 "-------------------------------------------------------------------------------
 " Fix constant spelling mistakes

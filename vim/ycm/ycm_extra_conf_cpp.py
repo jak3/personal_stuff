@@ -73,6 +73,18 @@ flags = [
 '/usr/include',
 '-isystem',
 '/usr/local/include',
+'-isystem',
+'/usr/lib/qt/include',
+'-isystem',
+'/usr/lib/gcc/i486-slackware-linux/4.8.2/../../../../include/c++/4.8.2',
+'-isystem',
+'/usr/lib/gcc/i486-slackware-linux/4.8.2/../../../../include/c++/4.8.2/i486-slackware-linux',
+'-isystem',
+'/usr/lib/gcc/i486-slackware-linux/4.8.2/../../../../include/c++/4.8.2/backward',
+'-isystem',
+'/usr/lib/gcc/i486-slackware-linux/4.8.2/include',
+'-isystem',
+'/usr/lib/gcc/i486-slackware-linux/4.8.2/include-fixed'
 ]
 
 

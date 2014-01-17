@@ -69,10 +69,15 @@ flags = [
 '.',
 '-I',
 '~/.vim/bundle/YouCompleteMe/cpp/ycm/ClangCompleter',
+#Founded these paths with : gcc -E -x c - -v < /dev/null
 '-isystem',
 '/usr/include',
 '-isystem',
 '/usr/local/include',
+'-isystem',
+'/usr/lib/gcc/i486-slackware-linux/4.8.2/include',
+'-isystem',
+'/usr/lib/gcc/i486-slackware-linux/4.8.2/include-fixed',
 ]
 
 
