@@ -49,7 +49,7 @@ myTerminal      = "urxvt -e /bin/zsh -c screen"
 mymodMask :: KeyMask
 mymodMask = mod4Mask
 -- Define workspaces
-myWorkspaces    = ["1:⚬","2:⎈","3:☕✓", "4:⚛", "5:♪","6","7","8"]
+myWorkspaces    = ["1:main","2:⚓","3:☕", "4:v", "5:♪","6","7","8"]
 --}}}
 -- Main {{{
 main = do
@@ -75,9 +75,9 @@ mymanageHook :: ManageHook
 mymanageHook = (composeAll . concat $
     [ [resource     =? r            --> doIgnore            |   r   <- myIgnores] -- ignore desktop
     , [className    =? c            --> doShift  "1:main"     |   c   <- myDev    ] -- move dev to main
-    , [className    =? c            --> doShift  "2:www"      |   c   <- myWww    ] -- move webs to main
-    , [className    =? c            --> doShift  "3:code"     |   c   <- myVim    ]
-    , [className    =? c            --> doShift	 "4:misc"     |   c   <- myMisc   ]
+    , [className    =? c            --> doShift  "2:⚓"      |   c   <- myWww    ] -- move webs to main
+    , [className    =? c            --> doShift  "3:☕"     |   c   <- myVim    ]
+    , [className    =? c            --> doShift	 "4:v"     |   c   <- myMisc   ]
     , [className    =? c            --> doShift	 "5:♪"        |   c   <- myMus    ]
     , [className    =? c            --> doCenterFloat       |   c   <- myFloats ] -- float my floats
     , [name         =? n            --> doCenterFloat       |   n   <- myNames  ] -- float my names
