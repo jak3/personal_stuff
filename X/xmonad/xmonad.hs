@@ -49,22 +49,11 @@ myTerminal      = "urxvt -e /bin/zsh -c screen"
 mymodMask :: KeyMask
 mymodMask = mod4Mask
 -- Define workspaces
-myWorkspaces    = ["1:main","2:www","3:code", "4:misc", "5:♪"]
--- Dzen/Conky
-myXmonadBar = "dzen2 -x '1440' -y '0' -h '20' -w '500' -ta 'l' -fg '#FFFFFF' -bg '#1B1D1E'"
-myStatusBar = "conky -c $HOME/.xmonad/.conky_dzen | dzen2 -x '2080' -w '1040' -h '20' -ta 'r' -bg '#1B1D1E' -fg '#FFFFFF' -y '0'"
-myBitmapsDir = "$HOME/personal_stuff/X/xmoand/dzen2"
+myWorkspaces    = ["1:⚬","2:⎈","3:☕✓", "4:⚛", "5:♪","6","7","8"]
 --}}}
 -- Main {{{
 main = do
-    --dzen2 ones
-    --dzenLeftBar  <- spawnPipe myXmonadBar
-    --dzenRightBar <- spawnPipe myStatusBar
-    --xmobar one
     xmproc <- spawnPipe "/usr/bin/xmobar $HOME/personal_stuff/X/xmonad/xmobarrc"   
-    --dzen2 one
-    --xmonad $ withUrgencyHookC dzenUrgencyHook { args = ["-bg", "red", "fg", "black", "-xs", "1", "-y", "25"] } urgencyConfig { remindWhen = Every 15 } $ defaultConfig
-    --xmobar one
     xmonad $ defaultConfig   
       { terminal            = myTerminal
       , workspaces          = myWorkspaces
@@ -72,9 +61,6 @@ main = do
       , modMask             = mymodMask
       , layoutHook          = mylayoutHook
       , manageHook          = mymanageHook
-      --dzen2 one
-      --, logHook             = myLogHook dzenLeftBar >> fadeInactiveLogHook 0.9
-      --xmobar one
       , logHook = myLogHook xmproc
       , normalBorderColor   = colorNormalBorder
       , focusedBorderColor  = colorFocusedBorder
@@ -127,28 +113,6 @@ mylayoutHook  = onWorkspaces ["1:main","5:♪"] customLayout $
 
 --Bar
 myLogHook :: Handle -> X ()
---dzen2 one
---myLogHook h = dynamicLogWithPP $ defaultPP
---    {
---        ppCurrent           =   dzenColor "#ebac54" "#1B1D1E" . pad
---      , ppVisible           =   dzenColor "white" "#1B1D1E" . pad
---      , ppHidden            =   dzenColor "white" "#1B1D1E" . pad
---      , ppHiddenNoWindows   =   dzenColor "#7b7b7b" "#1B1D1E" . pad
---      , ppUrgent            =   dzenColor "black" "red" . pad
---      , ppWsSep             =   " "
---      , ppSep               =   "  |  "
---      , ppLayout            =   dzenColor "#ebac54" "#1B1D1E" .
---                                (\x -> case x of
---                                    "ResizableTall"             ->      "^i(" ++ myBitmapsDir ++ "/tall.xbm)"
---                                    "Mirror ResizableTall"      ->      "^i(" ++ myBitmapsDir ++ "/mtall.xbm)"
---                                    "Full"                      ->      "^i(" ++ myBitmapsDir ++ "/full.xbm)"
---                                    "Simple Float"              ->      "~"
---                                    _                           ->      x
---                                )
---      , ppTitle             =   (" " ++) . dzenColor "white" "#1B1D1E" . dzenEscape
---      , ppOutput            =   hPutStrLn h
---    }
---xmobar one
 myLogHook h = dynamicLogWithPP $ defaultPP 
     {   ppOutput = hPutStrLn h
         ,ppVisible = xmobarColor "white" "#1B1D1E" . shorten 50
@@ -211,7 +175,8 @@ mykeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
     , ((modm .|. shiftMask, xK_t     ), spawn "urxvt -e /bin/zsh")
     , ((modm,               xK_f     ), spawn "firefox")
-    , ((modm .|. shiftMask, xK_l     ), spawn "xscreensaver-command -lock")
+    , ((modm .|. shiftMask, xK_l     ), spawn "$HOME/personal_stuff/scripts/layout_switch.sh")
+    , ((modm, xK_x     ), spawn "xscreensaver-command -lock")
     , ((modm, xK_y     ), spawn "/opt/redshift/bin/redshift -c $HOME/personal_stuff/X/redshift.conf")
     , ((modm .|. controlMask, xK_l), spawn "cmus-remote -k +10") -- seek 10s
     , ((modm .|. controlMask, xK_h), spawn "cmus-remote -u") -- pause
