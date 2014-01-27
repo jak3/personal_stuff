@@ -67,3 +67,6 @@
 [submodule "vim/bundle/--force"]
 	path = vim/bundle/--force
 	url = git@github.com:mattn/emmet-vim.git
+[submodule "vim/bundle/vim-abolish"]
+	path = vim/bundle/vim-abolish
+	url = git@github.com:tpope/vim-abolish.git

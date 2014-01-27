@@ -14,7 +14,7 @@ let PAGER='' "ensure using vim's man and not the system one remapped in bashrc
 filetype on
 filetype plugin indent on
 
-"backup file only to /tmp 
+"backup file only to /tmp
 set backupdir-=.
 set backupdir^=/tmp/filebackups
 
@@ -225,7 +225,7 @@ noremap <silent> <Leader>mk <C-W>K
 noremap <silent> <Leader>mh <C-W>H
 noremap <silent> <Leader>mj <C-W>J
 
-" Maps to make handling buffer a bit easier 
+" Maps to make handling buffer a bit easier
 noremap <silent> <C-n> :bn<CR>
 noremap <silent> <C-p> :bp<CR>
 
@@ -257,7 +257,7 @@ nmap <silent> gw :s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>`'
 
 " Underline the current line with '='
 nmap <silent> <Leader>uL :t.\|s/./=/g\|:nohls<cr>
- 
+
 " Underline the current line with '-'
 nmap <silent> <Leader>ul :t.\|s/./-/g\|:nohls<cr>
 
@@ -324,15 +324,15 @@ endif
 "-------------------------------------------------------------------------------
 " FSwitch mappings
 "-------------------------------------------------------------------------------
-nmap <silent> ,of :FSHere<CR>
-nmap <silent> ,ol :FSRight<CR>
-nmap <silent> ,oL :FSSplitRight<CR>
-nmap <silent> ,oh :FSLeft<CR>
-nmap <silent> ,oH :FSSplitLeft<CR>
-nmap <silent> ,ok :FSAbove<CR>
-nmap <silent> ,oK :FSSplitAbove<CR>
-nmap <silent> ,oj :FSBelow<CR>
-nmap <silent> ,oJ :FSSplitBelow<CR>
+nmap <silent> <Leader>of :FSHere<CR>
+nmap <silent> <Leader>ol :FSRight<CR>
+nmap <silent> <Leader>oL :FSSplitRight<CR>
+nmap <silent> <Leader>oh :FSLeft<CR>
+nmap <silent> <Leader>oH :FSSplitLeft<CR>
+nmap <silent> <Leader>ok :FSAbove<CR>
+nmap <silent> <Leader>oK :FSSplitAbove<CR>
+nmap <silent> <Leader>oj :FSBelow<CR>
+nmap <silent> <Leader>oJ :FSSplitBelow<CR>
 
 "-------------------------------------------------------------------------------
 " Functions
@@ -366,23 +366,23 @@ function! IndentToNextBraceInLineAbove()
     :normal j"vPl
 endfunction
 
-nmap <silent> ,ii :call IndentToNextBraceInLineAbove()<cr>
+nmap <silent> <Leader>ii :call IndentToNextBraceInLineAbove()<cr>
 
-nmap <silent> ,mba :call MarkBufferInJumpList(expand('%:p'), 'a')<cr>
-nmap <silent> ,mbb :call MarkBufferInJumpList(expand('%:p'), 'b')<cr>
-nmap <silent> ,mbc :call MarkBufferInJumpList(expand('%:p'), 'c')<cr>
-nmap <silent> ,mbd :call MarkBufferInJumpList(expand('%:p'), 'd')<cr>
-nmap <silent> ,mbe :call MarkBufferInJumpList(expand('%:p'), 'e')<cr>
-nmap <silent> ,mbf :call MarkBufferInJumpList(expand('%:p'), 'f')<cr>
-nmap <silent> ,mbg :call MarkBufferInJumpList(expand('%:p'), 'g')<cr>
-nmap <silent> ,jba :call JumpToBufferInJumpList('a')<cr>
-nmap <silent> ,jbb :call JumpToBufferInJumpList('b')<cr>
-nmap <silent> ,jbc :call JumpToBufferInJumpList('c')<cr>
-nmap <silent> ,jbd :call JumpToBufferInJumpList('d')<cr>
-nmap <silent> ,jbe :call JumpToBufferInJumpList('e')<cr>
-nmap <silent> ,jbf :call JumpToBufferInJumpList('f')<cr>
-nmap <silent> ,jbg :call JumpToBufferInJumpList('g')<cr>
-nmap <silent> ,ljb :call ListJumpToBuffers()<cr>
+nmap <silent> <Leader>mba :call MarkBufferInJumpList(expand('%:p'), 'a')<cr>
+nmap <silent> <Leader>mbb :call MarkBufferInJumpList(expand('%:p'), 'b')<cr>
+nmap <silent> <Leader>mbc :call MarkBufferInJumpList(expand('%:p'), 'c')<cr>
+nmap <silent> <Leader>mbd :call MarkBufferInJumpList(expand('%:p'), 'd')<cr>
+nmap <silent> <Leader>mbe :call MarkBufferInJumpList(expand('%:p'), 'e')<cr>
+nmap <silent> <Leader>mbf :call MarkBufferInJumpList(expand('%:p'), 'f')<cr>
+nmap <silent> <Leader>mbg :call MarkBufferInJumpList(expand('%:p'), 'g')<cr>
+nmap <silent> <Leader>jba :call JumpToBufferInJumpList('a')<cr>
+nmap <silent> <Leader>jbb :call JumpToBufferInJumpList('b')<cr>
+nmap <silent> <Leader>jbc :call JumpToBufferInJumpList('c')<cr>
+nmap <silent> <Leader>jbd :call JumpToBufferInJumpList('d')<cr>
+nmap <silent> <Leader>jbe :call JumpToBufferInJumpList('e')<cr>
+nmap <silent> <Leader>jbf :call JumpToBufferInJumpList('f')<cr>
+nmap <silent> <Leader>jbg :call JumpToBufferInJumpList('g')<cr>
+nmap <silent> <Leader>ljb :call ListJumpToBuffers()<cr>
 
 function! DiffCurrentFileAgainstAnother(snipoff, replacewith)
     let currentFile = expand('%:p')
@@ -411,8 +411,8 @@ function! HighlightAllOfWord(onoff)
     endif
 endfunction
 
-:nmap ,ha :call HighlightAllOfWord(1)<cr>
-:nmap ,hA :call HighlightAllOfWord(0)<cr>
+:nmap <Leader>ha :call HighlightAllOfWord(1)<cr>
+:nmap <Leader>hA :call HighlightAllOfWord(0)<cr>
 
 function! LengthenCWD()
 let cwd = getcwd()
@@ -428,7 +428,7 @@ exec ":lcd " . lengthend
 endif
 endfunction
 
-:nmap ,ld :call LengthenCWD()<cr>
+:nmap <Leader>ld :call LengthenCWD()<cr>
 
 function! MakeShellcodeFromOpcode()
     silent! %s/ //g
@@ -437,7 +437,7 @@ function! MakeShellcodeFromOpcode()
     silent! s/\(\(.\)\(.\)\)/\\x\1/g
 endfunction
 
-:nmap ,sh :call MakeShellcodeFromOpcode()<cr> 
+:nmap <Leader>sh :call MakeShellcodeFromOpcode()<cr>
 
 function! ShortenCWD()
 let cwd = split(getcwd(), '/')
@@ -454,7 +454,7 @@ let filedir = split(expand("%:p:h"), '/')
     exec ":lcd /" . newdir
 endfunction
 
-:nmap ,sd :call ShortenCWD()<cr>
+:nmap <Leader>sd :call ShortenCWD()<cr>
 
 function! RedirToYankRegisterF(cmd, ...)
     let cmd = a:cmd . " " . join(a:000, " ")
@@ -476,6 +476,23 @@ function! AppendModeline()
   call append(line("$"), l:modeline)
 endfunction
 nnoremap <silent> <Leader>mo :call AppendModeline()<CR>
+
+" fill rest of line with characters
+function! FillLine( str )
+    " set tw to the desired total length
+    let tw = &textwidth
+    if tw==0 | let tw = 80 | endif
+    " strip trailing spaces first
+    .s/[[:space:]]*$//
+    " calculate total number of 'str's to insert
+    let reps = (tw - col("$")) / len(a:str)
+    " insert them, if there's room, removing trailing spaces (though forcing
+    " there to be one)
+    if reps > 0
+        .s/$/\=(' '.repeat(a:str, reps))/
+    endif
+endfunction
+map <Leader>f :call FillLine( '-' )<cr>
 
 "-------------------------------------------------------------------------------
 " Commands
@@ -509,18 +526,17 @@ augroup derek_xsd
 augroup END
 
 augroup Binary
-  au!
-  au BufReadPre *.bin let &bin=1
-  au BufReadPost *.bin if &bin | %!xxd
-  au BufReadPost *.bin set filetype=xxd | endif
-  au BufWritePre *.bin if &bin | %!xxd -r
-  au BufWritePre *.bin endif
-  au BufWritePost *.bin if &bin | %!xxd
-  au BufWritePost *.bin set nomod | endif
+    au!
+    au BufReadPre *.bin let &bin=1
+    au BufReadPost *.bin if &bin | %!xxd
+    au BufReadPost *.bin set filetype=xxd | endif
+    au BufWritePre *.bin if &bin | %!xxd -r
+    au BufWritePre *.bin endif
+    au BufWritePost *.bin if &bin | %!xxd
+    au BufWritePost *.bin set nomod | endif
 augroup END
 
 au BufEnter *.nse setl filetype=lua tabstop=4 shiftwidth=4
-au BufNewFile,BufRead * if &ft == '' | set ft=text | endif
 
 "-------------------------------------------------------------------------------
 " Fix constant spelling mistakes
@@ -558,20 +574,20 @@ iab Fone Phone
 " Set up the window colors and size
 "-------------------------------------------------------------------------------
 if has("gui_running")
-  exe "set guifont=" . g:main_font
-  set background=dark
-  colorscheme solarized
-  if !exists("g:vimrcloaded")
-      winpos 0 0
-      if !&diff
-          winsize 130 120
-      else
-          winsize 227 120
-      endif
-      let g:vimrcloaded = 1
-  endif
+    exe "set guifont=" . g:main_font
+    set background=dark
+    colorscheme solarized
+    if !exists("g:vimrcloaded")
+        winpos 0 0
+        if !&diff
+            winsize 130 120
+        else
+            winsize 227 120
+        endif
+        let g:vimrcloaded = 1
+    endif
 endif
-:nohls						
+:nohls
 
 "-------------------------------------------------------------------------------
 " Automatically open, but do not go to (if there are errors) the quickfix /
@@ -602,55 +618,51 @@ set wildmode=list:longest,list:full
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 let g:syntastic_always_populate_loc_list=1
-let g:syntastic_mode_map = { 'mode': 'active', \ 'active_filetypes': [], \ 'passive_filetypes': [] }
 let g:syntastic_c_checkers = ['ycm']
 let g:syntastic_python_checkers = ['pyflakes']
 let g:syntastic_html_checkers = ['tidy']
 " }}}
 
-" Section: Jedi {{{ 
+" Section: Jedi {{{
 let g:jedi#popup_on_dot = 0
 " }}}
 
 " Section: NERDTree {{{
-" Toggle the NERD Tree on an off with F7
-nmap <F7> :NERDTreeToggle<CR>
-
-" Close the NERD Tree with Shift-F7
-nmap <S-F7> :NERDTreeClose<CR>
+" Toggle the NERD Tree
+nmap <Leader>3 :NERDTreeToggle<CR>
 
 " Show the bookmarks table on startup
 let NERDTreeShowBookmarks=1
 
 " Don't display these kinds of files
 let NERDTreeIgnore=[ '\.ncb$', '\.suo$', '\.vcproj\.RIMNET', '\.obj$',
-                   \ '\.ilk$', '^BuildLog.htm$', '\.pdb$', '\.idb$',
-                   \ '\.embed\.manifest$', '\.embed\.manifest.res$',
-                   \ '\.intermediate\.manifest$', '^mt.dep$' ]
+            \ '\.ilk$', '^BuildLog.htm$', '\.pdb$', '\.idb$',
+            \ '\.embed\.manifest$', '\.embed\.manifest.res$',
+            \ '\.intermediate\.manifest$', '^mt.dep$' ]
 " }}}
 
 " Section: Twitvim {{{
-let twitvim_enable_perl = 1
-let twitvim_browser_cmd = 'firefox'
-nmap ,tw :FriendsTwitter<cr>
-nmap ,tm :UserTwitter<cr>
-nmap ,tM :MentionsTwitter<cr>
 function! TwitVimMappings()
+    let twitvim_enable_perl = 1
+    let twitvim_browser_cmd = 'firefox'
+    nmap <Leader>tw :FriendsTwitter<cr>
+    nmap <Leader>tm :UserTwitter<cr>
+    nmap <Leader>tM :MentionsTwitter<cr>
     nmap <buffer> U :exe ":UnfollowTwitter " . expand("<cword>")<cr>
     nmap <buffer> F :exe ":FollowTwitter " . expand("<cword>")<cr>
     nmap <buffer> 7 :BackTwitter<cr>
     nmap <buffer> 8 :ForwardTwitter<cr>
     nmap <buffer> 1 :PreviousTwitter<cr>
     nmap <buffer> 2 :NextTwitter<cr>
-    nmap <buffer> ,sf :SearchTwitter #scala OR #akka<cr>
-    nmap <buffer> ,ss :SearchTwitter #scala<cr>
-    nmap <buffer> ,sa :SearchTwitter #akka<cr>
-    nmap <buffer> ,sv :SearchTwitter #vim<cr>
+    nmap <buffer> <Leader>sf :SearchTwitter #scala OR #akka<cr>
+    nmap <buffer> <Leader>ss :SearchTwitter #scala<cr>
+    nmap <buffer> <Leader>sa :SearchTwitter #akka<cr>
+    nmap <buffer> <Leader>sv :SearchTwitter #vim<cr>
 endfunction
 augroup derek_twitvim
     au!
     au FileType twitvim call TwitVimMappings()
 augroup END
 " }}}
- 
+
 "EOF vim: set ts=4 sw=4 tw=80 :

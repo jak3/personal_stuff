@@ -53,8 +53,8 @@ myWorkspaces    = ["1:main","2:⚓","3:☕", "4:v", "5:♪","6","7","8"]
 --}}}
 -- Main {{{
 main = do
-    xmproc <- spawnPipe "/usr/bin/xmobar $HOME/personal_stuff/X/xmonad/xmobarrc"   
-    xmonad $ defaultConfig   
+    xmproc <- spawnPipe "/usr/bin/xmobar $HOME/personal_stuff/X/xmonad/xmobarrc"
+    xmonad $ defaultConfig
       { terminal            = myTerminal
       , workspaces          = myWorkspaces
       , keys                = mykeys
@@ -74,11 +74,11 @@ main = do
 mymanageHook :: ManageHook
 mymanageHook = (composeAll . concat $
     [ [resource     =? r            --> doIgnore            |   r   <- myIgnores] -- ignore desktop
-    , [className    =? c            --> doShift  "1:main"     |   c   <- myDev    ] -- move dev to main
+    , [className    =? c            --> doShift  "1:main"   |   c   <- myDev    ] -- move dev to main
     , [className    =? c            --> doShift  "2:⚓"      |   c   <- myWww    ] -- move webs to main
-    , [className    =? c            --> doShift  "3:☕"     |   c   <- myVim    ]
-    , [className    =? c            --> doShift	 "4:v"     |   c   <- myMisc   ]
-    , [className    =? c            --> doShift	 "5:♪"        |   c   <- myMus    ]
+    , [className    =? c            --> doShift  "3:☕"      |   c   <- myVim    ]
+    , [className    =? c            --> doShift	 "4:v"      |   c   <- myMisc   ]
+    , [className    =? c            --> doShift	 "5:♪"      |   c   <- myMus    ]
     , [className    =? c            --> doCenterFloat       |   c   <- myFloats ] -- float my floats
     , [name         =? n            --> doCenterFloat       |   n   <- myNames  ] -- float my names
     , [isFullscreen                 --> myDoFullFloat                           ]
@@ -91,7 +91,7 @@ mymanageHook = (composeAll . concat $
 
         -- classnames
         myFloats  = ["Smplayer","MPlayer","VirtualBox","Xmessage","XFontSel","Downloads","Nm-connection-editor"]
-        myWww     = ["Firefox","Google-chrome","Chromium", "Chromium-browser", "Iceweasel", "Vidalia"]
+        myWww     = ["Firefox","Google-chrome","Google-chrome-stable","Chromium", "Chromium-browser", "Iceweasel", "Vidalia"]
         myMisc    = ["VirtualBox"]
         myDev	  = [""]
         myVim	  = [""]
@@ -108,19 +108,19 @@ myDoFullFloat :: ManageHook
 myDoFullFloat = doF W.focusDown <+> doFullFloat
 -- }}}
 mylayoutHook  = onWorkspaces ["1:main","5:♪"] customLayout $
-                onWorkspaces ["2:www","4:misc"] customLayout2 $
+                onWorkspaces ["2:⚓","4:v"] customLayout2 $
                 customLayout2
 
 --Bar
 myLogHook :: Handle -> X ()
-myLogHook h = dynamicLogWithPP $ defaultPP 
+myLogHook h = dynamicLogWithPP $ defaultPP
     {   ppOutput = hPutStrLn h
         ,ppVisible = xmobarColor "white" "#1B1D1E" . shorten 50
         , ppCurrent           =   xmobarColor "#ee9a00" "#1B1D1E" . shorten 50
         , ppHidden            =   xmobarColor "white" "#1B1D1E" . shorten 50
         , ppHiddenNoWindows   =   xmobarColor "#7b7b7b" "#1B1D1E" . shorten 50
-    }                     
- 
+    }
+
 -- Layout
 customLayout = avoidStruts $ tiled ||| Mirror tiled ||| Full ||| simpleFloat
   where
@@ -175,6 +175,7 @@ mykeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
     , ((modm .|. shiftMask, xK_t     ), spawn "urxvt -e /bin/zsh")
     , ((modm,               xK_f     ), spawn "firefox")
+    , ((modm,               xK_g     ), spawn "/opt/chrome/usr/bin/google-chrome-stable &")
     , ((modm .|. shiftMask, xK_l     ), spawn "$HOME/personal_stuff/scripts/layout_switch.sh")
     , ((modm, xK_x     ), spawn "xscreensaver-command -lock")
     , ((modm, xK_y     ), spawn "/opt/redshift/bin/redshift -c $HOME/personal_stuff/X/redshift.conf")
