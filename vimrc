@@ -10,6 +10,9 @@ let PAGER='' "ensure using vim's man and not the system one remapped in bashrc
 " Global Stuff
 "-------------------------------------------------------------------------------
 
+" Switch on syntax highlighting.
+syntax on
+
 " Set filetype stuff to on
 filetype on
 filetype plugin indent on
@@ -76,9 +79,6 @@ set showcmd
 " Show the current mode
 set showmode
 
-" Switch on syntax highlighting.
-syntax on
-
 " Hide the mouse pointer while typing
 set mousehide
 
@@ -126,7 +126,7 @@ set wildignorecase
 set dictionary=/usr/share/dict/*
 
 " Same as default except that I remove the 'u' option
-set complete=.,w,b,t
+set complete=.,w,b,t,i,d
 
 " When completing by tag, show the whole tag, not just the function name
 set showfulltag
