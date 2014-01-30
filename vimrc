@@ -576,15 +576,18 @@ iab Fone Phone
 if has("gui_running")
     exe "set guifont=" . g:main_font
     set background=dark
-    colorscheme solarized
-    if !exists("g:vimrcloaded")
-        winpos 0 0
-        if !&diff
-            winsize 130 120
-        else
-            winsize 227 120
+    "Nice one is also wombat256mod
+    colorscheme BusyBee
+    if has("win32")
+        if !exists("g:vimrcloaded")
+            winpos 0 0
+            if !&diff
+                winsize 130 120
+            else
+                winsize 227 120
+            endif
+            let g:vimrcloaded = 1
         endif
-        let g:vimrcloaded = 1
     endif
 endif
 :nohls

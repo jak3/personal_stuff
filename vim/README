@@ -6,3 +6,6 @@ dbext
 vim-rails
 vim-abolish
 
+switch split windows:
+Horizontally to vertically Ctrl-W t Ctrl-w H
+vice versa Ctrl-W t Ctrl-W K
