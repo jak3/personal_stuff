@@ -33,7 +33,7 @@ if [ $SHELL = '/bin/zsh' ];then
     else
       alias -s jpg=xv
     fi
-    
+
     #}}}
 
     #{{{ Globals...
@@ -81,7 +81,7 @@ alias sudo='su -c'
 alias pu='pushd'
 alias po='popd'
 alias gdb='gdb -q'
-alias q='exit'
+alias e='exit'
 alias bc='bc -q'
 alias ..='cd ..'
 alias ...='cd ../../'
@@ -89,7 +89,7 @@ alias ....='cd ../../..'
 alias cdb='cd ..'
 alias cdbb='cd ../../'
 alias cdbbb='cd ../../../'
- 
+
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'

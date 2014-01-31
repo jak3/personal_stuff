@@ -15,7 +15,7 @@ import Graphics.X11.ExtraTypes.XF86
 
 import XMonad.Actions.CycleWS
 
-import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageDocks (manageDocks, avoidStruts)
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.DynamicLog
@@ -43,8 +43,8 @@ import qualified Data.Map as M
 
 -- Config {{{
 
--- Define Terminal
-myTerminal      = "urxvt -e /bin/zsh -c screen"
+-- Define Terminal, sleep solve rendering, screen is faster than zsh
+myTerminal      = "urxvt -e /bin/zsh -c \"sleep 0.1;screen\""
 -- Define modMask
 mymodMask :: KeyMask
 mymodMask = mod4Mask
@@ -62,26 +62,25 @@ main = do
       , layoutHook          = mylayoutHook
       , manageHook          = mymanageHook
       , logHook = myLogHook xmproc
-      , normalBorderColor   = colorNormalBorder
-      , focusedBorderColor  = colorFocusedBorder
+      , normalBorderColor   = "#CCCCC6"
+      , focusedBorderColor  = "#FD971F"
       , borderWidth         = 1
       , startupHook         = setWMName "LG3D"
 }
 --}}}
 
--- Hooks {{{
 -- ManageHook {{{
 mymanageHook :: ManageHook
 mymanageHook = (composeAll . concat $
-    [ [resource     =? r            --> doIgnore            |   r   <- myIgnores] -- ignore desktop
-    , [className    =? c            --> doShift  "1:main"   |   c   <- myDev    ] -- move dev to main
-    , [className    =? c            --> doShift  "2:⚓"      |   c   <- myWww    ] -- move webs to main
+    [ [resource     =? r            --> doIgnore            |   r   <- myIgnores]
+    , [className    =? c            --> doShift  "1:main"   |   c   <- myDev    ]
+    , [className    =? c            --> doShift  "2:⚓"      |   c   <- myWww    ]
     , [className    =? c            --> doShift  "3:☕"      |   c   <- myVim    ]
     , [className    =? c            --> doShift	 "4:v"      |   c   <- myMisc   ]
     , [className    =? c            --> doShift	 "5:♪"      |   c   <- myMus    ]
-    , [className    =? c            --> doCenterFloat       |   c   <- myFloats ] -- float my floats
-    , [name         =? n            --> doCenterFloat       |   n   <- myNames  ] -- float my names
-    , [isFullscreen                 --> myDoFullFloat                           ]
+    , [className    =? c            --> doCenterFloat       |   c   <- myFloats ]
+    , [name         =? n            --> doCenterFloat       |   n   <- myNames  ]
+    , [isFullscreen --> doFullFloat ]
     ])
 
     where
@@ -103,13 +102,20 @@ mymanageHook = (composeAll . concat $
         -- names
         myNames   = ["bashrun","Google Chrome Options","Chromium Options"]
 
--- a trick for fullscreen but stil allow focusing of other WSs
-myDoFullFloat :: ManageHook
-myDoFullFloat = doF W.focusDown <+> doFullFloat
 -- }}}
+
+-- Layout
 mylayoutHook  = onWorkspaces ["1:main","5:♪"] customLayout $
-                onWorkspaces ["2:⚓","4:v"] customLayout2 $
-                customLayout2
+                onWorkspaces ["2:⚓","4:v"] customLayout2$
+                customLayout
+
+customLayout = avoidStruts $ tiled ||| Mirror tiled ||| Full ||| simpleFloat
+  where
+    tiled   = ResizableTall 1 (2/100) (1/2) []
+
+customLayout2 = avoidStruts $ Full ||| tiled ||| Mirror tiled ||| simpleFloat
+  where
+    tiled   = ResizableTall 1 (2/100) (1/2) []
 
 --Bar
 myLogHook :: Handle -> X ()
@@ -121,53 +127,6 @@ myLogHook h = dynamicLogWithPP $ defaultPP
         , ppHiddenNoWindows   =   xmobarColor "#7b7b7b" "#1B1D1E" . shorten 50
     }
 
--- Layout
-customLayout = avoidStruts $ tiled ||| Mirror tiled ||| Full ||| simpleFloat
-  where
-    tiled   = ResizableTall 1 (2/100) (1/2) []
-
-customLayout2 = avoidStruts $ Full ||| tiled ||| Mirror tiled ||| simpleFloat
-  where
-    tiled   = ResizableTall 1 (2/100) (1/2) []
-
--- Theme {{{
--- Color names are easier to remember:
-colorOrange         = "#FD971F"
-colorDarkGray       = "#1B1D1E"
-colorPink           = "#F92672"
-colorGreen          = "#A6E22E"
-colorBlue           = "#66D9EF"
-colorYellow         = "#E6DB74"
-colorWhite          = "#CCCCC6"
-
-colorNormalBorder   = "#CCCCC6"
-colorFocusedBorder  = "#fd971f"
-
-
-barFont  = "terminus"
-barXFont = "inconsolata:size=12"
-xftFont = "xft: inconsolata-14"
---}}}
-
--- Prompt Config {{{
-mXPConfig :: XPConfig
-mXPConfig =
-    defaultXPConfig { font                  = barFont
-                    , bgColor               = colorDarkGray
-                    , fgColor               = colorGreen
-                    , bgHLight              = colorGreen
-                    , fgHLight              = colorDarkGray
-                    , promptBorderWidth     = 0
-                    , height                = 14
-                    , historyFilter         = deleteConsecutive
-                    }
-
--- Run or Raise Menu
-largeXPConfig :: XPConfig
-largeXPConfig = mXPConfig
-                { font = xftFont
-                , height = 22
-                }
 -- }}}
 -- Key mapping {{{
 mykeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $

@@ -13,6 +13,9 @@ let PAGER='' "ensure using vim's man and not the system one remapped in bashrc
 " Switch on syntax highlighting.
 syntax on
 
+" Enable 256 colors
+set t_Co=256
+
 " Set filetype stuff to on
 filetype on
 filetype plugin indent on
