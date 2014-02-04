@@ -42,7 +42,7 @@ URxvt*font        : xft:Monospace:pixelsize=14
 URxvt*boldFont    : xft:Monospace:bold:pixelsize=14
 !Color and % when lost focus
 URxvt*fadeColor   : #2B2B2B
-URxvt*fading      : 90
+URxvt*fading      : 15
 !Visual bit depth
 URxvt*depth       : 32
 !Darken (0..99) lighten (101..200) 100 no shading
