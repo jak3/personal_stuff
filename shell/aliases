@@ -29,10 +29,6 @@ fi
 ## ZSH only
 if [ $SHELL = '/bin/zsh' ];then
     #{{{ Suffixes...
-    if [[ $DISPLAY = '' ]] then
-    else
-      alias -s jpg=xv
-    fi
 
     #}}}
 
@@ -116,32 +112,18 @@ alias s=ls
 alias ungcc="gcc -z execstack -fno-stack-protector -fno-pie"
 alias ocvc="g++ \`pkg-config opencv --cflags --libs\`"
 alias runonce="$STUFF/scripts/run_once.sh"
-alias nvidiaoff="sudo $STUFF/scripts/nvidiaoff.sh"
-alias fixjava="wmname LG3D"
 alias irc="(sleep 10 && bash $STUFF/scripts/run_once.sh notify-listener.py $STUFF/scripts/notify-listener.py > /dev/null 2>&1) & irssi"
 alias mkd="$STUFF/scripts/mkd.sh"
 alias initlatex="mkdir tmp; mkdir bib; touch bib/bib.bib; cp $STUFF/templates/template.tex main.tex; touch main.tex.latexmain"
 alias initc="mkdir src; cp $STUFF/templates/Makefile.c ./Makefile"
 alias pass="/bin/true"
 alias to_c_string="hexdump -v -e '\"\\\\\\x\" 1/1 \"%02x\"'"
-alias machete="sudo kill -9"
+alias machete="kill -9"
 
 ## Mount
 alias dlist="udisks --enumerate-device-files"
 alias dmount="udisksctl mount -b"
 alias dumount="udisksctl unmount -b"
-
-## Folders
-alias psim='cd ~/Dropbox/University/Progetto\ di\ Reti\ di\ Telecomunicazioni\ LM/Simulator/'
-alias uni='cd ~/Dropbox/University'
-alias prj='cd ~/Dropbox/Projects'
-alias shared='cd ~/Documents/Virtual\ Machines/Shared'
-alias sec='cd ~/Dropbox/IT/Security'
-alias drp='cd ~/Dropbox'
-alias iss='cd ~/Dropbox/University/Ingegneria\ dei\ Sistemi\ Software\ LM/Git/group14work/'
-alias hwe='cd ~/Dropbox/University/Elaborazione\ delle\ Immagini\ LM/HomeworksGit/BellavistaHomeworks'
-alias mmsd='cd ~/Dropbox/University/Metodi\ e\ Modelli\ per\ il\ Supporto\ alle\ Decisioni\ LM/Project/knapsackkbest/'
-alias gtd='cd /mnt/shared/gtd/'
 
 ## Git
 alias gc='git commit -m'

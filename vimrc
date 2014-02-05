@@ -10,12 +10,6 @@ let PAGER='' "ensure using vim's man and not the system one remapped in bashrc
 " Global Stuff
 "-------------------------------------------------------------------------------
 
-" Switch on syntax highlighting.
-syntax on
-
-" Enable 256 colors
-set t_Co=256
-
 " Set filetype stuff to on
 filetype on
 filetype plugin indent on
@@ -308,9 +302,6 @@ silent exe "normal! '[V']r w"
     let @@ = reg_save
 endfunction
 
-" Syntax coloring lines that are too long just slows down the world
-set synmaxcol=2048
-
 " Highlight the current line and column
 " Don't do this - It makes window redraws painfully slow
 set nocursorline
@@ -576,10 +567,21 @@ iab Fone Phone
 "-------------------------------------------------------------------------------
 " Set up the window colors and size
 "-------------------------------------------------------------------------------
+
+" Enable 256 colors
+set t_Co=256
+
+" Switch on syntax highlighting.
+syntax on
+
+" Syntax coloring lines that are too long just slows down the world
+set synmaxcol=2048
+
+colorscheme wombat256mod
+
 if has("gui_running")
     exe "set guifont=" . g:main_font
     set background=dark
-    "Nice one is also wombat256mod
     colorscheme BusyBee
     if has("win32")
         if !exists("g:vimrcloaded")
