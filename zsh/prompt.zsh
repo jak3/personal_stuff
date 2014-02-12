@@ -93,5 +93,5 @@ function spectrum_bls() {
 
 PROMPT='
 $(prompt_git_info)%f %{$reset_color%}%{$FG[220]%}%~ %{$reset_color%}%{$FG[124]%}
- > %{$reset_color%}'
+ %{$reset_color%}'
 RPROMPT='%{$FG[172]%}[%{$reset_color%}%(?,%{$FG[220]%}%?%{$reset_color%},%{$FG[124]%}%?%{$reset_color%})%{$FG[172]%}] %{$reset_color%}%{$FG[226]%}%n%{$reset_color%}'
