@@ -672,5 +672,8 @@ augroup derek_twitvim
     au FileType twitvim call TwitVimMappings()
 augroup END
 " }}}
+" Section: tagbar {{{
+nnoremap <silent> <F8> :TagbarToggle<CR>
+" }}}
 
 "EOF vim: set ts=4 sw=4 tw=80 :

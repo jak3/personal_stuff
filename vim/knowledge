@@ -1,7 +1,14 @@
 Useful plugin:
 
+MUST HAVE
 pathogen
 fugitive
+
+C
+c-support
+tagbar
+
+Web related
 dbext
 vim-rails
 vim-abolish
