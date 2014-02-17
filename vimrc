@@ -620,6 +620,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 execute pathogen#infect()
 set completeopt=longest,menuone
 set wildmode=list:longest,list:full
+Helptags
 " }}}
 
 " Section: Syntastic {{{
@@ -672,8 +673,13 @@ augroup derek_twitvim
     au FileType twitvim call TwitVimMappings()
 augroup END
 " }}}
+
 " Section: tagbar {{{
 nnoremap <silent> <F8> :TagbarToggle<CR>
+" }}}
+" Section: cvim {{{
+let  g:C_UseTool_cmake    = 'yes'
+let  g:C_UseTool_doxygen = 'yes'
 " }}}
 
 "EOF vim: set ts=4 sw=4 tw=80 :
