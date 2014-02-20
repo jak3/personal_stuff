@@ -14,7 +14,17 @@ let PAGER='' "ensure using vim's man and not the system one remapped in bashrc
 filetype on
 filetype plugin indent on
 
+"
+"undodir file only to /tmp
+"
+set undofile
+set undodir=/tmp/undo
+set undolevels=1000
+set undoreload=10000
+
+"
 "backup file only to /tmp
+"
 set backupdir-=.
 set backupdir^=/tmp/filebackups
 
