@@ -52,50 +52,43 @@ alias lr='ls -lR'          # recursive ls
 alias las='ls -las'
 
 # Set current directory ad default dir to new screen windows
-alias cudir='screen -X eval "chdir $PWD"'
-
-alias network='wpa_supplicant -D nl80211 -i wlan1 -c /etc/wpa_supplicant.conf &'
-alias network2='dhcpcd wlan1'
-alias netrestart='/etc/rc.d/rc.inet1 eth0_restart'
-
-
-alias vimdiff='gvimdiff'
-alias vimtutot='gvimtutor'
-
-alias halt='su -c halt'
-alias reboot='su -c reboot'
-alias shutdown='su -c shutdown'
-alias mkdir='mkdir -p'
-
-alias bye='shutdown -h now'
-alias h='history'
-alias j='jobs -l'
-alias which='type -a'
-alias path='echo -e ${PATH//:/\\n}'
-alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
-alias sudo='su -c'
-alias pu='pushd'
-alias po='popd'
-alias gdb='gdb -q'
-alias e='exit'
-alias bc='bc -q'
-alias ..='cd ..'
-alias ...='cd ../../'
 alias ....='cd ../../..'
+alias ...='cd ../../'
+alias ..='cd ..'
+alias bc='bc -q'
+alias bye='shutdown -h now'
+alias c='clear'
+alias ca='clear;history -c;dirs -c'
+alias cd=cd_and_ls
 alias cdb='cd ..'
 alias cdbb='cd ../../'
 alias cdbbb='cd ../../../'
-
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-
-alias c='clear'
-alias ca='clear;history -c;dirs -c'
-alias cp='cp -i'
-alias mv='mv -i'
 alias cdl=cd_last_dir
-alias cd=cd_and_ls
+alias cp='cp -i'
+alias cudir='screen -X eval "chdir $PWD"'
+alias e='exit'
+alias egrep='egrep --color=auto'
+alias eth0='dhcpcd eth0'
+alias fgrep='fgrep --color=auto'
+alias g='git'
+alias gdb='gdb -q'
+alias grep='grep --color=auto'
+alias h='history'
+alias halt='su -c halt'
+alias j='jobs -l'
+alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
+alias mkdir='mkdir -p'
+alias mv='mv -i'
+alias netrestart='/etc/rc.d/rc.inet1 eth0_restart'
+alias network='wpa_supplicant -Dnl80211 -i wlan0 -c /etc/wpa_supplicant.conf -d > /dev/null &'
+alias path='echo -e ${PATH//:/\\n}'
+alias po='popd'
+alias pu='pushd'
+alias reboot='su -c reboot'
+alias shutdown='su -c shutdown'
+alias sudo='su -c'
+alias which='type -a'
+alias wlan1='dhcpcd wlan1'
 
 ## Typo aliases
 alias xs='cd'
@@ -119,6 +112,7 @@ alias initc="mkdir src; cp $STUFF/templates/Makefile.c ./Makefile"
 alias pass="/bin/true"
 alias to_c_string="hexdump -v -e '\"\\\\\\x\" 1/1 \"%02x\"'"
 alias machete="kill -9"
+alias truecrypt="truecrypt -t"
 
 ## Mount
 alias dlist="udisks --enumerate-device-files"
