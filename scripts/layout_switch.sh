@@ -10,7 +10,7 @@ else
     layout=$(setxkbmap -query | grep layout | awk '{print $2}')
     case $layout in
         us)
-                setxkbmap -model pc104 -layout it 
+                setxkbmap -model pc104 -layout it
             ;;
         *)
                 setxkbmap us

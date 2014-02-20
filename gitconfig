@@ -71,20 +71,8 @@
     addrefspr = "!sh -c 'git config --add \
         remote.$1.fetch \"+refs/pull/*/head:refs/remotes/$1/pr/*\"' -"
 
-[core]
-    excludesfile = ~/.gitignore
-
 [color]
     ui = auto
-
-[init]
-    templatedir = ~/.git_template
-
-[sendemail]
-    smtpencryption = tls
-    smtpserver = smtp.gmail.com
-    smtpuser = whiteinge@gmail.com
-    smtpserverport = 587
 
 [diff]
     tool = clivimdiff
@@ -96,11 +84,11 @@
     tool = diffconflicts
 
 [mergetool "diffconflicts"]
-    cmd = diffconflicts $EDITOR $BASE $LOCAL $REMOTE $MERGED
+    cmd = $STUFF/scripts/diffconflicts $EDITOR $BASE $LOCAL $REMOTE $MERGED
     trustExitCode = true
     keepBackup = false
 
 [mergetool "gdiffconflicts"]
-    cmd = diffconflicts gvim $BASE $LOCAL $REMOTE $MERGED
+    cmd = $STUFF/scripts/diffconflicts gvim $BASE $LOCAL $REMOTE $MERGED
     trustExitCode = true
     keepBackup = false
