@@ -137,6 +137,7 @@ mykeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_g     ), spawn "/opt/chrome/usr/bin/google-chrome-stable &")
     , ((modm .|. shiftMask, xK_l     ), spawn "$HOME/personal_stuff/scripts/layout_switch.sh")
     , ((modm, xK_x     ), spawn "xscreensaver-command -lock")
+    , ((modm, xK_s     ), spawn "slock")
     , ((modm, xK_y     ), spawn "/opt/redshift/bin/redshift -c $HOME/personal_stuff/X/redshift.conf")
     , ((modm .|. controlMask, xK_l), spawn "cmus-remote -k +10") -- seek 10s
     , ((modm .|. controlMask, xK_h), spawn "cmus-remote -u") -- pause
