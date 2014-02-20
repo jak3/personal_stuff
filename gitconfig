@@ -84,11 +84,11 @@
     tool = diffconflicts
 
 [mergetool "diffconflicts"]
-    cmd = $STUFF/scripts/diffconflicts $EDITOR $BASE $LOCAL $REMOTE $MERGED
+    cmd = $STUFF/scripts/diffconflicts.sh $EDITOR $BASE $LOCAL $REMOTE $MERGED
     trustExitCode = true
     keepBackup = false
 
 [mergetool "gdiffconflicts"]
-    cmd = $STUFF/scripts/diffconflicts gvim $BASE $LOCAL $REMOTE $MERGED
+    cmd = $STUFF/scripts/diffconflicts.sh gvim $BASE $LOCAL $REMOTE $MERGED
     trustExitCode = true
     keepBackup = false

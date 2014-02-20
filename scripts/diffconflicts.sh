@@ -1,4 +1,5 @@
 #!/bin/bash
+# by : https://github.com/whiteinge/dotfiles/
 # A better vimdiff mergetool for Git
 #
 # Git does a great job resolving merge conflicts automatically but there are
