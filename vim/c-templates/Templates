@@ -6,7 +6,7 @@ SetMacro( 'AUTHOR',      'Giacomo Mantani' )
 SetMacro( 'AUTHORREF',   'jake' )
 SetMacro( 'COMPANY',     '' )
 SetMacro( 'COPYRIGHT',   'Copyright (c) |YEAR|, |AUTHOR|' )
-SetMacro( 'EMAIL',       'giacomo.mantani@gmail.com' )
+SetMacro( 'EMAIL',       'giacomo x2E mantani x40 gmail x2E com' )
 SetMacro( 'LICENSE',     'BDS 2-Cluse License' )
 SetMacro( 'ORGANIZATION','' )
 
