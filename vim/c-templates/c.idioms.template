@@ -21,12 +21,7 @@ static void<CURSOR>
 == Idioms.main == map:im, shortcut:m  ==
 #include	<stdlib.h>
 
-/*
- * -------------------------------------------------------------------------------------
- *  Description:
- */
-int
-main ( int argc, char *argv[] )
+int main ( int argc, char *argv[] )
 {<CURSOR>
 <SPLIT>	return EXIT_SUCCESS;
 }
