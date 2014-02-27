@@ -9,17 +9,22 @@ let PAGER='' "ensure using vim's man and not the system one remapped in bashrc
 "-------------------------------------------------------------------------------
 " Global Stuff
 "-------------------------------------------------------------------------------
-" Get pathogen up and running
-execute pathogen#infect()
-set completeopt=longest,menuone
-set wildmode=list:longest,list:full
-let g:jedi#popup_on_dot = 0
 
 " Set filetype stuff to on
 filetype on
 filetype plugin indent on
 
-"backup file only to /tmp 
+"
+"undodir file only to /tmp
+"
+set undofile
+set undodir=/tmp/undo
+set undolevels=1000
+set undoreload=10000
+
+"
+"backup file only to /tmp
+"
 set backupdir-=.
 set backupdir^=/tmp/filebackups
 
@@ -81,9 +86,6 @@ set showcmd
 " Show the current mode
 set showmode
 
-" Switch on syntax highlighting.
-syntax on
-
 " Hide the mouse pointer while typing
 set mousehide
 
@@ -131,7 +133,7 @@ set wildignorecase
 set dictionary=/usr/share/dict/*
 
 " Same as default except that I remove the 'u' option
-set complete=.,w,b,t
+set complete=.,w,b,t,i,d
 
 " When completing by tag, show the whole tag, not just the function name
 set showfulltag
@@ -178,6 +180,10 @@ nmap <Leader>ma :set makeprg=gcc\\ -Wall\\ -ggdb3\\ -o\\ %<\\ %<CR>
 nmap <Leader>mt :set makeprg=gcc\\ -Wall\\ -ggdb3\\ -o\\ /tmp/%<\\ %<CR>
 " set makeprg for test with c99 standard
 nmap <Leader>m9 :set makeprg=gcc\\ -Wall\\ -std=c99\\ -ggdb3\\ -o\\ /tmp/%<\\ %<CR>
+" set makeprg for mingw64
+nmap <Leader>m6 :set makeprg=/opt/mingw-w64-x86_64/bin/x86_64-w64-mingw32-gcc\\ -m32\\ -o\\ %<.exe\\ %<CR>
+" set makeprg for mingw
+nmap <Leader>mw :set makeprg=/opt/mingw-w64-i686/bin/i686-w64-mingw32-gcc\\ -o\\ %<.exe\\ %<CR>
 
 " tags
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
@@ -226,7 +232,7 @@ noremap <silent> <Leader>mk <C-W>K
 noremap <silent> <Leader>mh <C-W>H
 noremap <silent> <Leader>mj <C-W>J
 
-" Maps to make handling buffer a bit easier 
+" Maps to make handling buffer a bit easier
 noremap <silent> <C-n> :bn<CR>
 noremap <silent> <C-p> :bp<CR>
 
@@ -258,7 +264,7 @@ nmap <silent> gw :s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>`'
 
 " Underline the current line with '='
 nmap <silent> <Leader>uL :t.\|s/./=/g\|:nohls<cr>
- 
+
 " Underline the current line with '-'
 nmap <silent> <Leader>ul :t.\|s/./-/g\|:nohls<cr>
 
@@ -306,9 +312,6 @@ silent exe "normal! '[V']r w"
     let @@ = reg_save
 endfunction
 
-" Syntax coloring lines that are too long just slows down the world
-set synmaxcol=2048
-
 " Highlight the current line and column
 " Don't do this - It makes window redraws painfully slow
 set nocursorline
@@ -323,60 +326,17 @@ else
 endif
 
 "-------------------------------------------------------------------------------
-" NERD Tree Plugin Settings
-"-------------------------------------------------------------------------------
-" Toggle the NERD Tree on an off with F7
-nmap <F7> :NERDTreeToggle<CR>
-
-" Close the NERD Tree with Shift-F7
-nmap <S-F7> :NERDTreeClose<CR>
-
-" Show the bookmarks table on startup
-let NERDTreeShowBookmarks=1
-
-" Don't display these kinds of files
-let NERDTreeIgnore=[ '\.ncb$', '\.suo$', '\.vcproj\.RIMNET', '\.obj$',
-                   \ '\.ilk$', '^BuildLog.htm$', '\.pdb$', '\.idb$',
-                   \ '\.embed\.manifest$', '\.embed\.manifest.res$',
-                   \ '\.intermediate\.manifest$', '^mt.dep$' ]
-
-"-------------------------------------------------------------------------------
 " FSwitch mappings
 "-------------------------------------------------------------------------------
-nmap <silent> ,of :FSHere<CR>
-nmap <silent> ,ol :FSRight<CR>
-nmap <silent> ,oL :FSSplitRight<CR>
-nmap <silent> ,oh :FSLeft<CR>
-nmap <silent> ,oH :FSSplitLeft<CR>
-nmap <silent> ,ok :FSAbove<CR>
-nmap <silent> ,oK :FSSplitAbove<CR>
-nmap <silent> ,oj :FSBelow<CR>
-nmap <silent> ,oJ :FSSplitBelow<CR>
-
-"-------------------------------------------------------------------------------
-" TwitVim settings
-"-------------------------------------------------------------------------------
-let twitvim_enable_perl = 1
-let twitvim_browser_cmd = 'firefox'
-nmap ,tw :FriendsTwitter<cr>
-nmap ,tm :UserTwitter<cr>
-nmap ,tM :MentionsTwitter<cr>
-function! TwitVimMappings()
-    nmap <buffer> U :exe ":UnfollowTwitter " . expand("<cword>")<cr>
-    nmap <buffer> F :exe ":FollowTwitter " . expand("<cword>")<cr>
-    nmap <buffer> 7 :BackTwitter<cr>
-    nmap <buffer> 8 :ForwardTwitter<cr>
-    nmap <buffer> 1 :PreviousTwitter<cr>
-    nmap <buffer> 2 :NextTwitter<cr>
-    nmap <buffer> ,sf :SearchTwitter #scala OR #akka<cr>
-    nmap <buffer> ,ss :SearchTwitter #scala<cr>
-    nmap <buffer> ,sa :SearchTwitter #akka<cr>
-    nmap <buffer> ,sv :SearchTwitter #vim<cr>
-endfunction
-augroup derek_twitvim
-    au!
-    au FileType twitvim call TwitVimMappings()
-augroup END
+nmap <silent> <Leader>of :FSHere<CR>
+nmap <silent> <Leader>ol :FSRight<CR>
+nmap <silent> <Leader>oL :FSSplitRight<CR>
+nmap <silent> <Leader>oh :FSLeft<CR>
+nmap <silent> <Leader>oH :FSSplitLeft<CR>
+nmap <silent> <Leader>ok :FSAbove<CR>
+nmap <silent> <Leader>oK :FSSplitAbove<CR>
+nmap <silent> <Leader>oj :FSBelow<CR>
+nmap <silent> <Leader>oJ :FSSplitBelow<CR>
 
 "-------------------------------------------------------------------------------
 " Functions
@@ -410,23 +370,23 @@ function! IndentToNextBraceInLineAbove()
     :normal j"vPl
 endfunction
 
-nmap <silent> ,ii :call IndentToNextBraceInLineAbove()<cr>
+nmap <silent> <Leader>ii :call IndentToNextBraceInLineAbove()<cr>
 
-nmap <silent> ,mba :call MarkBufferInJumpList(expand('%:p'), 'a')<cr>
-nmap <silent> ,mbb :call MarkBufferInJumpList(expand('%:p'), 'b')<cr>
-nmap <silent> ,mbc :call MarkBufferInJumpList(expand('%:p'), 'c')<cr>
-nmap <silent> ,mbd :call MarkBufferInJumpList(expand('%:p'), 'd')<cr>
-nmap <silent> ,mbe :call MarkBufferInJumpList(expand('%:p'), 'e')<cr>
-nmap <silent> ,mbf :call MarkBufferInJumpList(expand('%:p'), 'f')<cr>
-nmap <silent> ,mbg :call MarkBufferInJumpList(expand('%:p'), 'g')<cr>
-nmap <silent> ,jba :call JumpToBufferInJumpList('a')<cr>
-nmap <silent> ,jbb :call JumpToBufferInJumpList('b')<cr>
-nmap <silent> ,jbc :call JumpToBufferInJumpList('c')<cr>
-nmap <silent> ,jbd :call JumpToBufferInJumpList('d')<cr>
-nmap <silent> ,jbe :call JumpToBufferInJumpList('e')<cr>
-nmap <silent> ,jbf :call JumpToBufferInJumpList('f')<cr>
-nmap <silent> ,jbg :call JumpToBufferInJumpList('g')<cr>
-nmap <silent> ,ljb :call ListJumpToBuffers()<cr>
+nmap <silent> <Leader>mba :call MarkBufferInJumpList(expand('%:p'), 'a')<cr>
+nmap <silent> <Leader>mbb :call MarkBufferInJumpList(expand('%:p'), 'b')<cr>
+nmap <silent> <Leader>mbc :call MarkBufferInJumpList(expand('%:p'), 'c')<cr>
+nmap <silent> <Leader>mbd :call MarkBufferInJumpList(expand('%:p'), 'd')<cr>
+nmap <silent> <Leader>mbe :call MarkBufferInJumpList(expand('%:p'), 'e')<cr>
+nmap <silent> <Leader>mbf :call MarkBufferInJumpList(expand('%:p'), 'f')<cr>
+nmap <silent> <Leader>mbg :call MarkBufferInJumpList(expand('%:p'), 'g')<cr>
+nmap <silent> <Leader>jba :call JumpToBufferInJumpList('a')<cr>
+nmap <silent> <Leader>jbb :call JumpToBufferInJumpList('b')<cr>
+nmap <silent> <Leader>jbc :call JumpToBufferInJumpList('c')<cr>
+nmap <silent> <Leader>jbd :call JumpToBufferInJumpList('d')<cr>
+nmap <silent> <Leader>jbe :call JumpToBufferInJumpList('e')<cr>
+nmap <silent> <Leader>jbf :call JumpToBufferInJumpList('f')<cr>
+nmap <silent> <Leader>jbg :call JumpToBufferInJumpList('g')<cr>
+nmap <silent> <Leader>ljb :call ListJumpToBuffers()<cr>
 
 function! DiffCurrentFileAgainstAnother(snipoff, replacewith)
     let currentFile = expand('%:p')
@@ -455,8 +415,8 @@ function! HighlightAllOfWord(onoff)
     endif
 endfunction
 
-:nmap ,ha :call HighlightAllOfWord(1)<cr>
-:nmap ,hA :call HighlightAllOfWord(0)<cr>
+:nmap <Leader>ha :call HighlightAllOfWord(1)<cr>
+:nmap <Leader>hA :call HighlightAllOfWord(0)<cr>
 
 function! LengthenCWD()
 let cwd = getcwd()
@@ -472,7 +432,7 @@ exec ":lcd " . lengthend
 endif
 endfunction
 
-:nmap ,ld :call LengthenCWD()<cr>
+:nmap <Leader>ld :call LengthenCWD()<cr>
 
 function! MakeShellcodeFromOpcode()
     silent! %s/ //g
@@ -481,7 +441,7 @@ function! MakeShellcodeFromOpcode()
     silent! s/\(\(.\)\(.\)\)/\\x\1/g
 endfunction
 
-:nmap ,sh :call MakeShellcodeFromOpcode()<cr> 
+:nmap <Leader>sh :call MakeShellcodeFromOpcode()<cr>
 
 function! ShortenCWD()
 let cwd = split(getcwd(), '/')
@@ -498,7 +458,7 @@ let filedir = split(expand("%:p:h"), '/')
     exec ":lcd /" . newdir
 endfunction
 
-:nmap ,sd :call ShortenCWD()<cr>
+:nmap <Leader>sd :call ShortenCWD()<cr>
 
 function! RedirToYankRegisterF(cmd, ...)
     let cmd = a:cmd . " " . join(a:000, " ")
@@ -510,45 +470,6 @@ endfunction
 command! -complete=command -nargs=+ RedirToYankRegister
   \ silent! call RedirToYankRegisterF(<f-args>)
 
-function! ToggleMinimap()
-    if exists("s:isMini") && s:isMini == 0
-        let s:isMini = 1
-    else
-        let s:isMini = 0
-    end
-
-    if (s:isMini == 0)
-        " save current visible lines
-        let s:firstLine = line("w0")
-        let s:lastLine = line("w$")
-
-        " make font small
-        exe "set guifont=" . g:small_font
-        " highlight lines which were visible
-        let s:lines = ""
-        for i in range(s:firstLine, s:lastLine)
-            let s:lines = s:lines . "\\%" . i . "l"
-
-            if i < s:lastLine
-                let s:lines = s:lines . "\\|"
-            endif
-        endfor
-
-        exe 'match Visible /' . s:lines . '/'
-        hi Visible guibg=lightblue guifg=black term=bold
-        nmap <s-j> 10j
-        nmap <s-k> 10k
-    else
-        exe "set guifont=" . g:main_font
-        hi clear Visible
-        nunmap <s-j>
-        nunmap <s-k>
-    endif
-endfunction
-
-command! ToggleMinimap call ToggleMinimap()
-nnoremap <space> :ToggleMinimap<CR>
-
 " Append modeline after last line in buffer.
 " Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
 " files.
@@ -559,6 +480,23 @@ function! AppendModeline()
   call append(line("$"), l:modeline)
 endfunction
 nnoremap <silent> <Leader>mo :call AppendModeline()<CR>
+
+" fill rest of line with characters
+function! FillLine( str )
+    " set tw to the desired total length
+    let tw = &textwidth
+    if tw==0 | let tw = 80 | endif
+    " strip trailing spaces first
+    .s/[[:space:]]*$//
+    " calculate total number of 'str's to insert
+    let reps = (tw - col("$")) / len(a:str)
+    " insert them, if there's room, removing trailing spaces (though forcing
+    " there to be one)
+    if reps > 0
+        .s/$/\=(' '.repeat(a:str, reps))/
+    endif
+endfunction
+map <Leader>f :call FillLine( '-' )<cr>
 
 "-------------------------------------------------------------------------------
 " Commands
@@ -592,14 +530,14 @@ augroup derek_xsd
 augroup END
 
 augroup Binary
-  au!
-  au BufReadPre *.bin let &bin=1
-  au BufReadPost *.bin if &bin | %!xxd
-  au BufReadPost *.bin set filetype=xxd | endif
-  au BufWritePre *.bin if &bin | %!xxd -r
-  au BufWritePre *.bin endif
-  au BufWritePost *.bin if &bin | %!xxd
-  au BufWritePost *.bin set nomod | endif
+    au!
+    au BufReadPre *.bin let &bin=1
+    au BufReadPost *.bin if &bin | %!xxd
+    au BufReadPost *.bin set filetype=xxd | endif
+    au BufWritePre *.bin if &bin | %!xxd -r
+    au BufWritePre *.bin endif
+    au BufWritePost *.bin if &bin | %!xxd
+    au BufWritePost *.bin set nomod | endif
 augroup END
 
 au BufEnter *.nse setl filetype=lua tabstop=4 shiftwidth=4
@@ -639,21 +577,35 @@ iab Fone Phone
 "-------------------------------------------------------------------------------
 " Set up the window colors and size
 "-------------------------------------------------------------------------------
+
+" Enable 256 colors
+set t_Co=256
+
+" Switch on syntax highlighting.
+syntax on
+
+" Syntax coloring lines that are too long just slows down the world
+set synmaxcol=2048
+
+colorscheme wombat256mod
+
 if has("gui_running")
-  exe "set guifont=" . g:main_font
-  set background=dark
-  colorscheme solarized
-  if !exists("g:vimrcloaded")
-      winpos 0 0
-      if !&diff
-          winsize 130 120
-      else
-          winsize 227 120
-      endif
-      let g:vimrcloaded = 1
-  endif
+    exe "set guifont=" . g:main_font
+    set background=dark
+    colorscheme BusyBee
+    if has("win32")
+        if !exists("g:vimrcloaded")
+            winpos 0 0
+            if !&diff
+                winsize 130 120
+            else
+                winsize 227 120
+            endif
+            let g:vimrcloaded = 1
+        endif
+    endif
 endif
-:nohls						
+:nohls
 
 "-------------------------------------------------------------------------------
 " Automatically open, but do not go to (if there are errors) the quickfix /
@@ -672,5 +624,72 @@ autocmd QuickFixCmdPost    l* nested lwindow
 " autocmd in your .vimrc file. Every time the user issues a :w command, Vim will
 " automatically remove all trailing whitespace before saving.
 autocmd BufWritePre * :%s/\s\+$//e
+
+" Section: Pathogen {{{
+" Get pathogen up and running
+execute pathogen#infect()
+set completeopt=longest,menuone
+set wildmode=list:longest,list:full
+Helptags
+" }}}
+
+" Section: Syntastic {{{
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_c_checkers = ['ycm']
+let g:syntastic_python_checkers = ['pyflakes']
+let g:syntastic_html_checkers = ['tidy']
+" }}}
+
+" Section: Jedi {{{
+let g:jedi#popup_on_dot = 0
+" }}}
+
+" Section: NERDTree {{{
+" Toggle the NERD Tree
+nmap <Leader>3 :NERDTreeToggle<CR>
+
+" Show the bookmarks table on startup
+let NERDTreeShowBookmarks=1
+
+" Don't display these kinds of files
+let NERDTreeIgnore=[ '\.ncb$', '\.suo$', '\.vcproj\.RIMNET', '\.obj$',
+            \ '\.ilk$', '^BuildLog.htm$', '\.pdb$', '\.idb$',
+            \ '\.embed\.manifest$', '\.embed\.manifest.res$',
+            \ '\.intermediate\.manifest$', '^mt.dep$' ]
+" }}}
+
+" Section: Twitvim {{{
+function! TwitVimMappings()
+    let twitvim_enable_perl = 1
+    let twitvim_browser_cmd = 'firefox'
+    nmap <Leader>tw :FriendsTwitter<cr>
+    nmap <Leader>tm :UserTwitter<cr>
+    nmap <Leader>tM :MentionsTwitter<cr>
+    nmap <buffer> U :exe ":UnfollowTwitter " . expand("<cword>")<cr>
+    nmap <buffer> F :exe ":FollowTwitter " . expand("<cword>")<cr>
+    nmap <buffer> 7 :BackTwitter<cr>
+    nmap <buffer> 8 :ForwardTwitter<cr>
+    nmap <buffer> 1 :PreviousTwitter<cr>
+    nmap <buffer> 2 :NextTwitter<cr>
+    nmap <buffer> <Leader>sf :SearchTwitter #scala OR #akka<cr>
+    nmap <buffer> <Leader>ss :SearchTwitter #scala<cr>
+    nmap <buffer> <Leader>sa :SearchTwitter #akka<cr>
+    nmap <buffer> <Leader>sv :SearchTwitter #vim<cr>
+endfunction
+augroup derek_twitvim
+    au!
+    au FileType twitvim call TwitVimMappings()
+augroup END
+" }}}
+
+" Section: tagbar {{{
+nnoremap <silent> <F8> :TagbarToggle<CR>
+" }}}
+" Section: cvim {{{
+let  g:C_UseTool_cmake    = 'yes'
+let  g:C_UseTool_doxygen = 'yes'
+" }}}
 
 "EOF vim: set ts=4 sw=4 tw=80 :

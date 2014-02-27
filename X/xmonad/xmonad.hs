@@ -15,7 +15,7 @@ import Graphics.X11.ExtraTypes.XF86
 
 import XMonad.Actions.CycleWS
 
-import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageDocks (manageDocks, avoidStruts)
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.DynamicLog
@@ -43,59 +43,44 @@ import qualified Data.Map as M
 
 -- Config {{{
 
--- Define Terminal
-myTerminal      = "urxvt -e /bin/zsh -c screen"
+-- Define Terminal, sleep solve rendering, screen is faster than zsh
+myTerminal      = "urxvt -e /bin/zsh -c \"sleep 0.1;screen\""
 -- Define modMask
 mymodMask :: KeyMask
 mymodMask = mod4Mask
 -- Define workspaces
-myWorkspaces    = ["1:main","2:www","3:code", "4:misc", "5:♪"]
--- Dzen/Conky
-myXmonadBar = "dzen2 -x '1440' -y '0' -h '20' -w '500' -ta 'l' -fg '#FFFFFF' -bg '#1B1D1E'"
-myStatusBar = "conky -c $HOME/.xmonad/.conky_dzen | dzen2 -x '2080' -w '1040' -h '20' -ta 'r' -bg '#1B1D1E' -fg '#FFFFFF' -y '0'"
-myBitmapsDir = "$HOME/personal_stuff/X/xmoand/dzen2"
+myWorkspaces    = ["1:main","2:⚓","3:☕", "4:v", "5:♪","6","7","8"]
 --}}}
 -- Main {{{
 main = do
-    --dzen2 ones
-    --dzenLeftBar  <- spawnPipe myXmonadBar
-    --dzenRightBar <- spawnPipe myStatusBar
-    --xmobar one
-    xmproc <- spawnPipe "/usr/bin/xmobar $HOME/personal_stuff/X/xmonad/xmobarrc"   
-    --dzen2 one
-    --xmonad $ withUrgencyHookC dzenUrgencyHook { args = ["-bg", "red", "fg", "black", "-xs", "1", "-y", "25"] } urgencyConfig { remindWhen = Every 15 } $ defaultConfig
-    --xmobar one
-    xmonad $ defaultConfig   
+    xmproc <- spawnPipe "/usr/bin/xmobar $HOME/personal_stuff/X/xmonad/xmobarrc"
+    xmonad $ defaultConfig
       { terminal            = myTerminal
       , workspaces          = myWorkspaces
       , keys                = mykeys
       , modMask             = mymodMask
       , layoutHook          = mylayoutHook
       , manageHook          = mymanageHook
-      --dzen2 one
-      --, logHook             = myLogHook dzenLeftBar >> fadeInactiveLogHook 0.9
-      --xmobar one
       , logHook = myLogHook xmproc
-      , normalBorderColor   = colorNormalBorder
-      , focusedBorderColor  = colorFocusedBorder
+      , normalBorderColor   = "#CCCCC6"
+      , focusedBorderColor  = "#FD971F"
       , borderWidth         = 1
       , startupHook         = setWMName "LG3D"
 }
 --}}}
 
--- Hooks {{{
 -- ManageHook {{{
 mymanageHook :: ManageHook
 mymanageHook = (composeAll . concat $
-    [ [resource     =? r            --> doIgnore            |   r   <- myIgnores] -- ignore desktop
-    , [className    =? c            --> doShift  "1:main"     |   c   <- myDev    ] -- move dev to main
-    , [className    =? c            --> doShift  "2:www"      |   c   <- myWww    ] -- move webs to main
-    , [className    =? c            --> doShift  "3:code"     |   c   <- myVim    ]
-    , [className    =? c            --> doShift	 "4:misc"     |   c   <- myMisc   ]
-    , [className    =? c            --> doShift	 "5:♪"        |   c   <- myMus    ]
-    , [className    =? c            --> doCenterFloat       |   c   <- myFloats ] -- float my floats
-    , [name         =? n            --> doCenterFloat       |   n   <- myNames  ] -- float my names
-    , [isFullscreen                 --> myDoFullFloat                           ]
+    [ [resource     =? r            --> doIgnore            |   r   <- myIgnores]
+    , [className    =? c            --> doShift  "1:main"   |   c   <- myDev    ]
+    , [className    =? c            --> doShift  "2:⚓"      |   c   <- myWww    ]
+    , [className    =? c            --> doShift  "3:☕"      |   c   <- myVim    ]
+    , [className    =? c            --> doShift	 "4:v"      |   c   <- myMisc   ]
+    , [className    =? c            --> doShift	 "5:♪"      |   c   <- myMus    ]
+    , [className    =? c            --> doCenterFloat       |   c   <- myFloats ]
+    , [name         =? n            --> doCenterFloat       |   n   <- myNames  ]
+    , [isFullscreen --> doFullFloat ]
     ])
 
     where
@@ -105,7 +90,7 @@ mymanageHook = (composeAll . concat $
 
         -- classnames
         myFloats  = ["Smplayer","MPlayer","VirtualBox","Xmessage","XFontSel","Downloads","Nm-connection-editor"]
-        myWww     = ["Firefox","Google-chrome","Chromium", "Chromium-browser", "Iceweasel", "Vidalia"]
+        myWww     = ["Firefox","Google-chrome","Google-chrome-stable","Chromium", "Chromium-browser", "Iceweasel", "Vidalia"]
         myMisc    = ["VirtualBox"]
         myDev	  = [""]
         myVim	  = [""]
@@ -117,47 +102,13 @@ mymanageHook = (composeAll . concat $
         -- names
         myNames   = ["bashrun","Google Chrome Options","Chromium Options"]
 
--- a trick for fullscreen but stil allow focusing of other WSs
-myDoFullFloat :: ManageHook
-myDoFullFloat = doF W.focusDown <+> doFullFloat
 -- }}}
-mylayoutHook  = onWorkspaces ["1:main","5:♪"] customLayout $
-                onWorkspaces ["2:www","4:misc"] customLayout2 $
-                customLayout2
 
---Bar
-myLogHook :: Handle -> X ()
---dzen2 one
---myLogHook h = dynamicLogWithPP $ defaultPP
---    {
---        ppCurrent           =   dzenColor "#ebac54" "#1B1D1E" . pad
---      , ppVisible           =   dzenColor "white" "#1B1D1E" . pad
---      , ppHidden            =   dzenColor "white" "#1B1D1E" . pad
---      , ppHiddenNoWindows   =   dzenColor "#7b7b7b" "#1B1D1E" . pad
---      , ppUrgent            =   dzenColor "black" "red" . pad
---      , ppWsSep             =   " "
---      , ppSep               =   "  |  "
---      , ppLayout            =   dzenColor "#ebac54" "#1B1D1E" .
---                                (\x -> case x of
---                                    "ResizableTall"             ->      "^i(" ++ myBitmapsDir ++ "/tall.xbm)"
---                                    "Mirror ResizableTall"      ->      "^i(" ++ myBitmapsDir ++ "/mtall.xbm)"
---                                    "Full"                      ->      "^i(" ++ myBitmapsDir ++ "/full.xbm)"
---                                    "Simple Float"              ->      "~"
---                                    _                           ->      x
---                                )
---      , ppTitle             =   (" " ++) . dzenColor "white" "#1B1D1E" . dzenEscape
---      , ppOutput            =   hPutStrLn h
---    }
---xmobar one
-myLogHook h = dynamicLogWithPP $ defaultPP 
-    {   ppOutput = hPutStrLn h
-        ,ppVisible = xmobarColor "white" "#1B1D1E" . shorten 50
-        , ppCurrent           =   xmobarColor "#ee9a00" "#1B1D1E" . shorten 50
-        , ppHidden            =   xmobarColor "white" "#1B1D1E" . shorten 50
-        , ppHiddenNoWindows   =   xmobarColor "#7b7b7b" "#1B1D1E" . shorten 50
-    }                     
- 
 -- Layout
+mylayoutHook  = onWorkspaces ["1:main","5:♪"] customLayout $
+                onWorkspaces ["2:⚓","4:v"] customLayout2$
+                customLayout
+
 customLayout = avoidStruts $ tiled ||| Mirror tiled ||| Full ||| simpleFloat
   where
     tiled   = ResizableTall 1 (2/100) (1/2) []
@@ -166,44 +117,16 @@ customLayout2 = avoidStruts $ Full ||| tiled ||| Mirror tiled ||| simpleFloat
   where
     tiled   = ResizableTall 1 (2/100) (1/2) []
 
--- Theme {{{
--- Color names are easier to remember:
-colorOrange         = "#FD971F"
-colorDarkGray       = "#1B1D1E"
-colorPink           = "#F92672"
-colorGreen          = "#A6E22E"
-colorBlue           = "#66D9EF"
-colorYellow         = "#E6DB74"
-colorWhite          = "#CCCCC6"
+--Bar
+myLogHook :: Handle -> X ()
+myLogHook h = dynamicLogWithPP $ defaultPP
+    {   ppOutput = hPutStrLn h
+        ,ppVisible = xmobarColor "white" "#1B1D1E" . shorten 50
+        , ppCurrent           =   xmobarColor "#ee9a00" "#1B1D1E" . shorten 50
+        , ppHidden            =   xmobarColor "white" "#1B1D1E" . shorten 50
+        , ppHiddenNoWindows   =   xmobarColor "#7b7b7b" "#1B1D1E" . shorten 50
+    }
 
-colorNormalBorder   = "#CCCCC6"
-colorFocusedBorder  = "#fd971f"
-
-
-barFont  = "terminus"
-barXFont = "inconsolata:size=12"
-xftFont = "xft: inconsolata-14"
---}}}
-
--- Prompt Config {{{
-mXPConfig :: XPConfig
-mXPConfig =
-    defaultXPConfig { font                  = barFont
-                    , bgColor               = colorDarkGray
-                    , fgColor               = colorGreen
-                    , bgHLight              = colorGreen
-                    , fgHLight              = colorDarkGray
-                    , promptBorderWidth     = 0
-                    , height                = 14
-                    , historyFilter         = deleteConsecutive
-                    }
-
--- Run or Raise Menu
-largeXPConfig :: XPConfig
-largeXPConfig = mXPConfig
-                { font = xftFont
-                , height = 22
-                }
 -- }}}
 -- Key mapping {{{
 mykeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
@@ -211,10 +134,13 @@ mykeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
     , ((modm .|. shiftMask, xK_t     ), spawn "urxvt -e /bin/zsh")
     , ((modm,               xK_f     ), spawn "firefox")
-    , ((modm .|. shiftMask, xK_l     ), spawn "xscreensaver-command -lock")
+    , ((modm,               xK_g     ), spawn "/opt/chrome/usr/bin/google-chrome-stable &")
+    , ((modm .|. shiftMask, xK_l     ), spawn "$HOME/personal_stuff/scripts/layout_switch.sh")
+    , ((modm, xK_x     ), spawn "xscreensaver-command -lock")
+    , ((modm, xK_s     ), spawn "slock")
     , ((modm, xK_y     ), spawn "/opt/redshift/bin/redshift -c $HOME/personal_stuff/X/redshift.conf")
-    , ((modm .|. controlMask, xK_l), spawn "cmus-remote -p") -- play/pause song
-    , ((modm .|. controlMask, xK_h), spawn "cmus-remote -u") -- stop playback
+    , ((modm .|. controlMask, xK_l), spawn "cmus-remote -k +10") -- seek 10s
+    , ((modm .|. controlMask, xK_h), spawn "cmus-remote -u") -- pause
     , ((modm .|. controlMask, xK_k), spawn "cmus-remote -r") -- previous song
     , ((modm .|. controlMask, xK_j), spawn "cmus-remote -n") -- next song
     , ((modm .|. controlMask, xK_r), spawn "cmus-remote -R") -- repeat

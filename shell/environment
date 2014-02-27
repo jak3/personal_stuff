@@ -2,7 +2,7 @@
 export XDG_CONFIG_HOME="$HOME/.config"
 export STUFF="$HOME/personal_stuff"
 
-export PATH=$PATH:/opt/bin:/opt/mingw-w64-i686/bin:/opt/mingw-w64-x86_64/bin
+export PATH=/opt/ruby/bin:$PATH:/opt/bin:/opt/mingw-w64-i686/bin:/opt/mingw-w64-x86_64/bin
 
 # Enable color in grep
 export GREP_OPTIONS='--color=auto'
@@ -10,7 +10,7 @@ export GREP_OPTIONS='--color=auto'
 export HISTCONTROL=ignoredups
 export ANA=jake@anapnea.net #xn--phnix-ibb.net
 export VORTEX=vortex.labs.overthewire.org
- 
+
 export LESS='--ignore-case --raw-control-chars'
 export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
     vim -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' \
@@ -23,6 +23,6 @@ export __GIT_PROMPT_DIR=$STUFF/zsh/
 eval `dircolors $HOME/.dircolors`
 
 #set it mapping without problems
-setxkbmap -layout it -model pc104
+#setxkbmap -layout it -model pc104
 
 stty -ixon

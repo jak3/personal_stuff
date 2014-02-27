@@ -120,3 +120,5 @@ fi
 # with the second env, if we type a command starting with a space
 # it wont show up in history
 # HISTSIZE=0 # don't save history
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

@@ -29,11 +29,7 @@ fi
 ## ZSH only
 if [ $SHELL = '/bin/zsh' ];then
     #{{{ Suffixes...
-    if [[ $DISPLAY = '' ]] then
-    else
-      alias -s jpg=xv
-    fi
-    
+
     #}}}
 
     #{{{ Globals...
@@ -56,50 +52,43 @@ alias lr='ls -lR'          # recursive ls
 alias las='ls -las'
 
 # Set current directory ad default dir to new screen windows
-alias cudir='screen -X eval "chdir $PWD"'
-
-alias network='wpa_supplicant -D nl80211 -i wlan1 -c /etc/wpa_supplicant.conf &'
-alias network2='dhcpcd wlan1'
-alias netrestart='/etc/rc.d/rc.inet1 eth0_restart'
-
-
-alias vimdiff='gvimdiff'
-alias vimtutot='gvimtutor'
-
-alias halt='su -c halt'
-alias reboot='su -c reboot'
-alias shutdown='su -c shutdown'
-alias mkdir='mkdir -p'
-
-alias bye='shutdown -h now'
-alias h='history'
-alias j='jobs -l'
-alias which='type -a'
-alias path='echo -e ${PATH//:/\\n}'
-alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
-alias sudo='su -c'
-alias pu='pushd'
-alias po='popd'
-alias gdb='gdb -q'
-alias q='exit'
-alias bc='bc -q'
-alias ..='cd ..'
-alias ...='cd ../../'
 alias ....='cd ../../..'
+alias ...='cd ../../'
+alias ..='cd ..'
+alias bc='bc -q'
+alias bye='shutdown -h now'
+alias c='clear'
+alias ca='clear;history -c;dirs -c'
+alias cd=cd_and_ls
 alias cdb='cd ..'
 alias cdbb='cd ../../'
 alias cdbbb='cd ../../../'
- 
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-
-alias c='clear'
-alias ca='clear;history -c;dirs -c'
-alias cp='cp -i'
-alias mv='mv -i'
 alias cdl=cd_last_dir
-alias cd=cd_and_ls
+alias cp='cp -i'
+alias cudir='screen -X eval "chdir $PWD"'
+alias e='exit'
+alias egrep='egrep --color=auto'
+alias eth0='dhcpcd eth0'
+alias fgrep='fgrep --color=auto'
+alias g='git'
+alias gdb='gdb -q'
+alias grep='grep --color=auto'
+alias h='history'
+alias halt='su -c halt'
+alias j='jobs -l'
+alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
+alias mkdir='mkdir -p'
+alias mv='mv -i'
+alias netrestart='/etc/rc.d/rc.inet1 eth0_restart'
+alias network='wpa_supplicant -Dnl80211 -i wlan0 -c /etc/wpa_supplicant.conf -d > /dev/null &'
+alias path='echo -e ${PATH//:/\\n}'
+alias po='popd'
+alias pu='pushd'
+alias reboot='su -c reboot'
+alias shutdown='su -c shutdown'
+alias sudo='su -c'
+alias which='type -a'
+alias wlan1='dhcpcd wlan1'
 
 ## Typo aliases
 alias xs='cd'
@@ -116,32 +105,19 @@ alias s=ls
 alias ungcc="gcc -z execstack -fno-stack-protector -fno-pie"
 alias ocvc="g++ \`pkg-config opencv --cflags --libs\`"
 alias runonce="$STUFF/scripts/run_once.sh"
-alias nvidiaoff="sudo $STUFF/scripts/nvidiaoff.sh"
-alias fixjava="wmname LG3D"
 alias irc="(sleep 10 && bash $STUFF/scripts/run_once.sh notify-listener.py $STUFF/scripts/notify-listener.py > /dev/null 2>&1) & irssi"
 alias mkd="$STUFF/scripts/mkd.sh"
 alias initlatex="mkdir tmp; mkdir bib; touch bib/bib.bib; cp $STUFF/templates/template.tex main.tex; touch main.tex.latexmain"
 alias initc="mkdir src; cp $STUFF/templates/Makefile.c ./Makefile"
 alias pass="/bin/true"
 alias to_c_string="hexdump -v -e '\"\\\\\\x\" 1/1 \"%02x\"'"
-alias machete="sudo kill -9"
+alias machete="kill -9"
+alias truecrypt="truecrypt -t"
 
 ## Mount
 alias dlist="udisks --enumerate-device-files"
 alias dmount="udisksctl mount -b"
 alias dumount="udisksctl unmount -b"
-
-## Folders
-alias psim='cd ~/Dropbox/University/Progetto\ di\ Reti\ di\ Telecomunicazioni\ LM/Simulator/'
-alias uni='cd ~/Dropbox/University'
-alias prj='cd ~/Dropbox/Projects'
-alias shared='cd ~/Documents/Virtual\ Machines/Shared'
-alias sec='cd ~/Dropbox/IT/Security'
-alias drp='cd ~/Dropbox'
-alias iss='cd ~/Dropbox/University/Ingegneria\ dei\ Sistemi\ Software\ LM/Git/group14work/'
-alias hwe='cd ~/Dropbox/University/Elaborazione\ delle\ Immagini\ LM/HomeworksGit/BellavistaHomeworks'
-alias mmsd='cd ~/Dropbox/University/Metodi\ e\ Modelli\ per\ il\ Supporto\ alle\ Decisioni\ LM/Project/knapsackkbest/'
-alias gtd='cd /mnt/shared/gtd/'
 
 ## Git
 alias gc='git commit -m'
