@@ -263,13 +263,13 @@ nmap <silent> <Leader>S :w!<cr>:!aspell check %<cr>:e! <cr>
 nmap <silent> gw :s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>`'
 
 " Underline the current line with '='
-nmap <silent> <Leader>uL :t.\|s/./=/g\|:nohls<cr>
+nmap <silent> <Leader>uL :t.\|s/\\S/=/g\|:nohls<cr>
 
 " Underline the current line with '-'
-nmap <silent> <Leader>ul :t.\|s/./-/g\|:nohls<cr>
+nmap <silent> <Leader>ul :t.\|s/\\S/-/g\|:nohls<cr>
 
 " Underline the current line with '~'
-nmap <silent> <Leader>ut :t.\|s/./\\~/g\|:nohls<cr>
+nmap <silent> <Leader>ut :t.\|s/\\S/\\~/g\|:nohls<cr>
 
 " Shrink the current window to fit the number of lines in the buffer. Useful
 " for those buffers that are only a few lines
