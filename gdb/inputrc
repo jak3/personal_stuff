@@ -1,0 +1,4 @@
+set editing-mode vi
+set comment-begin #
+set expand-tilde On
+"\C-r": redraw-current-line

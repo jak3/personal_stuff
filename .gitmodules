@@ -73,3 +73,6 @@
 [submodule "vim/bundle/vim-lucius"]
 	path = vim/bundle/vim-lucius
 	url = git@github.com:jonathanfilip/vim-lucius.git
+[submodule "gdb/Gdbinit"]
+	path = gdb/Gdbinit
+	url = https://github.com/gdbinit/Gdbinit.git
