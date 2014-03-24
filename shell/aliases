@@ -50,7 +50,7 @@ alias lt='ls -ltr'         # sort by date, most recent last
 alias lm='ls -al |more'    # pipe through 'more'
 alias lr='ls -lR'          # recursive ls
 alias las='ls -las'
-alias ldo='ls -hFt ~/Downloads'
+alias lsd='ls -hFt ~/Downloads'
 
 # Set current directory ad default dir to new screen windows
 alias ....='cd ../../..'
