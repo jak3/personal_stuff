@@ -1,3 +1,5 @@
+SHELL = /bin/sh
+
 info:
 		find . -regex .+~
 		find . -name *.swp
@@ -6,36 +8,33 @@ del:
 		find . -name *.swp -delete
 install:
 		# Dir Colors
-		ln -s shell/dircolors ~/.dircolors
+		ln -sf shell/dircolors ~/.dircolors
 		# BashRC
-		ln -s bashrc ~/.bashrc
+		ln -sf bashrc ~/.bashrc
 		# Vim
-		ln -s vim/ ~/.vim
+		# TODO
 		# VimRC
-		ln -s vimrc ~/.vimrc
+		ln -sf vimrc ~/.vimrc
 		# Xinitc
-		ln -s X/xinitrc ~/.xinitrc
+		ln -sf X/xinitrc ~/.xinitrc
 		# Xdefaults
-		ln -s X/Xdefaults ~/.Xdefaults
+		ln -sf X/Xdefaults ~/.Xdefaults
 		# GDBinit
-		ln -s Gdbinit/gdbinit ~/.gdbinit
+		ln -sf Gdbinit/gdbinit ~/.gdbinit
 		# ScreenRC
-		ln -s screenrc ~/.screenrc
+		ln -sf screenrc ~/.screenrc
 		# LynxRC
-		ln -s lynxrc ~/.lynxrc
+		ln -sf lynxrc ~/.lynxrc
 		# PentadactylRC
-		ln -s pentadactylrc ~/.pentadactylrc
-		# Pentadactyl
-		ln -s X/pentadactyl ~/.pentadactyl
+		ln -sf pentadactylrc ~/.pentadactylrc
 		# Xmonad
-		ln -s xmonad/ ~/.xmonad/
-		# XmonadConky
-		ln -s xmonad/conky_dzen ~/.xmonad/.conky_dzen
+		ln -sf xmonad/ ~/.xmonad/
 		# Makefile
-		ln -s Makefile ~/Makefile
+		#ln -sf Makefile ~/Makefile
 		# Zsh Profile
-		ln -s zsh/zprofile ~/.zprofile
+		ln -sf zsh/zprofile ~/.zprofile
 		# ZshRC
-		ln -s zsh/zshrc ~/.zshrc
+		ln -sf zsh/zshrc ~/.zshrc
 		# git-prompt
-		ln -s zsh/gitstatus.py ~/.git-prompt/gitstatus.py
+		ln -sf zsh/gitstatus.py ~/.git-prompt/gitstatus.py
+		# TODO redshift,create directory

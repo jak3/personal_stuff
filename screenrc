@@ -26,18 +26,10 @@ bind P paste          .
 bind ~ activity       "activity in %n (%t) [%w:%s]~"
 bind * activity       "activity in %n (%t) [%w:%s]"
 
-# TERMCAP and TERMINFO
-#
-#  termcapinfo xterm     ti@:te@
-#  Matthias Kopfermann <matthias_kopfermann@gmx.de> [020222]:
-#  make the cursor show up in red:
-#  termcapinfo xterm "ve=\E[?25h\E[?17;0;64c"
-#  termcapinfo xterm Z0=\E[?3h:Z1=\E[?3l:is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l
-#
-#  termcapinfo linux "ve=\E[?25h\E[?17;0;64c"
+# Terminfo
+terminfo rxvt* 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
 
 # Caption is useful if you use often splitted windows
-#
 # caption always "%{wb}%n%f %t %{wk} %?%-Lw%?%{wb}[%n*%f %t]%?(%u)%?%{wk}%?%+Lw%? %{wk}"
 hardstatus alwayslastline '%{= dg} %H %{G}| %{B}%l %{G}|%=%?%{d}%-w%?%{r}(%{d}%n %t%? {%u} %?%{r})%{d}%?%+w%?%=%{G}| %{B}%M %d %c:%s '
 

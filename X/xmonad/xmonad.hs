@@ -66,7 +66,7 @@ main = do
       , focusedBorderColor  = "#FD971F"
       , borderWidth         = 1
       , startupHook         = setWMName "LG3D"
-}
+      }
 --}}}
 
 -- ManageHook {{{
