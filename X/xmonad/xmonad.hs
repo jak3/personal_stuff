@@ -78,7 +78,7 @@ mymanageHook = (composeAll . concat $
     , [className    =? c            --> doShift  "3:☕"      |   c   <- myVim    ]
     , [className    =? c            --> doShift	 "4:v"      |   c   <- myMisc   ]
     , [className    =? c            --> doShift	 "5:♪"      |   c   <- myMus    ]
-    , [className    =? c            --> doCenterFloat       |   c   <- myFloats ]
+    , [className    =? c            --> doShift  "8"        |   c   <- myFloats ]
     , [name         =? n            --> doCenterFloat       |   n   <- myNames  ]
     , [isFullscreen --> doFullFloat ]
     ])
@@ -89,7 +89,7 @@ mymanageHook = (composeAll . concat $
         name      = stringProperty "WM_NAME"
 
         -- classnames
-        myFloats  = ["Smplayer","MPlayer","VirtualBox","Xmessage","XFontSel","Downloads","Nm-connection-editor"]
+        myFloats  = ["Smplayer","MPlayer","Xmessage","XFontSel","Downloads","Nm-connection-editor", "ADT", "Eclipse"]
         myWww     = ["Firefox","Google-chrome","Google-chrome-stable","Chromium", "Chromium-browser", "Iceweasel", "Vidalia"]
         myMisc    = ["VirtualBox"]
         myDev	  = [""]
@@ -107,6 +107,7 @@ mymanageHook = (composeAll . concat $
 -- Layout
 mylayoutHook  = onWorkspaces ["1:main","5:♪"] customLayout $
                 onWorkspaces ["2:⚓","4:v"] customLayout2$
+                onWorkspaces ["8"] customLayout3$
                 customLayout
 
 customLayout = avoidStruts $ tiled ||| Mirror tiled ||| Full ||| simpleFloat
@@ -114,6 +115,10 @@ customLayout = avoidStruts $ tiled ||| Mirror tiled ||| Full ||| simpleFloat
     tiled   = ResizableTall 1 (2/100) (1/2) []
 
 customLayout2 = avoidStruts $ Full ||| tiled ||| Mirror tiled ||| simpleFloat
+  where
+    tiled   = ResizableTall 1 (2/100) (1/2) []
+
+customLayout3 = avoidStruts $ simpleFloat ||| tiled ||| Mirror tiled ||| Full
   where
     tiled   = ResizableTall 1 (2/100) (1/2) []
 
