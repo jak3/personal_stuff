@@ -10,10 +10,6 @@ let PAGER='' "ensure using vim's man and not the system one remapped in bashrc
 " Global Stuff
 "-------------------------------------------------------------------------------
 
-" Set filetype stuff to on
-filetype on
-filetype plugin indent on
-
 "
 "undodir file only to /tmp
 "
@@ -628,11 +624,14 @@ autocmd QuickFixCmdPost    l* nested lwindow
 autocmd BufWritePre * :%s/\s\+$//e
 
 " Section: Pathogen {{{
-" Get pathogen up and running
+
 execute pathogen#infect()
+syntax on
+filetype plugin indent on
 set completeopt=longest,menuone
 set wildmode=list:longest,list:full
 Helptags
+
 " }}}
 
 " Section: Syntastic {{{
