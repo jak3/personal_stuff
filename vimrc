@@ -177,7 +177,7 @@ let java_allow_cpp_keywords = 1
 " set makeprg
 nmap <Leader>ma :set makeprg=gcc\\ -Wall\\ -ggdb3\\ -o\\ %<\\ %
 " set makeprg
-nmap <Leader>mx :set makeprg=gcc\\ -Wall\\ -ggdb3\\ -std=c++0x\\ -fopenmp\\ -lstdc++\\ -o\\ %<\\ %
+nmap <Leader>mx :set makeprg=gcc\\ -Wall\\ -O3\\ -std=c++0x\\ -fopenmp\\ -lstdc++\\ -lm\\ -o\\ %<\\ %
 " set makeprg for test
 nmap <Leader>mt :set makeprg=gcc\\ -Wall\\ -ggdb3\\ -o\\ /tmp/%<\\ %
 " set makeprg for test with c99 standard
