@@ -41,7 +41,7 @@ fi
 
 ## Linux commangs
 alias ll="ls -l --group-directories-first"
-alias ls='ls -hFt --color=auto'  # add colors for filetype recognition
+alias ls='ls -hF --color=auto'  # add colors for filetype recognition
 alias lx='ls -lXB'         # sort by extension
 alias lk='ls -lSr'         # sort by size, biggest last
 alias lc='ls -ltcr'        # sort by and show change time, most recent last

@@ -12,7 +12,7 @@ git_push_all() {
 }
 
 save_dir() {
-	pwd > ~/.lastdir	
+	pwd > ~/.lastdir
 }
 
 cd_last_dir() {
@@ -22,7 +22,7 @@ cd_last_dir() {
 cd_and_ls() {
   cd $@
   if [[ $(ls -C | wc -l) -lt 80 ]] ; then
-    ls --color=auto -X
+    ls --color=auto -hFt
   else
     echo -e "\e[0;31mLots of items...\e[0m"
   fi
@@ -67,7 +67,7 @@ function fstr()
     return;
     fi
     find . -type f -name "${2:-*}" -print0 | \
-    xargs -0 egrep --color=always -sn ${case} "$1" 2>&- | more 
+    xargs -0 egrep --color=always -sn ${case} "$1" 2>&- | more
 }
 
 function lowercase()  # move filenames to lowercase
@@ -92,13 +92,13 @@ function lowercase()  # move filenames to lowercase
 
 function swap()  # Swap 2 filenames around, if they exist
 {                #(from Uzi's bashrc).
-    local TMPFILE=tmp.$$ 
+    local TMPFILE=tmp.$$
 
     [ $# -ne 2 ] && echo "swap: 2 arguments needed" && return 1
     [ ! -e $1 ] && echo "swap: $1 does not exist" && return 1
     [ ! -e $2 ] && echo "swap: $2 does not exist" && return 1
 
-    mv "$1" $TMPFILE 
+    mv "$1" $TMPFILE
     mv "$2" "$1"
     mv $TMPFILE "$2"
 }
@@ -174,7 +174,7 @@ function get_xserver ()
 {
     case $TERM in
         xterm )
-            XSERVER=$(whoami | awk '{print $NF}' | tr -d ')''(' ) 
+            XSERVER=$(whoami | awk '{print $NF}' | tr -d ')''(' )
             # Ane-Pieter Wieringa suggests the following alternative:
             # I_AM=$(whoami)
             # SERVER=${I_AM#*(}
@@ -185,8 +185,8 @@ function get_xserver ()
         aterm | rxvt)
             # Find some code that works here. ...
             ;;
-    esac  
+    esac
 }
 ## My _dirty_ sudo alternative
 function sudo(){ su; $*; }
- 
+
