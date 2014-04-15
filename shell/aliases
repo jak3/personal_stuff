@@ -35,6 +35,7 @@ if [ $SHELL = '/bin/zsh' ];then
     #{{{ Globals...
     alias -g G="| grep"
     alias -g L="| less"
+    alias -g C="| xsel -b"
     #}}}
     alias su='su -s /bin/zsh'
 fi
