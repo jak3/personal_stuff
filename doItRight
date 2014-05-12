@@ -1,0 +1,24 @@
+# [Stampa] ---------------------------------------------------------------------
+/etc/rc.d/rc.cups start # deamon, go to localhost:631
+# in localhost use the ppd from cups! not the epson one
+lpstat -p -d            # see prints
+lpoptions -d epson      # set default print
+# print with vim, set before lpoptions and after use :hardcopy
+
+#CLI rocks:
+lp -d [PrinterName] -o landscape -o media=A4 -o \
+sides=two-sided-short-edge -o page-ranges=5-29 -o number-up=2 [FileName]
+
+# [X window class name ] -------------------------------------------------------
+xprop
+
+# [SD/MMC autoload module] -----------------------------------------------------
+modprobe mmc_block
+# [HDMI output] ----------------------------------------------------------------
+1) config file to edit:     /etc/asound.conf
+                            $HOME/.asoundrc
+2) alsamixer unmute s/PDIF, press 'm' when selected
+    if not see s/PDIF press |F5|
+3) restart alsa             /etc/rc.d/rc.alsa restart
+
+NB: if you have already started firefox, restart it!
