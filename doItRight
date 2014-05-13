@@ -15,6 +15,10 @@ xprop
 # [SD/MMC autoload module] -----------------------------------------------------
 modprobe mmc_block
 # [HDMI output] ----------------------------------------------------------------
+Created an udev rule /etc/udev/rules.d/hdmi.rules
+Using                /etc/alsa/hdmi-switch                  works automatically.
+Hand steps:
+
 1) config file to edit:     /etc/asound.conf
                             $HOME/.asoundrc
 2) alsamixer unmute s/PDIF, press 'm' when selected

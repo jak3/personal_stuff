@@ -38,27 +38,26 @@ flags = [
 '-Wall',
 '-Wextra',
 '-Werror',
-'-Wc++98-compat',
-'-Wno-long-long',
-'-Wno-variadic-macros',
-'-fexceptions',
-'-DNDEBUG',
+#'-Wc++98-compat',
+#'-Wno-long-long',
+#'-Wno-variadic-macros',
+#'-fexceptions',
+#'-DNDEBUG',
 # You 100% do NOT need -DUSE_CLANG_COMPLETER in your flags; only the YCM
 # source code needs it.
-'-DUSE_CLANG_COMPLETER',
+#'-DUSE_CLANG_COMPLETER',
 # THIS IS IMPORTANT! Without a "-std=<something>" flag, clang won't know which
 # language to use when compiling headers. So it will guess. Badly. So C++
 # headers will be compiled as C headers. You don't want that so ALWAYS specify
 # a "-std=<something>".
-# For a C project, you would set this to something like 'c99' instead of
-# 'c++11'.
-'-std=c++11',
+'-std=c11',
+#'-std=c++11',
 # ...and the same thing goes for the magic -x option which specifies the
 # language that the files to be compiled are written in. This is mostly
 # relevant for c++ headers.
-# For a C project, you would set this to 'c' instead of 'c++'.
 '-x',
-'c++',
+'c',
+#'c++',
 '-isystem',
 '~/.vim/bundle/YouCompleteMe/cpp/BoostParts',
 '-isystem',
@@ -69,22 +68,15 @@ flags = [
 '.',
 '-I',
 '~/.vim/bundle/YouCompleteMe/cpp/ycm/ClangCompleter',
+#Founded these paths with : gcc -E -x c - -v < /dev/null
 '-isystem',
 '/usr/include',
 '-isystem',
 '/usr/local/include',
 '-isystem',
-'/usr/lib/qt/include',
+'/usr/lib64/gcc/x86_64-slackware-linux/4.8.2/include',
 '-isystem',
-'/usr/lib/gcc/i486-slackware-linux/4.8.2/../../../../include/c++/4.8.2',
-'-isystem',
-'/usr/lib/gcc/i486-slackware-linux/4.8.2/../../../../include/c++/4.8.2/i486-slackware-linux',
-'-isystem',
-'/usr/lib/gcc/i486-slackware-linux/4.8.2/../../../../include/c++/4.8.2/backward',
-'-isystem',
-'/usr/lib/gcc/i486-slackware-linux/4.8.2/include',
-'-isystem',
-'/usr/lib/gcc/i486-slackware-linux/4.8.2/include-fixed'
+'/usr/lib64/gcc/x86_64-slackware-linux/4.8.2/include-fixed',
 ]
 
 
