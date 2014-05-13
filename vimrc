@@ -474,7 +474,7 @@ function! AppendModeline()
   let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
   call append(line("$"), l:modeline)
 endfunction
-nnoremap <silent> <Leader>mo :call AppendModeline()<CR>
+nnoremap <silent> <Leader>eo :call AppendModeline()<CR>
 
 " fill rest of line with characters
 function! FillLine( str )
