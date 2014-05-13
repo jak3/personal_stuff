@@ -170,19 +170,14 @@ let mapleader = ","
 " Let the syntax highlighting for Java files allow cpp keywords
 let java_allow_cpp_keywords = 1
 
-" set makeprg
+" set makeprg ELF
 nmap <Leader>ma :set makeprg=gcc\\ -Wall\\ -ggdb3\\ -o\\ %<\\ %
-" set makeprg
-nmap <Leader>mx :set makeprg=gcc\\ -Wall\\ -O3\\ -std=c++0x\\ -fopenmp\\ -lstdc++\\ -lm\\ -o\\ %<\\ %
-" set makeprg g++
+nmap <Leader>mx :set makeprg=gcc\\ -Wall\\ -O3\\ -std=c++11\\ -fopenmp\\ -lstdc++\\ -lm\\ -o\\ %<\\ %
+nmap <Leader>mo :set makeprg=gcc\\ -Wall\\ -O3\\ -std=c11\\ -fopenmp\\ -o\\ %<\\ %
 nmap <Leader>m+ :set makeprg=g++\\ -g3\\ -ggdb\\ -O0\\ -Wall\\ -Wextra\\ -Wno-unused\\ -o\\ %<\\ %\\ -lcryptopp
-" set makeprg for test
-nmap <Leader>mt :set makeprg=gcc\\ -Wall\\ -ggdb3\\ -o\\ /tmp/%<\\ %
-" set makeprg for test with c99 standard
-nmap <Leader>m9 :set makeprg=gcc\\ -Wall\\ -std=c99\\ -ggdb3\\ -o\\ /tmp/%<\\ %
-" set makeprg for mingw64
+nmap <Leader>mt :set makeprg=gcc\\ -Wall\\ -std=c11\\ -ggdb3\\ -o\\ /tmp/%<\\ %
+" set makeprg EXE
 nmap <Leader>m6 :set makeprg=/opt/mingw-w64-x86_64/bin/x86_64-w64-mingw32-gcc\\ -m32\\ -o\\ %<.exe\\ %
-" set makeprg for mingw
 nmap <Leader>mw :set makeprg=/opt/mingw-w64-i686/bin/i686-w64-mingw32-gcc\\ -o\\ %<.exe\\ %
 
 " tags
