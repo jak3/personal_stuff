@@ -79,3 +79,6 @@
 [submodule "vim/bundle/python-mode"]
 	path = vim/bundle/python-mode
 	url = git://github.com/klen/python-mode.git
+[submodule "vim/bundle/VisIncr"]
+	path = vim/bundle/VisIncr
+	url = https://github.com/vim-scripts/VisIncr.git
