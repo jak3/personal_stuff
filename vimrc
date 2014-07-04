@@ -109,6 +109,12 @@ set history=100
 " These commands open folds
 set foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
 
+" Max nested fold
+set foldnestmax=3
+
+" Set fmd to syntax
+set foldmethod=syntax
+
 " When the page starts to scroll, keep the cursor 8 lines from the top and 8
 " lines from the bottom
 set scrolloff=8
@@ -172,7 +178,7 @@ let java_allow_cpp_keywords = 1
 
 " set makeprg ELF
 nmap <Leader>ma :set makeprg=gcc\\ -Wall\\ -ggdb3\\ -o\\ %<\\ %
-nmap <Leader>mx :set makeprg=gcc\\ -Wall\\ -O3\\ -std=c++11\\ -fopenmp\\ -lstdc++\\ -lm\\ -o\\ %<\\ %
+nmap <Leader>mx :set makeprg=g++\\ -Wall\\ -O3\\ -std=c++11\\ -fopenmp\\ -lstdc++\\ -lm\\ -o\\ %<\\ %
 nmap <Leader>mo :set makeprg=gcc\\ -Wall\\ -O3\\ -std=c11\\ -fopenmp\\ -o\\ %<\\ %
 nmap <Leader>m+ :set makeprg=g++\\ -g3\\ -ggdb\\ -O0\\ -Wall\\ -Wextra\\ -Wno-unused\\ -o\\ %<\\ %\\ -lcryptopp
 nmap <Leader>mt :set makeprg=gcc\\ -Wall\\ -std=c11\\ -ggdb3\\ -o\\ /tmp/%<\\ %
@@ -258,13 +264,13 @@ nmap <silent> <Leader>S :w!<cr>:!aspell check %<cr>:e! <cr>
 nmap <silent> gw :s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>`'
 
 " Underline the current line with '='
-nmap <silent> <Leader>uL :t.\|s/\\S/=/g\|:nohls<cr>
+nmap <silent> <Leader>uL :t.\|s/./=/g\|:nohls<cr>
 
 " Underline the current line with '-'
-nmap <silent> <Leader>ul :t.\|s/\\S/-/g\|:nohls<cr>
+nmap <silent> <Leader>ul :t.\|s/./-/g\|:nohls<cr>
 
 " Underline the current line with '~'
-nmap <silent> <Leader>ut :t.\|s/\\S/\\~/g\|:nohls<cr>
+nmap <silent> <Leader>ut :t.\|s/./\\~/g\|:nohls<cr>
 
 " Shrink the current window to fit the number of lines in the buffer. Useful
 " for those buffers that are only a few lines
