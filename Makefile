@@ -20,7 +20,7 @@ install:
 		# Xdefaults
 		ln -sf personal_stuff/X/Xdefaults ~/.Xdefaults
 		# GDBinit
-		ln -sf personal_stuff/Gdbinit/gdbinit ~/.gdbinit
+		ln -sf personal_stuff/gdb/Gdbinit/gdbinit ~/.gdbinit
 		# ScreenRC
 		ln -sf personal_stuff/screenrc ~/.screenrc
 		# LynxRC
