@@ -29,3 +29,5 @@ NB: if you have already started firefox, restart it!
 # [RENAME files] zsh way
 autoload -U zmv
 zmv '(*) - (*).mp3' '$2.mp3'
+# system time date hwclock
+hwclock
