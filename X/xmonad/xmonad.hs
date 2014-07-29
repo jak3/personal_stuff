@@ -23,7 +23,7 @@ import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.EwmhDesktops
 
-import XMonad.Layout.NoBorders (smartBorders, noBorders)
+import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace (onWorkspace, onWorkspaces)
 import XMonad.Layout.Reflect (reflectHoriz)
 import XMonad.Layout.IM
@@ -59,7 +59,7 @@ main = do
       , workspaces          = myWorkspaces
       , keys                = mykeys
       , modMask             = mymodMask
-      , layoutHook          = mylayoutHook
+      , layoutHook          = lessBorders OnlyFloat $ mylayoutHook
       , manageHook          = mymanageHook
       , logHook = myLogHook xmproc
       , normalBorderColor   = "#CCCCC6"
