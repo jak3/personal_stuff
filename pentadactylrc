@@ -5,7 +5,7 @@
 " License       : GPLv3
 "-------------------------------------------------------------------------------
 
-set go=CrsN
+set go=NsrT
 set showtabline=multitab
 
 "Mapping
@@ -101,4 +101,4 @@ hi -a BufTabSelected        color:#2e3330; background-color:#88b090; padding:0 4
 hi -a BufTabs               margin:0 4px; overflow:hidden;
 hi -a BufTab                padding:0 2px;
 
-" vim: set ft=pentadactyl:ts=4:sw=4:tw=0: 
+" vim: set ft=pentadactyl:ts=4:sw=4:tw=0:
