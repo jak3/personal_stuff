@@ -5,7 +5,7 @@
 " License       : GPLv3
 "-------------------------------------------------------------------------------
 
-set go=NsrT
+set go=NsrC
 set showtabline=multitab
 
 "Mapping
