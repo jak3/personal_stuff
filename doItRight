@@ -31,3 +31,5 @@ autoload -U zmv
 zmv '(*) - (*).mp3' '$2.mp3'
 # system time date hwclock
 hwclock
+# [backup]
+rsync -uvaHr --delete --progress --stats ~ slackware64-current
