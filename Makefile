@@ -1,5 +1,3 @@
-SHELL = /bin/sh
-
 info:
 		find . -regex .+~
 		find . -name *.swp
