@@ -8,33 +8,32 @@ del:
 		find . -name *.swp -delete
 install:
 		# Dir Colors
-		ln -sf personal_stuff/shell/dircolors ~/.dircolors
+		ln -sf $STUFF/shell/dircolors ~/.dircolors
 		# BashRC
-		ln -sf personal_stuff/bashrc ~/.bashrc
+		ln -sf $STUFF/bashrc ~/.bashrc
 		# Vim
-		# TODO
+		ln -sf $STUFF/vim ~/.vim
 		# VimRC
-		ln -sf personal_stuff/vimrc ~/.vimrc
+		ln -sf $STUFF/vimrc ~/.vimrc
 		# Xinitc
-		ln -sf personal_stuff/X/xinitrc ~/.xinitrc
+		ln -sf $STUFF/X/xinitrc ~/.xinitrc
 		# Xdefaults
-		ln -sf personal_stuff/X/Xdefaults ~/.Xdefaults
+		ln -sf $STUFF/X/Xdefaults ~/.Xdefaults
 		# GDBinit
-		ln -sf personal_stuff/gdb/Gdbinit/gdbinit ~/.gdbinit
+		ln -sf $STUFF/gdb/Gdbinit/gdbinit ~/.gdbinit
 		# ScreenRC
-		ln -sf personal_stuff/screenrc ~/.screenrc
+		ln -sf $STUFF/screenrc ~/.screenrc
 		# LynxRC
-		ln -sf personal_stuff/lynxrc ~/.lynxrc
+		ln -sf $STUFF/lynxrc ~/.lynxrc
 		# PentadactylRC
-		ln -sf personal_stuff/pentadactylrc ~/.pentadactylrc
+		ln -sf $STUFF/pentadactylrc ~/.pentadactylrc
 		# Xmonad
-		ln -sf personal_stuff/xmonad/ ~/.xmonad/
-		# Makefile
-		#ln -sf Makefile ~/Makefile
+		ln -sf $STUFF/xmonad/ ~/.xmonad/
 		# Zsh Profile
-		ln -sf personal_stuff/zsh/zprofile ~/.zprofile
+		ln -sf $STUFF/zsh/zprofile ~/.zprofile
 		# ZshRC
-		ln -sf personal_stuff/zsh/zshrc ~/.zshrc
+		ln -sf $STUFF/zsh/zshrc ~/.zshrc
 		# git-prompt
-		ln -sf personal_stuff/zsh/gitstatus.py ~/.git-prompt/gitstatus.py
+		mkdir -p ~/.git-prompt
+		ln -sf $STUFF/zsh/gitstatus.py ~/.git-prompt/gitstatus.py
 		# TODO redshift,create directory
