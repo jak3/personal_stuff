@@ -1,0 +1,21 @@
+% ls-R -- filename database for kpathsea; do not change this line.
+./:
+.:
+doc
+ls-R
+lsR.kd0Asj
+tex
+
+./doc:
+lipsum
+
+./doc/lipsum:
+lipsum.pdf
+
+./lsR.kd0Asj:
+
+./tex:
+lipsum
+
+./tex/lipsum:
+lipsum.sty
