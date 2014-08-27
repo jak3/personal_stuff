@@ -4,6 +4,9 @@ info:
 del:
 		find . -regex .+~ -delete
 		find . -name *.swp -delete
+
+# Software needed: zsh, vim, git, rxvt-unicode, xmonad, xmobar, redshift, feh,
+# xsel, xpdf, xscreensaver
 install:
 		# Dir Colors
 		ln -sf $STUFF/shell/dircolors ~/.dircolors
@@ -34,4 +37,7 @@ install:
 		# git-prompt
 		mkdir -p ~/.git-prompt
 		ln -sf $STUFF/zsh/gitstatus.py ~/.git-prompt/gitstatus.py
-		# TODO redshift,create directory
+		# xpdf
+		ln -sf $STUFF/xpdfrc $HOME/.xpdfrc
+
+		# TODO redshift
