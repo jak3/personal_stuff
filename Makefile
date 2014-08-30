@@ -7,6 +7,7 @@ del:
 
 # Software needed: zsh, vim, git, rxvt-unicode, xmonad, xmobar, redshift, feh,
 # xsel, xpdf, xscreensaver
+# Slackware x86_64 multilib: follow alien's multilib README
 install:
 		# Dir Colors
 		ln -sf $STUFF/shell/dircolors ~/.dircolors
