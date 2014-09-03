@@ -633,6 +633,7 @@ syntax on
 filetype plugin indent on
 set completeopt=longest,menuone
 set wildmode=list:longest,list:full
+
 Helptags
 
 " }}}
