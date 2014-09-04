@@ -524,6 +524,10 @@ command! FreemindToList call FreemindToListF()
 "-------------------------------------------------------------------------------
 " Auto commands
 "-------------------------------------------------------------------------------
+
+" Auto-spell load with file like md, unibo, tex
+autocmd BufRead,BufNewFile *.md,*.unibo,*.tex setlocal spell spelllang=en_us,it_utf8
+
 augroup derek_xsd
     au!
     au BufEnter *.xsd,*.wsdl,*.xml setl tabstop=4 shiftwidth=4
