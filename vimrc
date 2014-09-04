@@ -526,7 +526,7 @@ command! FreemindToList call FreemindToListF()
 "-------------------------------------------------------------------------------
 
 " Auto-spell load with file like md, unibo, tex
-autocmd BufRead,BufNewFile *.md,*.unibo,*.tex setlocal spell spelllang=en_us,it_utf8
+autocmd BufRead,BufNewFile *.md,*.unibo,*.tex setlocal spell spelllang=en_us,it
 
 augroup derek_xsd
     au!
