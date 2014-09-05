@@ -20,35 +20,30 @@
 #
 #========================================================================
 
-#----- text output control
-
 # Choose a text encoding for copy-and-paste and for pdftotext output.
 # The Latin1, ASCII7, and UTF-8 encodings are built into Xpdf.  Other
 # encodings are available in the language support packages.
-
 textEncoding		UTF-8
 
 # Choose the end-of-line convention for multi-line copy-and-past and
 # for pdftotext output.  The available options are unix, mac, and dos.
-
 textEOL		unix
 
-#----- misc settings
-
 # Enable t1lib, FreeType, and anti-aliased text.
-
 enableFreeType		yes
 antialias		yes
 
 # Set the command used to run a web browser when a URL hyperlink is
 # clicked.
-
 urlCommand	"firefox %s"
+initialZoom width
+continuosView yes
 
 #----- keys
-
 bind h any scrollLeft(16)
 bind l any scrollRight(16)
 bind k any scrollUp(16)
 bind j any scrollDown(16)
 bind / any find
+bind ctrl-d any pgdn
+bind ctrl-u any pgup
