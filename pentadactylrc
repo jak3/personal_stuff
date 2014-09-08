@@ -24,7 +24,8 @@ map ,t    :tabopen http://translate.google.it/#en|it|
 map ,T    :tabopen http://translate.google.it/#it|en|
 map ,d    :tabopen http://dictionary.reference.com/browse/
 map ,u    :tabopen http://www.urbandictionary.com/define.php?term=
-map ,i    :tabopen http://www.irssi.org/documentation<CR>
+map ,I    :tabopen http://www.irssi.org/documentation<CR>
+map ,i    :tabopen http://www.treccani.it/vocabolario/
 map ,a    :tabopen http://www.asciitable.com/index/asciifull.gif<CR>
 map ,v    :tabopen http://www.virginradio.it/webradio/virgin-fm/<CR>
 map ,V    :tabopen http://www.virginradio.it/webradio/virgin-hard-rock/<CR>
