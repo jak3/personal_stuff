@@ -10,35 +10,36 @@ del:
 # Slackware x86_64 multilib: follow alien's multilib README
 install:
 		# Dir Colors
-		ln -sf $STUFF/shell/dircolors ~/.dircolors
+		ln -sf ${STUFF}/shell/dircolors ~/.dircolors
 		# BashRC
-		ln -sf $STUFF/bashrc ~/.bashrc
+		ln -sf ${STUFF}/bashrc ~/.bashrc
 		# Vim
-		ln -sf $STUFF/vim ~/.vim
+		ln -sf ${STUFF}/vim ~/.vim
 		# VimRC
-		ln -sf $STUFF/vimrc ~/.vimrc
+		ln -sf ${STUFF}/vimrc ~/.vimrc
 		# Xinitc
-		ln -sf $STUFF/X/xinitrc ~/.xinitrc
+		ln -sf ${STUFF}/X/xinitrc ~/.xinitrc
 		# Xdefaults
-		ln -sf $STUFF/X/Xdefaults ~/.Xdefaults
+		ln -sf ${STUFF}/X/Xdefaults ~/.Xdefaults
 		# GDBinit
-		ln -sf $STUFF/gdb/Gdbinit/gdbinit ~/.gdbinit
+		ln -sf ${STUFF}/gdb/Gdbinit/gdbinit ~/.gdbinit
 		# ScreenRC
-		ln -sf $STUFF/screenrc ~/.screenrc
+		ln -sf ${STUFF}/screenrc ~/.screenrc
 		# LynxRC
-		ln -sf $STUFF/lynxrc ~/.lynxrc
+		ln -sf ${STUFF}/lynxrc ~/.lynxrc
 		# PentadactylRC
-		ln -sf $STUFF/pentadactylrc ~/.pentadactylrc
+		ln -sf ${STUFF}/pentadactylrc ~/.pentadactylrc
 		# Xmonad
-		ln -sf $STUFF/xmonad/ ~/.xmonad/
+		mkdir -p ~/.xmonad
+		ln -sf ${STUFF}/xmonad/ ~/.xmonad/
 		# Zsh Profile
-		ln -sf $STUFF/zsh/zprofile ~/.zprofile
+		ln -sf ${STUFF}/zsh/zprofile ~/.zprofile
 		# ZshRC
-		ln -sf $STUFF/zsh/zshrc ~/.zshrc
+		ln -sf ${STUFF}/zsh/zshrc ~/.zshrc
 		# git-prompt
 		mkdir -p ~/.git-prompt
-		ln -sf $STUFF/zsh/gitstatus.py ~/.git-prompt/gitstatus.py
+		ln -sf ${STUFF}/zsh/gitstatus.py ~/.git-prompt/gitstatus.py
 		# xpdf
-		ln -sf $STUFF/xpdfrc $HOME/.xpdfrc
+		ln -sf ${STUFF}/xpdfrc ~/.xpdfrc
 
 		# TODO redshift
