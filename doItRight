@@ -33,3 +33,9 @@ zmv '(*) - (*).mp3' '$2.mp3'
 hwclock
 # [backup]
 rsync -uvaHr --delete --progress --stats ~ slackware64-current
+# isoTOusb
+isohybrid slackware-13.1-install-dvd.iso
+dd if=slackware-13.1-install-dvd.iso of=/dev/sdX
+PS1. dd expects the name of a device, not a partition, so you should use eg.
+/dev/sdb instead of /dev/sdb1.  PS2. the USB drive should NOT be mounted during
+dd invocation.
