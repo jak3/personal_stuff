@@ -1,14 +1,29 @@
 "-------------------------------------------------------------------------------
-" This .vimrc was made from Derek Wyatt's template. You should visited his site
-" if you love vim : derekwyatt.org
-" Author        : jake
+" .vimrc made from Derek Wyatt's template. Visit him site derekwyatt.org if you
+" love vim. Have a look at github.com/tpope too
+"
 " License       : GPLv3
 "-------------------------------------------------------------------------------
 let PAGER='' "ensure using vim's man and not the system one remapped in bashrc
 
-"-------------------------------------------------------------------------------
-" Global Stuff
-"-------------------------------------------------------------------------------
+" Section: Pathogen {{{
+
+if filereadable(expand('~/personal_stuff/vim/bundle/vim-pathogen/autoload/pathogen.vim'))
+    source ~/personal_stuff/vim/bundle/vim-pathogen/autoload/pathogen.vim
+endif
+silent! execute pathogen#infect("~/personal_stuff/vim/bundle/{}")
+
+syntax on
+filetype plugin indent on
+set completeopt=longest,menuone
+set wildmode=list:longest,list:full
+
+Helptags
+
+" }}}
+
+" Section: Options {{{
+let mapleader = ","
 
 "
 "undodir file only to /tmp
@@ -25,18 +40,16 @@ set backupdir-=.
 set backupdir^=/tmp/filebackups
 
 " Tabstops are 4 spaces
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 set expandtab
 set autoindent
 
 " Printing options
 set printoptions=header:0,paper:letter
-
 " set the search scan to wrap lines
 set wrapscan
-
 " I'm happy to type the case of things. I tried the ignorecase, smartcase
 " thing but it just wasn't working out for me
 set noignorecase
@@ -46,48 +59,36 @@ set shellslash
 if has("unix")
     set shell=bash
 else
-    set shell=ksh.exe
+    set shell=zsh.exe
 endif
 
 " Make command line two lines high
 set ch=2
-
 " set visual bell -- i hate that damned beeping
 set vb
-
 " Allow backspacing over indent, eol, and the start of an insert
 set backspace=2
-
 " Make sure that unsaved buffers that are to be put in the background are
 " allowed to go in there (ie. the "must save first" error doesn't come up)
 set hidden
-
 " Make the 'cw' and like commands put a $ at the end instead of just deleting
 " the text and replacing it
 set cpoptions=ces$
-
 " Set the status line the way i like it
 set stl=%f\ %m\ %r\ Line:%l/%L[%p%%]\ Col:%v\ Buf:#%n\ [%b][0x%B]
-
 " tell VIM to always put a status line in, even if there is only one window
 set laststatus=2
-
 " Don't update the display while executing macros
 set lazyredraw
-
 " Don't show the current command in the lower right corner. In OSX, if this is
 " set and lazyredraw is set then it's slow as molasses, so we unset this
 set showcmd
-
 " Show the current mode
 set showmode
-
 " Hide the mouse pointer while typing
 set mousehide
-
 " Set up the gui cursor to look nice
 set guicursor=n-v-c:block-Cursor-blinkon0,ve:ver35-Cursor,o:hor50-Cursor,i-ci:ver25-Cursor,r-cr:hor20-Cursor,sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
-
 " set the gui options the way I like
 set guioptions=acg
 
@@ -102,74 +103,54 @@ set guioptions=acg
 " timeout expires, one of two things happens: The "," command is executed
 " if there is one (which there isn't) or the command aborts.
 set timeoutlen=800
-
 " Keep some stuff in the history
 set history=100
-
 " These commands open folds
 set foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
-
 " Max nested fold
-set foldnestmax=3
-
+set foldnestmax=4
 " Set fmd to syntax
 set foldmethod=syntax
-
 " When the page starts to scroll, keep the cursor 8 lines from the top and 8
 " lines from the bottom
 set scrolloff=8
-
 " Allow the cursor to go in to "invalid" places
 set virtualedit=all
-
 " Disable encryption (:X)
 set key=
-
 " Make the command-line completion better
 set wildmenu
-
 " Make it easier to complete buffers, open files, etc...
 set wildignorecase
-
 " dictionary for english words
 set dictionary=/usr/share/dict/*
-
 " Same as default except that I remove the 'u' option
 set complete=.,w,b,t,i,d
-
 " When completing by tag, show the whole tag, not just the function name
 set showfulltag
-
 " Set the textwidth to be 80 chars
 set textwidth=80
-
 " get rid of the silly characters in separators
 set fillchars = ""
-
 " Add ignorance of whitespace to diff
 set diffopt+=iwhite
-
 " Enable search highlighting
 set hlsearch
-
 " Incrementally match the search
 set incsearch
-
 " Add the unnamed register to the clipboard
 set clipboard+=unnamed
-
 " Automatically read a file that has changed on disk
 set autoread
 
 set grepprg=grep\ -nH\ $*
 
-" System default for mappings is now the "," character
-let mapleader = ","
-
 " Trying out the line numbering thing... never liked it, but that doesn't mean
 " I shouldn't give it another go :)
 "set number
-"set relativenumber
+set relativenumber
+
+" }}}
 
 " Help Coding ------------------------------------------------------------------
 
@@ -631,18 +612,6 @@ autocmd QuickFixCmdPost    l* nested lwindow
 " automatically remove all trailing whitespace before saving.
 autocmd BufWritePre * :%s/\s\+$//e
 
-" Section: Pathogen {{{
-
-execute pathogen#infect()
-syntax on
-filetype plugin indent on
-set completeopt=longest,menuone
-set wildmode=list:longest,list:full
-
-Helptags
-
-" }}}
-
 " Section: Syntastic {{{
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
@@ -720,7 +689,6 @@ function! LaTeXvim()
    let g:Tex_FormatDependency_pdf = 'dvi,pdf'
    let g:Tex_CompileRule_pdf = 'pdflatex %'
    let g:Tex_ViewRule_pdf = 'xpdf %:r.pdf'
-   let g:Tex_ViewRuleComplete_pdf = 'xpdf %:r.pdf'
    " Set the target format to pdf.
    let g:Tex_DefaultTargetFormat = 'pdf'
    " Set the warning messages to ignore.
