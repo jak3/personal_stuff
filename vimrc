@@ -526,7 +526,8 @@ command! FreemindToList call FreemindToListF()
 "-------------------------------------------------------------------------------
 
 " Auto-spell load with file like md, unibo, tex
-autocmd BufRead,BufNewFile *.md,*.unibo,*.tex setlocal spell spelllang=en_us,it
+autocmd BufRead,BufNewFile *.md,*.unibo,*.tex setl spell spelllang=en_us,it
+autocmd BufRead,BufNewFile *.tex setl ft=tex
 
 augroup derek_xsd
     au!
@@ -694,14 +695,15 @@ augroup END
 " }}}
 
 " Section: tagbar {{{
-nnoremap <silent> <F8> :TagbarToggle<CR>
+"nnoremap <silent> <F8> :TagbarToggle<CR>
 " }}}
 " Section: cvim {{{
 let  g:C_UseTool_cmake    = 'yes'
 let  g:C_UseTool_doxygen = 'yes'
 " }}}
+
 " Section: vim-latex {{{
-function! Latexvim()
+function! LaTeXvim()
    set grepprg=grep\ -nH\ $*
    let g:tex_flavor='latex'
 
@@ -716,8 +718,9 @@ function! Latexvim()
 
    " others TIPS
    let g:Tex_FormatDependency_pdf = 'dvi,pdf'
-   let g:Tex_CompileRule_pdf = 'dvipdf $*.dvi; xpdf -remote 127.0.0.1 -reload -raise'
-   let g:Tex_ViewRule_pdf = 'xpdf -remote 127.0.0.1'
+   let g:Tex_CompileRule_pdf = 'pdflatex @%'
+   let g:Tex_ViewRule_pdf = 'xpdf %:r.pdf'
+   let g:Tex_ViewRuleComplete_pdf = 'xpdf %:r.pdf'
    " Set the target format to pdf.
    let g:Tex_DefaultTargetFormat = 'pdf'
    " Set the warning messages to ignore.
@@ -735,8 +738,8 @@ function! Latexvim()
 endfunction
 augroup jake_vimlatex
     au!
-    au FileType tex call Latexvim()
+    au FileType tex call LaTeXvim()
 augroup END
 "" }}}
-"
+
 "EOF vim: set ts=4 sw=4 tw=80 :

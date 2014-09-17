@@ -3,7 +3,7 @@
 .:
 doc
 ls-R
-lsR.kd0Asj
+lsR.puZBJI
 tex
 
 ./doc:
@@ -12,7 +12,7 @@ lipsum
 ./doc/lipsum:
 lipsum.pdf
 
-./lsR.kd0Asj:
+./lsR.puZBJI:
 
 ./tex:
 lipsum
