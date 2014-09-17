@@ -718,7 +718,7 @@ function! LaTeXvim()
 
    " others TIPS
    let g:Tex_FormatDependency_pdf = 'dvi,pdf'
-   let g:Tex_CompileRule_pdf = 'pdflatex @%'
+   let g:Tex_CompileRule_pdf = 'pdflatex %'
    let g:Tex_ViewRule_pdf = 'xpdf %:r.pdf'
    let g:Tex_ViewRuleComplete_pdf = 'xpdf %:r.pdf'
    " Set the target format to pdf.
