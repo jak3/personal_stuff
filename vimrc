@@ -671,10 +671,23 @@ let  g:C_UseTool_cmake    = 'yes'
 let  g:C_UseTool_doxygen = 'yes'
 " }}}
 
+" Section: UltiSnips {{{
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<C-e>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+" }}}
+
 " Section: vim-latex {{{
 function! LaTeXvim()
    set grepprg=grep\ -nH\ $*
    let g:tex_flavor='latex'
+   nmap <leader>lk :!xpdf %:r.pdf&<cr>
 
    " this is mostly a matter of taste. but LaTeX looks good with just a bit of
    " indentation.
