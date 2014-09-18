@@ -568,9 +568,6 @@ iab Fone Phone
 " Enable 256 colors
 set t_Co=256
 
-" Switch on syntax highlighting.
-syntax on
-
 " Syntax coloring lines that are too long just slows down the world
 set synmaxcol=2048
 
@@ -663,9 +660,6 @@ augroup derek_twitvim
 augroup END
 " }}}
 
-" Section: tagbar {{{
-"nnoremap <silent> <F8> :TagbarToggle<CR>
-" }}}
 " Section: cvim {{{
 let  g:C_UseTool_cmake    = 'yes'
 let  g:C_UseTool_doxygen = 'yes'
@@ -687,7 +681,7 @@ let g:UltiSnipsEditSplit="vertical"
 function! LaTeXvim()
    set grepprg=grep\ -nH\ $*
    let g:tex_flavor='latex'
-   nmap <leader>lk :!xpdf %:r.pdf&<cr>
+   nmap <leader>lk :!xpdf %:r.pdf<cr>
 
    " this is mostly a matter of taste. but LaTeX looks good with just a bit of
    " indentation.
