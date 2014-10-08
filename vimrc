@@ -508,7 +508,11 @@ command! FreemindToList call FreemindToListF()
 
 " Auto-spell load with file like md, unibo, tex
 autocmd BufRead,BufNewFile *.md,*.unibo,*.tex setl spell spelllang=en_us,it
-autocmd BufRead,BufNewFile *.tex setl ft=tex
+augroup jk_tex
+    au!
+    autocmd BufRead,BufNewFile *.tex setl ft=tex
+    autocmd FileType tex command! Makepdf !pdflatex -interaction=nonstopmode %
+augroup END
 
 augroup derek_xsd
     au!
@@ -676,45 +680,5 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:UltiSnipsEditSplit="vertical"
 
 " }}}
-
-" Section: vim-latex {{{
-function! LaTeXvim()
-   set grepprg=grep\ -nH\ $*
-   let g:tex_flavor='latex'
-   nmap <leader>lk :!xpdf %:r.pdf<cr>
-
-   " this is mostly a matter of taste. but LaTeX looks good with just a bit of
-   " indentation.
-   set sw=2
-
-   " TIP: if you write your \label's as \label{fig:something}, then if you type
-   " in \ref{fig: and press <C-n> you will automatically cycle through all the
-   " figure labels. Very useful!
-   set iskeyword+=:
-
-   " others TIPS
-   let g:Tex_FormatDependency_pdf = 'dvi,pdf'
-   let g:Tex_CompileRule_pdf = 'pdflatex %'
-   let g:Tex_ViewRule_pdf = 'xpdf %:r.pdf'
-   " Set the target format to pdf.
-   let g:Tex_DefaultTargetFormat = 'pdf'
-   " Set the warning messages to ignore.
-   let g:Tex_IgnoredWarnings =
-   \"Underfull\n".
-   \"Overfull\n".
-   \"specifier changed to\n".
-   \"You have requested\n".
-   \"Missing number, treated as zero.\n".
-   \"There were undefined references\n".
-   \"Citation %.%# undefined\n".
-   \"'LaTeX Font Warning:'"
-   " This number N says that latex-suite should ignore the first N of the above.
-   let g:Tex_IgnoreLevel = 8
-endfunction
-augroup jake_vimlatex
-    au!
-    au FileType tex call LaTeXvim()
-augroup END
-"" }}}
 
 "EOF vim: set ts=4 sw=4 tw=80 :

@@ -3,13 +3,9 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export STUFF="$HOME/personal_stuff"
 
 export JAVA_HOME=/usr/lib64/java
-export MANPATH="${MANPATH}:${JAVA_HOME}/man"
-export PATH="${PATH}:\
-    ${JAVA_HOME}/bin:\
-    ${JAVA_HOME}/jre/bin:\
-    /opt/mingw-w64-i686/bin:\
-    /opt/mingw-w64-x86_64/bin:\
-    /opt/Adobe/Reader9/bin/"
+export MANPATH="${MANPATH}:${JAVA_HOME}/man:\
+/opt/texlive/texmf-dist/doc/man"
+export PATH="${PATH}:/opt/texlive/bin/x86_64-linux"
 
 # Enable color in grep
 export GREP_OPTIONS='--color=auto'
