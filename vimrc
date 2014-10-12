@@ -512,7 +512,7 @@ augroup jk_tex
     au!
     autocmd BufRead,BufNewFile *.tex setl ft=tex
     autocmd FileType tex command! Makepdf !pdflatex -interaction=nonstopmode %
-    :nmap <silent> <leader>lv :!xpdf %<.pdf
+    :nmap <silent> <leader>lv :!xpdf %<.pdf<CR>
 augroup END
 
 augroup derek_xsd
