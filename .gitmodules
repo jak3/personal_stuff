@@ -94,3 +94,6 @@
 [submodule "vim/bundle/tabular"]
 	path = vim/bundle/tabular
 	url = https://github.com/godlygeek/tabular.git
+[submodule "vim/bundle/tex-fold"]
+	path = vim/bundle/tex-fold
+	url = https://github.com/vim-scripts/tex-fold.git
