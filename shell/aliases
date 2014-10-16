@@ -62,6 +62,7 @@ alias bye='shutdown -h now'
 alias c='clear'
 alias ca='clear;history -c;dirs -c'
 alias cd=cd_and_ls
+alias cdd='cd ~/Downloads'
 alias cdb='cd ..'
 alias cdbb='cd ../../'
 alias cdbbb='cd ../../../'
