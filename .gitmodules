@@ -7,12 +7,10 @@
 [submodule "vim/bundle/c.vim"]
 	path = vim/bundle/c.vim
 	url = http://github.com/vim-scripts/c.vim.git
+  ignore = dirty
 [submodule "vim/bundle/calendar-vim"]
 	path = vim/bundle/calendar-vim
 	url = http://github.com/mattn/calendar-vim.git
-[submodule "vim/bundle/emmet-vim"]
-	path = vim/bundle/emmet-vim
-	url = https://github.com/mattn/emmet-vim.git
 [submodule "vim/bundle/html5.vim"]
 	path = vim/bundle/html5.vim
 	url = http://github.com/othree/html5.vim.git
@@ -34,12 +32,14 @@
 [submodule "vim/bundle/vim-snippets"]
 	path = vim/bundle/vim-snippets
 	url = https://github.com/honza/vim-snippets.git
+  ignore = dirty
 [submodule "vim/bundle/vim-pathogen"]
 	path = vim/bundle/vim-pathogen
 	url = http://github.com/tpope/vim-pathogen.git
 [submodule "vim/bundle/vim-cmake"]
 	path = vim/bundle/vim-cmake
 	url = http://github.com/vhdirk/vim-cmake.git
+  ignore = dirty
 [submodule "vim/bundle/vim-colors-solarized"]
 	path = vim/bundle/vim-colors-solarized
 	url = http://github.com/altercation/vim-colors-solarized.git
@@ -79,9 +79,11 @@
 [submodule "vim/bundle/VisIncr"]
 	path = vim/bundle/VisIncr
 	url = https://github.com/vim-scripts/VisIncr.git
+  ignore = dirty
 [submodule "vim/bundle/YouCompleteMe"]
 	path = vim/bundle/YouCompleteMe
 	url = https://github.com/Valloric/YouCompleteMe.git
+  ignore = dirty
 [submodule "vim/bundle/ultisnips"]
 	path = vim/bundle/ultisnips
 	url = https://github.com/SirVer/ultisnips.git
@@ -97,3 +99,4 @@
 [submodule "vim/bundle/tex-fold"]
 	path = vim/bundle/tex-fold
 	url = https://github.com/vim-scripts/tex-fold.git
+  ignore = dirty
