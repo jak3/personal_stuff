@@ -101,3 +101,6 @@
 	path = vim/bundle/tex-fold
 	url = https://github.com/vim-scripts/tex-fold.git
   ignore = dirty
+[submodule "vim/bundle/plantuml-syntax"]
+	path = vim/bundle/plantuml-syntax
+	url = https://github.com/aklt/plantuml-syntax.git
