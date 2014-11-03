@@ -7,6 +7,8 @@
 let PAGER='' "ensure using vim's man and not the system one remapped in bashrc
 
 " Section: Pathogen {{{
+"let g:pathogen_disabled = []
+"call add(g:pathogen_disabled, 'vim-bufferline')
 
 if filereadable(expand('~/personal_stuff/vim/bundle/vim-pathogen/autoload/pathogen.vim'))
     source ~/personal_stuff/vim/bundle/vim-pathogen/autoload/pathogen.vim
