@@ -97,10 +97,6 @@
 [submodule "vim/bundle/tabular"]
 	path = vim/bundle/tabular
 	url = https://github.com/godlygeek/tabular.git
-[submodule "vim/bundle/tex-fold"]
-	path = vim/bundle/tex-fold
-	url = https://github.com/vim-scripts/tex-fold.git
-  ignore = dirty
 [submodule "vim/bundle/plantuml-syntax"]
 	path = vim/bundle/plantuml-syntax
 	url = https://github.com/aklt/plantuml-syntax.git
@@ -113,3 +109,6 @@
 [submodule "vim/bundle/vim-airline"]
 	path = vim/bundle/vim-airline
 	url = https://github.com/bling/vim-airline.git
+[submodule "vim/bundle/LaTeX-Box"]
+	path = vim/bundle/LaTeX-Box
+	url = https://github.com/LaTeX-Box-Team/LaTeX-Box.git

@@ -684,4 +684,8 @@ let g:UltiSnipsEditSplit="vertical"
 
 " }}}
 
+" Section: LatexBox {{{
+let  g:LatexBox_Folding = 1
+" }}}
+
 "EOF vim: set ts=4 sw=4 tw=80 :
