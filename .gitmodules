@@ -104,3 +104,12 @@
 [submodule "vim/bundle/plantuml-syntax"]
 	path = vim/bundle/plantuml-syntax
 	url = https://github.com/aklt/plantuml-syntax.git
+[submodule "vim/bundle/vim-antlr"]
+	path = vim/bundle/vim-antlr
+	url = https://github.com/jrozner/vim-antlr.git
+[submodule "vim/bundle/vim-bufferline"]
+	path = vim/bundle/vim-bufferline
+	url = https://github.com/bling/vim-bufferline.git
+[submodule "vim/bundle/vim-airline"]
+	path = vim/bundle/vim-airline
+	url = https://github.com/bling/vim-airline.git
