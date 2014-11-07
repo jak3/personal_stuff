@@ -510,12 +510,6 @@ command! FreemindToList call FreemindToListF()
 
 " Auto-spell load with file like md, unibo, tex
 autocmd BufRead,BufNewFile *.md,*.unibo,*.tex setl spell spelllang=en_us,it
-augroup jk_tex
-    au!
-    autocmd BufRead,BufNewFile *.tex setl ft=tex
-    autocmd FileType tex command! Makepdf !pdflatex -interaction=nonstopmode %
-    :nmap <silent> <leader>lv :!xpdf %<.pdf<CR>
-augroup END
 
 augroup derek_xsd
     au!
@@ -686,6 +680,10 @@ let g:UltiSnipsEditSplit="vertical"
 
 " Section: LatexBox {{{
 let  g:LatexBox_Folding = 1
+let  g:LatexBox_viewer="xpdf"
+let  g:LatexBox_quickfix=2
+let  b:main_tex_file="main.tex"
+let  g:LatexBox_build_dir="out"
 " }}}
 
 "EOF vim: set ts=4 sw=4 tw=80 :
