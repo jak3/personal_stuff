@@ -5,6 +5,7 @@ export STUFF="$HOME/personal_stuff"
 export JAVA_HOME=/usr/lib64/java
 export MANPATH="${MANPATH}:${JAVA_HOME}/man:\
 /opt/texlive/texmf-dist/doc/man"
+export CLASSPATH=".:/opt/antlr/antlr-4.4-complete.jar:$CLASSPATH"
 export PATH="${PATH}:/opt/texlive/bin/x86_64-linux"
 
 # Enable color in grep

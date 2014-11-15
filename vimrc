@@ -8,7 +8,7 @@ let PAGER='' "ensure using vim's man and not the system one remapped in bashrc
 
 " Section: Pathogen {{{
 "let g:pathogen_disabled = []
-"call add(g:pathogen_disabled, 'vim-bufferline')
+"call add(g:pathogen_disabled, 'LaTeX-Box')
 
 if filereadable(expand('~/personal_stuff/vim/bundle/vim-pathogen/autoload/pathogen.vim'))
     source ~/personal_stuff/vim/bundle/vim-pathogen/autoload/pathogen.vim
@@ -664,6 +664,11 @@ augroup END
 " Section: cvim {{{
 let  g:C_UseTool_cmake    = 'yes'
 let  g:C_UseTool_doxygen = 'yes'
+" }}}
+
+" Section: YouCompleteMe {{{
+" let g:ycm_server_use_vim_stdout = 1
+" let g:ycm_server_log_level = 'debug'
 " }}}
 
 " Section: UltiSnips {{{

@@ -118,6 +118,8 @@ alias machete="kill -9"
 alias truecrypt="truecrypt -t"
 alias dst="python /home/jack/.dropbox-dist/dropbox.py status"
 alias dropbox="python /home/jack/.dropbox-dist/dropbox.py"
+alias antlr4='java -jar /opt/antlr/antlr-4.4-complete.jar'
+alias grun='java org.antlr.v4.runtime.misc.TestRig'
 
 ## Mount
 alias dlist="udisks --enumerate-device-files"
