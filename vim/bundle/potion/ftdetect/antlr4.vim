@@ -1,1 +1,1 @@
-au BufRead,BufNewFile *.g4 set filetype=antlr4
+au BufRead,BufNewFile *.g4,*.g set filetype=antlr4

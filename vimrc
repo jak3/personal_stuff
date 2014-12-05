@@ -510,6 +510,8 @@ command! FreemindToList call FreemindToListF()
 
 " Auto-spell load with file like md, unibo, tex
 autocmd BufRead,BufNewFile *.md,*.unibo,*.tex setl spell spelllang=en_us,it
+autocmd BufRead,BufNewFile *.pu,*.plantuml setl makeprg=java\ -jar\ ~/misc/plantuml.jar\ -tpng\ -o\ /tmp/\ %
+autocmd BufRead,BufNewFile *.g,*.g3,*.g4 setl makeprg=java\ -jar\ /opt/antlr/antlr-4.4-complete.jar\ %\ &&\ javac\ %<*.java
 
 augroup derek_xsd
     au!
