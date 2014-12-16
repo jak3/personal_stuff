@@ -29,6 +29,8 @@ install:
 		ln -sf ${STUFF}/lynxrc ~/.lynxrc
 		# PentadactylRC
 		ln -sf ${STUFF}/pentadactylrc ~/.pentadactylrc
+		# PentadactylDIR
+		ln -sf ${STUFF}/pentadactyl ~/.pentadactyl
 		# Xmonad
 		mkdir -p ~/.xmonad
 		ln -sf ${STUFF}/xmonad/ ~/.xmonad/

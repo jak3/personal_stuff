@@ -40,6 +40,8 @@ map ,r    :flt<CR>
 map ,n    :nohlsearch<CR>
 map ,s    :stopall<CR>
 
+loadplugins '\.(js|penta)$'
+set pintaboardToken="jak3:9a3a946b923f2352e5ef"
 "-------------------------------------------------------------------------------
 " The lines below were pasted from FileName: zenburn.penta
 " Author: zouyang

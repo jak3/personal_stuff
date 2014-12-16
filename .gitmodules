@@ -112,3 +112,6 @@
 [submodule "vim/bundle/LaTeX-Box"]
 	path = vim/bundle/LaTeX-Box
 	url = https://github.com/LaTeX-Box-Team/LaTeX-Box.git
+[submodule "pentadactyl/plugins/pintaboard"]
+	path = pentadactyl/plugins/pintaboard
+	url = https://github.com/bnbeckwith/pintaboard.git
