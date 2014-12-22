@@ -7,6 +7,7 @@
 let PAGER='' "ensure using vim's man and not the system one remapped in bashrc
 
 " Section: Pathogen {{{
+
 "let g:pathogen_disabled = []
 "call add(g:pathogen_disabled, 'LaTeX-Box')
 
@@ -27,21 +28,18 @@ Helptags
 " Section: Options {{{
 let mapleader = ","
 
-"
-"undodir file only to /tmp
-"
+
+" undodir file only to /tmp
 set undofile
 set undodir=/tmp/undo
 set undolevels=1000
 set undoreload=10000
 
-"
-"backup file only to /tmp
-"
+" backup file only to /tmp
 set backupdir-=.
 set backupdir^=/tmp/filebackups
 
-" Tabstops are 4 spaces
+" Tabstops are 2 spaces
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
@@ -64,6 +62,9 @@ else
     set shell=zsh.exe
 endif
 
+" Highlight the current line and column
+" set nocursorline
+set nocursorcolumn
 " Make command line two lines high
 set ch=2
 " set visual bell -- i hate that damned beeping
@@ -111,8 +112,6 @@ set history=100
 set foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
 " Max nested fold
 set foldnestmax=4
-" Set fmd to syntax
-set foldmethod=syntax
 " When the page starts to scroll, keep the cursor 8 lines from the top and 8
 " lines from the bottom
 set scrolloff=8
@@ -147,14 +146,12 @@ set autoread
 
 set grepprg=grep\ -nH\ $*
 
-" Trying out the line numbering thing... never liked it, but that doesn't mean
-" I shouldn't give it another go :)
-"set number
+" set left number column
 set relativenumber
 
 " }}}
 
-" Help Coding ------------------------------------------------------------------
+" Section: Coding {{{
 
 " Let the syntax highlighting for Java files allow cpp keywords
 let java_allow_cpp_keywords = 1
@@ -173,8 +170,9 @@ nmap <Leader>mw :set makeprg=/opt/mingw-w64-i686/bin/i686-w64-mingw32-gcc\\ -o\\
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
-"-------------------------------------------------------------------------------
+" }}}
 
+" Section: mapping {{{
 " Wipe out all buffers
 nmap <silent> <Leader>wa :1,9000bwipeout<cr>
 
@@ -268,15 +266,11 @@ nmap <Leader>bd :bd<cr>
 " Alright... let's try this out
 imap jj <esc>
 
-" Clear the text using a motion / text object and then move the character to the
-" next word
-nmap <silent> <Leader>C :set opfunc=ClearText<CR>g@
-vmap <silent> <Leader>C :<C-U>call ClearText(visual(), 1)<CR>
-
 "Substitude word under cursor (%s///g)
 nnoremap <Leader>s :%s/<C-r><C-w>//g<Left><Left>
 
-
+" Clear the text using a motion / text object and then move the character to the
+" next word
 function! ClearText(type, ...)
 let sel_save = &selection
 let &selection = "inclusive"
@@ -295,11 +289,8 @@ silent exe "normal! '[V']r w"
     let &selection = sel_save
     let @@ = reg_save
 endfunction
-
-" Highlight the current line and column
-" Don't do this - It makes window redraws painfully slow
-set nocursorline
-set nocursorcolumn
+nmap <silent> <Leader>C :set opfunc=ClearText<CR>g@
+vmap <silent> <Leader>C :<C-U>call ClearText(visual(), 1)<CR>
 
 if has("mac")
   let g:main_font = "Menlo\\ Regular:h11"
@@ -309,22 +300,8 @@ else
   let g:small_font = "Monospace\\ 2"
 endif
 
-"-------------------------------------------------------------------------------
-" FSwitch mappings
-"-------------------------------------------------------------------------------
-nmap <silent> <Leader>of :FSHere<CR>
-nmap <silent> <Leader>ol :FSRight<CR>
-nmap <silent> <Leader>oL :FSSplitRight<CR>
-nmap <silent> <Leader>oh :FSLeft<CR>
-nmap <silent> <Leader>oH :FSSplitLeft<CR>
-nmap <silent> <Leader>ok :FSAbove<CR>
-nmap <silent> <Leader>oK :FSSplitAbove<CR>
-nmap <silent> <Leader>oj :FSBelow<CR>
-nmap <silent> <Leader>oJ :FSSplitBelow<CR>
 
-"-------------------------------------------------------------------------------
-" Functions
-"-------------------------------------------------------------------------------
+
 if !exists('g:bufferJumpList')
     let g:bufferJumpList = {}
 endif
@@ -372,15 +349,6 @@ nmap <silent> <Leader>jbf :call JumpToBufferInJumpList('f')<cr>
 nmap <silent> <Leader>jbg :call JumpToBufferInJumpList('g')<cr>
 nmap <silent> <Leader>ljb :call ListJumpToBuffers()<cr>
 
-function! DiffCurrentFileAgainstAnother(snipoff, replacewith)
-    let currentFile = expand('%:p')
-    let otherfile = substitute(currentFile, "^" . a:snipoff, a:replacewith, '')
-    only
-    execute "vertical diffsplit " . otherfile
-endfunction
-
-command! -nargs=+ DiffCurrent call DiffCurrentFileAgainstAnother(<f-args>)
-
 function! RunSystemCall(systemcall)
     let output = system(a:systemcall)
     let output = substitute(output, "\n", '', 'g')
@@ -398,7 +366,6 @@ function! HighlightAllOfWord(onoff)
         match none /\<%s\>/
     endif
 endfunction
-
 :nmap <Leader>ha :call HighlightAllOfWord(1)<cr>
 :nmap <Leader>hA :call HighlightAllOfWord(0)<cr>
 
@@ -415,7 +382,6 @@ let lengthend = substitute(cwd, '/[^/]*$', '', '')
 exec ":lcd " . lengthend
 endif
 endfunction
-
 :nmap <Leader>ld :call LengthenCWD()<cr>
 
 function! MakeShellcodeFromOpcode()
@@ -424,7 +390,6 @@ function! MakeShellcodeFromOpcode()
     silent! %s/\t//g
     silent! s/\(\(.\)\(.\)\)/\\x\1/g
 endfunction
-
 :nmap <Leader>sh :call MakeShellcodeFromOpcode()<cr>
 
 function! ShortenCWD()
@@ -441,18 +406,8 @@ let filedir = split(expand("%:p:h"), '/')
     endwhile
     exec ":lcd /" . newdir
 endfunction
-
 :nmap <Leader>sd :call ShortenCWD()<cr>
 
-function! RedirToYankRegisterF(cmd, ...)
-    let cmd = a:cmd . " " . join(a:000, " ")
-    redir @*>
-    exe cmd
-    redir END
-endfunction
-
-command! -complete=command -nargs=+ RedirToYankRegister
-  \ silent! call RedirToYankRegisterF(<f-args>)
 
 " Append modeline after last line in buffer.
 " Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
@@ -482,9 +437,27 @@ function! FillLine( str )
 endfunction
 map <Leader>f :call FillLine( '-' )<cr>
 
-"-------------------------------------------------------------------------------
-" Commands
-"-------------------------------------------------------------------------------
+" }}}
+
+" Section: Commands {{{
+
+function! DiffCurrentFileAgainstAnother(snipoff, replacewith)
+    let currentFile = expand('%:p')
+    let otherfile = substitute(currentFile, "^" . a:snipoff, a:replacewith, '')
+    only
+    execute "vertical diffsplit " . otherfile
+endfunction
+command! -nargs=+ DiffCurrent call DiffCurrentFileAgainstAnother(<f-args>)
+
+function! RedirToYankRegisterF(cmd, ...)
+    let cmd = a:cmd . " " . join(a:000, " ")
+    redir @*>
+    exe cmd
+    redir END
+endfunction
+command! -complete=command -nargs=+ RedirToYankRegister
+  \ silent! call RedirToYankRegisterF(<f-args>)
+
 function! FreemindToListF()
     setl filetype=
     silent! :%s/^\(\s*\).*TEXT="\([^"]*\)".*$/\1- \2/
@@ -501,17 +474,21 @@ function! FreemindToListF()
     silent! %s/^\s\{20}\zs-/#/
     silent! normal gg
 endfunction
-
 command! FreemindToList call FreemindToListF()
 
-"-------------------------------------------------------------------------------
-" Auto commands
-"-------------------------------------------------------------------------------
+" }}}
+
+" Section: Auto commands {{{
 
 " Auto-spell load with file like md, unibo, tex
-autocmd BufRead,BufNewFile *.md,*.unibo,*.tex setl spell spelllang=en_us,it
-autocmd BufRead,BufNewFile *.pu,*.plantuml setl makeprg=java\ -jar\ ~/misc/plantuml.jar\ -tpng\ -o\ /tmp/\ %
-autocmd BufRead,BufNewFile *.g,*.g3,*.g4 setl makeprg=mkdir\ -p\ out&&java\ -jar\ /opt/antlr/antlr-4.4-complete.jar\ -o\ out\ %\ &&javac\ out/%<*.java
+au BufRead,BufNewFile *.md,*.unibo,*.tex setl spell spelllang=en_us,it
+au BufRead,BufNewFile *.pu,*.plantuml setl makeprg=java\ -jar\ ~/misc/plantuml.jar\ -tpng\ -o\ /tmp/\ %
+au BufRead,BufNewFile *.g,*.g3,*.g4 setl makeprg=java\ -jar\ /opt/antlr/antlr-3.5.2-complete.jar\ -o\ src/it/unibo/lpemc/\ %
+"ANTLR  mkdir\ -p\ out&&java\ -jar\ /opt/antlr/antlr-4.4-complete.jar\ -o\ out\ % \ &&javac\ out/%<*.java
+au BufEnter *.nse setl filetype=lua tabstop=4 shiftwidth=4
+" trick to use fdm syntax+manual ( ty alem0lars )
+au BufReadPre * setlocal foldmethod=syntax
+au BufWinEnter * if &fdm == 'syntax' | setlocal foldmethod=manual | endif
 
 augroup derek_xsd
     au!
@@ -530,11 +507,27 @@ augroup Binary
     au BufWritePost *.bin set nomod | endif
 augroup END
 
-au BufEnter *.nse setl filetype=lua tabstop=4 shiftwidth=4
+"-------------------------------------------------------------------------------
+" Automatically open, but do not go to (if there are errors) the quickfix /
+" location list window, or close it when is has become empty.
+"
+" Note: Must allow nesting of autocmds to enable any customizations for quickfix
+" buffers.
+" Note: Normally, :cwindow jumps to the quickfix window if the command opens it
+" (but not if it's already open). However, as part of the autocmd, this doesn't
+" seem to happen.
+"-------------------------------------------------------------------------------
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
 
-"-------------------------------------------------------------------------------
-" Fix constant spelling mistakes
-"-------------------------------------------------------------------------------
+" One way to make sure to remove all trailing whitespace in a file is to set an
+" autocmd in your .vimrc file. Every time the user issues a :w command, Vim will
+" automatically remove all trailing whitespace before saving.
+autocmd BufWritePre * :%s/\s\+$//e
+
+" }}}
+
+" Section: Fix constant spelling mistakes {{{
 iab teh the
 iab Teh The
 iab taht that
@@ -564,13 +557,12 @@ iab Seperate Separate
 iab fone phone
 iab Fone Phone
 
-"-------------------------------------------------------------------------------
-" Set up the window colors and size
-"-------------------------------------------------------------------------------
+" }}}
+
+" Section: Set up the window colors and size {{{
 
 " Enable 256 colors
 set t_Co=256
-
 " Syntax coloring lines that are too long just slows down the world
 set synmaxcol=2048
 
@@ -594,24 +586,9 @@ if has("gui_running")
 endif
 :nohls
 
-"-------------------------------------------------------------------------------
-" Automatically open, but do not go to (if there are errors) the quickfix /
-" location list window, or close it when is has become empty.
-"
-" Note: Must allow nesting of autocmds to enable any customizations for quickfix
-" buffers.
-" Note: Normally, :cwindow jumps to the quickfix window if the command opens it
-" (but not if it's already open). However, as part of the autocmd, this doesn't
-" seem to happen.
-"-------------------------------------------------------------------------------
-autocmd QuickFixCmdPost [^l]* nested cwindow
-autocmd QuickFixCmdPost    l* nested lwindow
+" }}}
 
-" One way to make sure to remove all trailing whitespace in a file is to set an
-" autocmd in your .vimrc file. Every time the user issues a :w command, Vim will
-" automatically remove all trailing whitespace before saving.
-autocmd BufWritePre * :%s/\s\+$//e
-
+" Section: Plugins {{{
 " Section: Syntastic {{{
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
@@ -619,10 +596,6 @@ let g:syntastic_always_populate_loc_list=1
 let g:syntastic_c_checkers = ['ycm']
 let g:syntastic_python_checkers = ['pyflakes']
 let g:syntastic_html_checkers = ['tidy']
-" }}}
-
-" Section: Jedi {{{
-let g:jedi#popup_on_dot = 0
 " }}}
 
 " Section: NERDTree {{{
@@ -663,6 +636,19 @@ augroup derek_twitvim
 augroup END
 " }}}
 
+" Section: FSwitch {{{
+" FSwitch mappings
+nmap <silent> <Leader>of :FSHere<CR>
+nmap <silent> <Leader>ol :FSRight<CR>
+nmap <silent> <Leader>oL :FSSplitRight<CR>
+nmap <silent> <Leader>oh :FSLeft<CR>
+nmap <silent> <Leader>oH :FSSplitLeft<CR>
+nmap <silent> <Leader>ok :FSAbove<CR>
+nmap <silent> <Leader>oK :FSSplitAbove<CR>
+nmap <silent> <Leader>oj :FSBelow<CR>
+nmap <silent> <Leader>oJ :FSSplitBelow<CR>
+" }}}
+
 " Section: cvim {{{
 let  g:C_UseTool_cmake    = 'yes'
 let  g:C_UseTool_doxygen = 'yes'
@@ -691,6 +677,14 @@ let  g:LatexBox_viewer="xpdf"
 let  g:LatexBox_quickfix=2
 let  b:main_tex_file="main.tex"
 let  g:LatexBox_build_dir="out"
+" }}}
+
+" Section: indentLine {{{
+let g:indentLine_char="┆"
+let g:indentLine_enabled=0
+map <Leader>it :IndentLinesToggle<CR>
+" }}}
+
 " }}}
 
 "EOF vim: set ts=4 sw=4 tw=80 :

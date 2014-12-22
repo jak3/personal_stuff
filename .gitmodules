@@ -115,3 +115,6 @@
 [submodule "pentadactyl/plugins/pintaboard"]
 	path = pentadactyl/plugins/pintaboard
 	url = https://github.com/bnbeckwith/pintaboard.git
+[submodule "vim/bundle/indentLine"]
+	path = vim/bundle/indentLine
+	url = https://github.com/Yggdroot/indentLine.git
