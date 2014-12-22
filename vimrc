@@ -693,7 +693,9 @@ let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#branch#empty_message = ''
 let g:airline#extensions#branch#displayed_head_limit = 10
 let g:airline#extensions#syntastic#enabled = 1
+let g:airline_section_y='Buf:#%n [%b][0x%B]'
 " }}}
+
 " }}}
 
 "EOF vim: set ts=4 sw=4 tw=80 :
