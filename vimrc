@@ -686,6 +686,14 @@ let g:indentLine_enabled=0
 map <Leader>it :IndentLinesToggle<CR>
 " }}}
 
+" Section: airline {{{
+let g:airline#extensions#bufferline#enabled = 0
+let g:airline#extensions#bufferline#overwrite_variables = 0
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#branch#empty_message = ''
+let g:airline#extensions#branch#displayed_head_limit = 10
+let g:airline#extensions#syntastic#enabled = 1
+" }}}
 " }}}
 
 "EOF vim: set ts=4 sw=4 tw=80 :
