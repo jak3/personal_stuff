@@ -146,8 +146,9 @@ set autoread
 
 set grepprg=grep\ -nH\ $*
 
-" set left number column
+" set left number column hybrid mode
 set relativenumber
+set number
 
 " }}}
 
