@@ -1,16 +1,28 @@
-"-------------------------------------------------------------------------------
 " This .pentadactylrc is made from strach by me
-" Last changes  : Mon 02 Dec 2013 07:52:33 PM CET
-" Author        : jake
-" License       : GPLv3
-"-------------------------------------------------------------------------------
+" Author:   github.com/jak3
+" License:  GPLv3
 
+" Section: Options {{{1
 set go=NsrC
 set showtabline=multitab
+" Use home row letters for hints instead of numbers
+set hintkeys=asdfg;lkjh
+set findcase=smart
+set hlfind
+set incfind
 
-"Mapping
+" Firefox: {{{2
+
+" hide close buttons
+set! browser.tabs.closeButtons=2
+" }}}
+" }}}
+
+" Section: Mappings {{{1
 map l gt
 map h gT
+map a :bmp<CR>
+
 map <S-j> <C-f>
 map <S-k> <C-b>
 map <C-N> :tab liberomail.libero.it<CR>
@@ -18,35 +30,60 @@ map <C-n> :o liberomail.libero.it<CR>
 map <C-a> <C-v><C-a>
 map <C-c> <C-v><C-c>
 map <C-x> <C-v><C-x>
-map <A-r> :restart<CR>
-map <A-S-s> :set nst!=<A-Tab>
-map ,t    :tabopen http://translate.google.it/#en|it|
-map ,T    :tabopen http://translate.google.it/#it|en|
-map ,d    :tabopen http://dictionary.reference.com/browse/
-map ,u    :tabopen http://www.urbandictionary.com/define.php?term=
-map ,I    :tabopen http://www.irssi.org/documentation<CR>
-map ,i    :tabopen http://www.treccani.it/vocabolario/
-map ,a    :tabopen http://www.asciitable.com/index/asciifull.gif<CR>
-map ,v    :tabopen http://www.virginradio.it/webradio/virgin-fm/<CR>
-map ,V    :tabopen http://www.virginradio.it/webradio/virgin-hard-rock/<CR>
-map ,y    :tabopen https://www.youtube.com/results?search_query=
-map ,w    :tabopen http://wayback.archive.org/web/*/
-map ,k    :tabopen http://www.phrack.org/search.html?key=
-map ,p    :private winopen google
-map ,C    :tabopen http://meteo.it/previsioni/Cesena/istat-40007<CR>
-map ,h    :tabopen http://5digits.org/help/pentadactyl/<CR>
-map ,b    :tabopen http://slackbuilds.org/result/?search=
-map ,r    :flt<CR>
-map ,n    :nohlsearch<CR>
-map ,s    :stopall<CR>
+map <A-r>   :restart<CR>
 
-loadplugins '\.(js|penta)$'
-set pintaboardToken="jak3:9a3a946b923f2352e5ef"
-"-------------------------------------------------------------------------------
+" Go to the next / previous tab group
+map -builtin <C-;> <C-S-~>
+map -builtin <C-''> <C-`>
+
+" Move the current tab
+map -builtin H <Esc>:tabmove! -1<CR>
+map -builtin L <Esc>:tabmove! +1<CR>
+
+" usefull URI
+map ,C :tabopen http://meteo.it/previsioni/Cesena/istat-40007<CR>
+map ,I :tabopen http://www.irssi.org/documentation<CR>
+map ,J :jumps<CR>
+map ,T :tabopen http://translate.google.it/#it|en|
+map ,V :tabopen http://www.virginradio.it/webradio/virgin-hard-rock/<CR>
+map ,a :tabopen http://www.asciitable.com/index/asciifull.gif<CR>
+map ,b :tabopen http://slackbuilds.org/result/?search=
+map ,d :tabopen http://dictionary.reference.com/browse/
+map ,h :tabopen http://5digits.org/help/pentadactyl/<CR>
+map ,i :tabopen http://www.treccani.it/vocabolario/
+map ,k :tabopen http://www.phrack.org/search.html?key=
+map ,t :tabopen http://translate.google.it/#en|it|
+map ,m :tabopen https://pinboard.in/u:jak3<CR>
+map ,u :tabopen http://www.urbandictionary.com/define.php?term=
+map ,v :tabopen http://www.virginradio.it/webradio/virgin-fm/<CR>
+map ,w :tabopen http://wayback.archive.org/web/*/
+map ,y :tabopen https://www.youtube.com/results?search_query=
+
+" commands shortcut
+map ,l :rl<CR>
+map ,n :set hlfind!<CR>
+map ,p :private winopen google
+map ,s :stopall<CR>
+
+" }}}
+
+" Section: Commands {{{1
+command bmarkpin,bmp -nargs=0 -description "Open pinboard tab with tags" -javascript <<EOF
+  dactyl.execute(":open javascript:q=location.href;if(document.getSelection){d=document.getSelection();}else{d='';};p=document.title;void(open('https://pinboard.in/add?showtags=yes&url='+encodeURIComponent(q)+'&description='+encodeURIComponent(d)+'&title='+encodeURIComponent(p),'Pinboard','toolbar=no,scrollbars=yes,width=750,height=700'));");
+EOF
+
+command readlater,rl -nargs=0 -description "save page as unread into pinboard" -javascript <<EOF
+  dactyl.execute(":open javascript:q=location.href;p=document.title;void(t=open('https://pinboard.in/add?later=yes&noui=yes&jump=close&url='+encodeURIComponent(q)+'&title='+encodeURIComponent(p),'Pinboard','toolbar=no,width=100,height=100'));t.blur();");
+EOF
+" }}}
+
+" Section: Plugins {{{1
+" loadplugins '\.(js|penta)$'
+" }}}
+
 " The lines below were pasted from FileName: zenburn.penta
-" Author: zouyang
-" Some lines were changed or modified by me
-"-------------------------------------------------------------------------------
+" Author: zouyang ( Some lines were changed or modified by me )
+" Section: css {{{1
 hi Hint         color:rgb(0,255,0);background-color:#000000;font-size:9px; font-weight: bold; padding:0px 1px 0px 0px; position: left;
 hi HintActive   background-color:rgba(0,0,192,0.2);
 hi HintElem     background-color:rgba(0,0,0,0);
@@ -105,4 +142,6 @@ hi -a BufTabSelected        color:#2e3330; background-color:#88b090; padding:0 4
 hi -a BufTabs               margin:0 4px; overflow:hidden;
 hi -a BufTab                padding:0 2px;
 
-" vim: set ft=pentadactyl:ts=4:sw=4:tw=0:
+" }}}
+
+" vim: fdm=marker:ft=vim
