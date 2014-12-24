@@ -84,7 +84,7 @@ EOF
 " The lines below were pasted from FileName: zenburn.penta
 " Author: zouyang ( Some lines were changed or modified by me )
 " Section: css {{{1
-hi Hint         color:rgb(0,255,0);background-color:#000000;font-size:9px; font-weight: bold; padding:0px 1px 0px 0px; position: left;
+hi Hint         color:rgb(0,255,0);background-color:#000000;font-size:10pt;font-weight:bold;
 hi HintActive   background-color:rgba(0,0,192,0.2);
 hi HintElem     background-color:rgba(0,0,0,0);
 hi HintImage    opacity: .5;
