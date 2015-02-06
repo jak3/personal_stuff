@@ -7,6 +7,7 @@ export MANPATH="${MANPATH}:${JAVA_HOME}/man:\
 /opt/texlive/texmf-dist/doc/man"
 export CLASSPATH=".:/opt/antlr/antlr-4.4-complete.jar:$CLASSPATH"
 export PATH="${PATH}:/opt/texlive/bin/x86_64-linux"
+export GOPATH="$HOME/repos/gocode"
 
 # Enable color in grep
 export GREP_OPTIONS='--color=auto'
