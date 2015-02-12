@@ -1,25 +1,16 @@
-!--------------------------------------------------------------------------------
-!   This file was maked by cut & paste different bashrc that i found useful. I
-!   also add some personal stuff.
-!
-!   Last Changes : Mon 15 Apr 2013 09:44:51 PM CEST
-!   Licence      : GPLv3
-!   Author       : jake
-!--------------------------------------------------------------------------------
-! urxvt
-URxvt*cursorBlink    : true
-URxvt*iso14755       : false
-URxvt*modifier       : alt
-URxvt*perl-lib       : /home/jack/.urxvt/ext
-URxvt*saveLines      : 120
-URxvt*scrollBar      : false
-URxvt*scrollstyle    : plain
-URxvt*termName       : rxvt-unicode
-URxvt.matcher.button : 1
-URxvt.underlineURLs  : True
-URxvt.urlLauncher    : /usr/bin/firefox
+URxvt*cursorBlink     : true
+URxvt*iso14755        : false
+URxvt*modifier        : alt
+URxvt*perl-lib        : /home/jack/.urxvt/ext
+URxvt*saveLines       : 120
+URxvt*scrollBar       : false
+URxvt*scrollstyle     : plain
+URxvt*termName        : rxvt-unicode
+URxvt.matcher.button  : 1
+URxvt.underlineURLs   : True
+URxvt.urgentOnBell    : True ! usefull with urgentHook xmonad
+URxvt.urlLauncher     : /usr/bin/firefox
 
-!urxvt extensions
 URxvt.copyCommand          : xsel -ib
 URxvt.keysym.M-C-v         : perl:clipboard:paste_escaped
 URxvt.keysym.M-Escape      : perl:keyboard-select:activate
@@ -36,23 +27,19 @@ URxvt.url-select.underline : true
 URxvt.word-select.button   : 1
 URxvt.word-select.launcher : /usr/bin/firefox
 
-!URxvt*font:    xft:Dejavu Sans Mono:pixelsize=14
 URxvt*font        : xft:Monospace:pixelsize=14
-!URxvt*boldFont:xft:Dejavu Sans Mono:pixelsize=14
 URxvt*boldFont    : xft:Monospace:bold:pixelsize=14
-!Color and % when lost focus
-URxvt*fadeColor   : #2B2B2B
-URxvt*fading      : 15
-!Visual bit depth
-URxvt*depth       : 32
-!Darken (0..99) lighten (101..200) 100 no shading
-URxvt*shading     : 8
+
+URxvt*fadeColor   : #2B2B2B ! Color when lost focus
+URxvt*fading      : 15      ! (%) when lost focus
+URxvt*depth       : 32      !Visual bit depth
+URxvt*shading     : 8       !Darken (0..99) lighten (101..200) 100 no shading
 URxvt*transparent : true
 URxvt*colorUL     : #86a2b0
 
-! black (dark,light) 2E3436
+! black (lower number dark, highter number light)
 URxvt*color0  : #0B0E0E
-URxvt*color8  : #555753
+URxvt*color8  : #555753 ! OR 2E3436
 ! red
 URxvt*color1  : #CC0000
 URxvt*color9  : #EF2929
@@ -75,7 +62,5 @@ URxvt*color14 : #00CCFF
 URxvt*color7  : #D3D7CF
 URxvt*color15 : #EEEEEC
 
-! URxvt*background:   rgba:0000/0000/0000/dddd
-URxvt*background: #2B2B2B
-! URxvt*foreground:   rgba:ff00/ff00/ff00/dddd
-URxvt*foreground: #DEDEDE
+URxvt*background: #2B2B2B ! OR rgba:0000/0000/0000/dddd
+URxvt*foreground: #DEDEDE ! OR rgba:ff00/ff00/ff00/dddd

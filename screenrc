@@ -1,30 +1,17 @@
-################################################
-# Screen Config based from Nico Golde's one and
-# /etc/screenrc
-# ~/.screenrc
-# Latest change: Fri 19 Apr 2013 11:47:35 AM CEST
-################################################
-
 # Settings
-nethack               on
-autodetach            on              # Standard: on
-crlf                  off             # Standard: off
-deflogin              off             # Standard: on
-hardcopy_append       on              # Standard: off
-startup_message       off             # Standard: on
-vbell                 on
-defscrollback         1024            # Standard: 100
-silencewait           15              # Standard: 30
-activity              "activity in %n (%t) [%w:%s]~"
-bell                  "%C -> %n%f %t activity!"
-vbell_msg             " You make me mad -- "
+startup_message off
+deflogin        off
+hardcopy_append on   # dont panic, append instead overwrite backlog
+vbell           off  # try urgencyhook with xmonad (prev on)
+defscrollback   1024
+activity        "activity in %n (%t) [%H]" # number, title, host
+bell            "%C -> Num %n Flag %f Title %t has activity!"
+vbell_msg       "(vbell) dude wait a second! "
 
 # Keybindings
 bind h prev
 bind l next
-bind P paste          .
-bind ~ activity       "activity in %n (%t) [%w:%s]~"
-bind * activity       "activity in %n (%t) [%w:%s]"
+bind P paste    .
 
 # Terminfo
 terminfo rxvt* 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
@@ -32,5 +19,3 @@ terminfo rxvt* 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
 # Caption is useful if you use often splitted windows
 # caption always "%{wb}%n%f %t %{wk} %?%-Lw%?%{wb}[%n*%f %t]%?(%u)%?%{wk}%?%+Lw%? %{wk}"
 hardstatus alwayslastline '%{= dg} %H %{G}| %{B}%l %{G}|%=%?%{d}%-w%?%{r}(%{d}%n %t%? {%u} %?%{r})%{d}%?%+w%?%=%{G}| %{B}%M %d %c:%s '
-
-# EOF vim: set ts=4 sw=4 tw=80 :

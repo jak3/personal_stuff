@@ -1,7 +1,8 @@
 -- Imports {{{
-import XMonad
+import XMonad hiding ((|||))
 -- Prompt
 import XMonad.Prompt
+import XMonad.Prompt.Input
 import XMonad.Prompt.RunOrRaise (runOrRaisePrompt)
 import XMonad.Prompt.AppendFile (appendFilePrompt)
 -- Hooks
@@ -24,6 +25,8 @@ import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.EwmhDesktops
 
 import XMonad.Layout.NoBorders
+import XMonad.Layout.Named
+import XMonad.Layout.DecorationMadness
 import XMonad.Layout.PerWorkspace (onWorkspace, onWorkspaces)
 import XMonad.Layout.Reflect (reflectHoriz)
 import XMonad.Layout.IM
@@ -32,6 +35,7 @@ import XMonad.Layout.Spacing
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.LayoutHints
 import XMonad.Layout.LayoutModifier
+import XMonad.Layout.LayoutCombinators (JumpToLayout (..), (|||))
 import XMonad.Layout.Grid
 
 import Data.Ratio ((%))
@@ -44,106 +48,48 @@ import qualified Data.Map as M
 -- Config {{{
 
 -- Define Terminal, sleep solve rendering, screen is faster than zsh
-myTerminal      = "urxvt -e /bin/zsh -c \"sleep 0.1;screen\""
--- Define modMask
+myTerminal :: String
+myTerminal = "urxvtc -e /bin/zsh -c \"sleep 0.1;screen\""
+
 mymodMask :: KeyMask
 mymodMask = mod4Mask
--- Define workspaces
-myWorkspaces    = ["1:main","2:⚓","3:☕", "4:v", "5:♪","6","7","8"]
---}}}
--- Main {{{
-main = do
-    xmproc <- spawnPipe "/usr/bin/xmobar $HOME/personal_stuff/X/xmonad/xmobarrc"
-    xmonad $ defaultConfig
-      { terminal            = myTerminal
-      , workspaces          = myWorkspaces
-      , keys                = mykeys
-      , modMask             = mymodMask
-      , layoutHook          = lessBorders OnlyFloat $ mylayoutHook
-      , manageHook          = mymanageHook
-      , logHook = myLogHook xmproc
-      , normalBorderColor   = "#CCCCC6"
-      , focusedBorderColor  = "#FD971F"
-      , borderWidth         = 1
-      , startupHook         = setWMName "LG3D"
-      }
---}}}
 
--- ManageHook {{{
-mymanageHook :: ManageHook
-mymanageHook = (composeAll . concat $
-    [ [resource     =? r            --> doIgnore            |   r   <- myIgnores]
-    , [className    =? c            --> doShift  "1:main"   |   c   <- myDev    ]
-    , [className    =? c            --> doShift  "2:⚓"      |   c   <- myWww    ]
-    , [className    =? c            --> doShift  "3:☕"      |   c   <- myVim    ]
-    , [className    =? c            --> doShift	 "4:v"      |   c   <- myMisc   ]
-    , [className    =? c            --> doShift	 "5:♪"      |   c   <- myMus    ]
-    , [className    =? c            --> doShift  "8"        |   c   <- myFloats ]
-    , [name         =? n            --> doCenterFloat       |   n   <- myNames  ]
-    , [isFullscreen --> doFullFloat ]
-    ])
+myBorderWidth :: Dimension
+myBorderWidth = 1
 
-    where
+myWorkspaces :: [String]
+myWorkspaces = ["1:main","2:⚓","3:☕", "4:v", "5:♪","6","7","8"]
 
-        role      = stringProperty "WM_WINDOW_ROLE"
-        name      = stringProperty "WM_NAME"
 
-        -- classnames
-        myFloats  = ["Smplayer","MPlayer","Xmessage","XFontSel","Downloads","Nm-connection-editor", "ADT", "Eclipse"]
-        myWww     = ["Firefox","Google-chrome","Google-chrome-stable","Chromium", "Chromium-browser", "Iceweasel", "Vidalia"]
-        myMisc    = ["VirtualBox"]
-        myDev	  = [""]
-        myVim	  = [""]
-        myMus	  = [""]
+myNormalBorderColor, myFocusedBorderColor :: String
+myNormalBorderColor  = "#555555"
+myFocusedBorderColor = "#FD971F"
 
-        -- resources
-        myIgnores = ["desktop","desktop_window","notify-osd","stalonetray","trayer"]
+-- Default offset of drawable screen boundaries from each physical
+-- screen. Anything non-zero here will leave a gap of that many pixels
+-- on the given edge, on the that screen. A useful gap at top of screen
+-- for a menu bar (e.g. 15)
+--
+-- An example, to set a top gap on monitor 1, and a gap on the bottom of
+-- monitor 2, you'd use a list of geometries like so:
+--
+-- > defaultGaps = [(18,0,0,0),(0,18,0,0)] -- 2 gaps on 2 monitors
+--
+-- Fields are: top, bottom, left, right.
+--
+myDefaultGaps :: [(Integer, Integer, Integer, Integer)]
+myDefaultGaps = [(0,0,0,0)]
 
-        -- names
-        myNames   = ["bashrun","Google Chrome Options","Chromium Options"]
 
--- }}}
-
--- Layout
-mylayoutHook  = onWorkspaces ["1:main","5:♪"] customLayout $
-                onWorkspaces ["2:⚓","4:v"] customLayout2$
-                onWorkspaces ["8"] customLayout3$
-                customLayout
-
-customLayout = avoidStruts $ tiled ||| Mirror tiled ||| Full ||| simpleFloat
-  where
-    tiled   = ResizableTall 1 (2/100) (1/2) []
-
-customLayout2 = avoidStruts $ Full ||| tiled ||| Mirror tiled ||| simpleFloat
-  where
-    tiled   = ResizableTall 1 (2/100) (1/2) []
-
-customLayout3 = avoidStruts $ simpleFloat ||| tiled ||| Mirror tiled ||| Full
-  where
-    tiled   = ResizableTall 1 (2/100) (1/2) []
-
---Bar
-myLogHook :: Handle -> X ()
-myLogHook h = dynamicLogWithPP $ defaultPP
-    {   ppOutput = hPutStrLn h
-        ,ppVisible = xmobarColor "white" "#1B1D1E" . shorten 50
-        , ppCurrent           =   xmobarColor "#ee9a00" "#1B1D1E" . shorten 50
-        , ppHidden            =   xmobarColor "white" "#1B1D1E" . shorten 50
-        , ppHiddenNoWindows   =   xmobarColor "#7b7b7b" "#1B1D1E" . shorten 50
-    }
-
--- }}}
--- Key mapping {{{
+-- Key mapping {{{2
 mykeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
-    -- launch terminal default (screen)
+    -- launch terminal, default with screen
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
-    , ((modm .|. shiftMask, xK_t     ), spawn "urxvt -e /bin/zsh")
+    , ((modm .|. shiftMask, xK_t     ), spawn "urxvtc -e /bin/zsh")
     , ((modm,               xK_f     ), spawn "firefox")
-    , ((modm,               xK_g     ), spawn "/opt/chrome/usr/bin/google-chrome-stable &")
     , ((modm .|. shiftMask, xK_l     ), spawn "$HOME/personal_stuff/scripts/layout_switch.sh")
     , ((modm, xK_x     ), spawn "xscreensaver-command -lock")
     , ((modm, xK_s     ), spawn "slock")
-    , ((modm, xK_y     ), spawn "/opt/redshift/bin/redshift -c $HOME/personal_stuff/X/redshift.conf")
     , ((modm .|. controlMask, xK_l), spawn "cmus-remote -k +10") -- seek 10s
     , ((modm .|. controlMask, xK_h), spawn "cmus-remote -u") -- pause
     , ((modm .|. controlMask, xK_k), spawn "cmus-remote -r") -- previous song
@@ -161,13 +107,11 @@ mykeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Resize viewed windows to the correct size
     , ((modm,               xK_n     ), refresh)
     -- Move focus to the next window
-    , ((modm,               xK_Tab   ), windows W.focusDown)
-    -- Move focus to the next window
     , ((modm,               xK_j     ), windows W.focusDown)
     -- Move focus to the previous window
     , ((modm,               xK_k     ), windows W.focusUp  )
     -- Move focus to the master window
-    , ((modm,               xK_m     ), windows W.focusMaster  )
+    , ((modm,               xK_m     ), windows W.focusMaster)
     -- Swap the focused window and the master window
     , ((modm,               xK_Return), windows W.swapMaster)
     -- Swap the focused window with the next window
@@ -187,7 +131,6 @@ mykeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Toggle the status bar gap
     -- Use this binding with avoidStruts from Hooks.ManageDocks.
     -- See also the statusBar function from Hooks.DynamicLog.
-    --
     -- , ((modm              , xK_b     ), sendMessage ToggleStruts)
     -- Quit xmonad
     , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
@@ -210,4 +153,116 @@ mykeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
     | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
     , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
-    -- EOF vim: set ts=4 sw=4 tw=80 :
+--2}}}
+
+--}}}
+
+-- Main {{{
+main = do
+
+    xmproc <- spawnPipe "/usr/bin/xmobar $HOME/personal_stuff/X/xmonad/xmobarrc"
+    xmonad $ defaultConfig
+      { terminal            = myTerminal
+      , borderWidth         = myBorderWidth
+      , modMask             = mymodMask
+      , workspaces          = myWorkspaces
+      , normalBorderColor   = myNormalBorderColor
+      , focusedBorderColor  = myFocusedBorderColor
+
+      , keys                = mykeys
+
+      , layoutHook          = avoidStruts $ myLayout
+      , manageHook          = mymanageHook <+> manageDocks
+      , logHook             = myLogHook xmproc
+      , startupHook         = myStartupHook
+      }
+--}}}
+
+-- ManageHook {{{
+mymanageHook :: ManageHook
+mymanageHook = (composeAll . concat $
+    [ [resource     =? r            --> doIgnore            |   r   <- myIgnores]
+    , [className    =? c            --> doShift  "1:main"   |   c   <- myMain   ]
+    , [className    =? c            --> doShift  "2:⚓"      |   c   <- myWww    ]
+    , [className    =? c            --> doShift  "3:☕"      |   c   <- myCode   ]
+    , [className    =? c            --> doShift	 "4:v"      |   c   <- myMisc   ]
+    , [className    =? c            --> doShift	 "5:♪"      |   c   <- myMus    ]
+    , [className    =? c            --> doShift  "8"        |   c   <- myFloats ]
+    , [name         =? n            --> doCenterFloat       |   n   <- myNames  ]
+    , [isFullscreen --> doFullFloat ]
+    ])
+
+    where
+
+        role      = stringProperty "WM_WINDOW_ROLE"
+        name      = stringProperty "WM_NAME"
+
+        myIgnores = ["desktop","desktop_window","notify-osd","stalonetray","trayer"]
+        myMain	  = [""]
+        myWww     = ["Firefox","Google-chrome","Google-chrome-stable","Chromium", "Chromium-browser", "Iceweasel", "Vidalia"]
+        myCode	  = ["Xpdf"]
+        myMisc    = ["VirtualBox"]
+        myMus	  = [""]
+        myFloats  = ["JFLAP", "Java", "Eclipse"]
+        myNames   = [""]
+
+-- }}}
+
+-- LogHook (Bar info) {{{
+myLogHook :: Handle -> X ()
+myLogHook h = dynamicLogWithPP $ defaultPP
+    {     ppOutput            = hPutStrLn h
+        , ppVisible           = xmobarColor "white"   "#1B1D1E" . shorten 50
+        , ppCurrent           = xmobarColor "#ee9a00" "#1B1D1E" . shorten 50
+        , ppHidden            = xmobarColor "white"   "#1B1D1E" . shorten 50
+        , ppUrgent            = xmobarColor "red"     "#1B1D1E" . shorten 50
+        , ppHiddenNoWindows   = xmobarColor "#7b7b7b" "#1B1D1E" . shorten 50
+    }
+
+-- }}}
+
+-- Startup Hook {{{
+
+-- Perform an arbitrary action each time xmonad starts or is restarted
+-- with mod-q.  Used by, e.g., XMonad.Layout.PerWorkspace to initialize
+-- per-workspace layout choices.
+
+-- By default, do nothing.
+myStartupHook :: X ()
+myStartupHook = return ()
+-- }}}
+
+-- Layout {{{
+
+-- default tiling algorithm partitions the screen into two panes
+basic :: Tall a
+basic = Tall nmaster delta ratio
+  where
+    -- The default number of windows in the master pane
+    nmaster = 1
+    -- Percent of screen to increment by when resizing panes
+    delta   = 3/100
+    -- Default proportion of screen occupied by master pane
+    ratio   = 1/2
+
+myLayout = smartBorders $ onWorkspace "8" simpleFloat standardLayouts
+  where
+    standardLayouts = tall ||| wide ||| full ||| circle
+    tall   = named "tall"   $ avoidStruts basic
+    wide   = named "wide"   $ avoidStruts $ Mirror basic
+    circle = named "circle" $ avoidStruts circleSimpleDefaultResizable
+    full   = named "full"   $ noBorders Full
+
+-- Set up the Layout prompt
+myLayoutPrompt :: X ()
+myLayoutPrompt = inputPromptWithCompl myXPConfig "Layout"
+                 (mkComplFunFromList' allLayouts) ?+ (sendMessage . JumpToLayout)
+  where
+    allLayouts = ["tall", "wide", "circle", "full"]
+
+    myXPConfig :: XPConfig
+    myXPConfig = defaultXPConfig {
+        autoComplete= Just 1000
+    }
+
+-- }}}

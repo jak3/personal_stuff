@@ -490,7 +490,7 @@ au BufRead,BufNewFile *.fool set syntax=fool
 au BufEnter *.nse setl filetype=lua tabstop=4 shiftwidth=4
 " trick to use fdm syntax+manual ( ty alem0lars )
 au BufReadPre * setlocal foldmethod=syntax
-au BufWinEnter * if &fdm == 'syntax' | setlocal foldmethod=manual | endif
+au BufWinEnter * if &fdm == 'syntax' | setlocal foldmethod=marker | endif
 
 augroup derek_xsd
     au!
