@@ -200,9 +200,9 @@ mymanageHook = (composeAll . concat $
         myIgnores = ["desktop","desktop_window","notify-osd","stalonetray","trayer"]
         myMain	  = [""]
         myWww     = ["Firefox","Google-chrome","Google-chrome-stable","Chromium", "Chromium-browser", "Iceweasel", "Vidalia"]
-        myCode	  = ["Xpdf"]
+        myCode	  = ["Xpdf", "zathura"]
         myMisc    = ["VirtualBox"]
-        myMus	  = [""]
+        myMus	    = [""]
         myFloats  = ["JFLAP", "Java", "Eclipse"]
         myNames   = [""]
 
