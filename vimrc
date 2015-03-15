@@ -2,32 +2,68 @@
 " .vimrc made from Derek Wyatt's template. Visit him site derekwyatt.org if you
 " love vim. Have a look at github.com/tpope too
 "
+" (jake)
 " License       : GPLv3
 "-------------------------------------------------------------------------------
-let PAGER='' "ensure using vim's man and not the system one remapped in bashrc
 
-" Section: Pathogen {{{
+" Section: NeoBundle {{{
 
-"let g:pathogen_disabled = []
-"call add(g:pathogen_disabled, 'LaTeX-Box')
+if has('vim_starting')
+  if &compatible
+    set nocompatible               " Be iMproved
+  endif
 
-if filereadable(expand('~/personal_stuff/vim/bundle/vim-pathogen/autoload/pathogen.vim'))
-    source ~/personal_stuff/vim/bundle/vim-pathogen/autoload/pathogen.vim
+  " Required:
+  set runtimepath+=/home/jack/.vim/bundle/neobundle.vim/
 endif
-silent! execute pathogen#infect("~/personal_stuff/vim/bundle/{}")
 
-syntax on
+" Required:
+call neobundle#begin(expand('/home/jack/.vim/bundle'))
+
+" Let NeoBundle manage NeoBundle
+" Required:
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" Add or remove your Bundles here:
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/vimfiler.vim'
+NeoBundle 'Shougo/neosnippet.vim'
+NeoBundle 'Shougo/neosnippet-snippets'
+
+NeoBundle 'mileszs/ack.vim'
+NeoBundle 'bling/vim-airline'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'ctrlpvim/ctrlp.vim'
+NeoBundle 'tpope/vim-surround'
+
+NeoBundle 'chriskempson/base16-vim'
+
+"NeoBundle 'majutsushi/tagbar'
+"NeoBundle 'vim-scripts/c.vim'
+"NeoBundle 'SirVer/ultisnips'
+"NeoBundle 'Valloric/YouCompleteMe'
+
+" Required:
+call neobundle#end()
+
+" Required:
 filetype plugin indent on
-set completeopt=longest,menuone
-set wildmode=list:longest,list:full
 
-Helptags
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
+NeoBundleCheck
 
 " }}}
 
 " Section: Options {{{
+
+set completeopt=longest,menuone
+set wildmode=list:longest,list:full
+
 let mapleader = ","
 
+let g:main_font = "Monospace\\ 9"
+let g:small_font = "Monospace\\ 2"
 
 " undodir file only to /tmp
 set undofile
@@ -157,13 +193,11 @@ set number
 " Let the syntax highlighting for Java files allow cpp keywords
 let java_allow_cpp_keywords = 1
 
-" set makeprg ELF
 nmap <Leader>ma :set makeprg=gcc\\ -Wall\\ -ggdb3\\ -o\\ %<\\ %
 nmap <Leader>mx :set makeprg=g++\\ -Wall\\ -O3\\ -std=c++11\\ -fopenmp\\ -lstdc++\\ -lm\\ -o\\ %<\\ %
 nmap <Leader>mo :set makeprg=gcc\\ -Wall\\ -O3\\ -std=c11\\ -fopenmp\\ -o\\ %<\\ %
 nmap <Leader>m+ :set makeprg=g++\\ -g3\\ -ggdb\\ -O0\\ -Wall\\ -Wextra\\ -Wno-unused\\ -o\\ %<\\ %\\ -lcryptopp
 nmap <Leader>mt :set makeprg=gcc\\ -Wall\\ -std=c11\\ -ggdb3\\ -o\\ /tmp/%<\\ %
-" set makeprg EXE
 nmap <Leader>m6 :set makeprg=/opt/mingw-w64-x86_64/bin/x86_64-w64-mingw32-gcc\\ -m32\\ -o\\ %<.exe\\ %
 nmap <Leader>mw :set makeprg=/opt/mingw-w64-i686/bin/i686-w64-mingw32-gcc\\ -o\\ %<.exe\\ %
 
@@ -292,16 +326,6 @@ silent exe "normal! '[V']r w"
 endfunction
 nmap <silent> <Leader>C :set opfunc=ClearText<CR>g@
 vmap <silent> <Leader>C :<C-U>call ClearText(visual(), 1)<CR>
-
-if has("mac")
-  let g:main_font = "Menlo\\ Regular:h11"
-  let g:small_font = "Menlo\\ Regular:h2"
-else
-  let g:main_font = "Monospace\\ 9"
-  let g:small_font = "Monospace\\ 2"
-endif
-
-
 
 if !exists('g:bufferJumpList')
     let g:bufferJumpList = {}
@@ -492,12 +516,6 @@ au BufEnter *.nse setl filetype=lua tabstop=4 shiftwidth=4
 au BufReadPre * setlocal foldmethod=syntax
 au BufWinEnter * if &fdm == 'syntax' | setlocal foldmethod=marker | endif
 
-augroup derek_xsd
-    au!
-    au BufEnter *.xsd,*.wsdl,*.xml setl tabstop=4 shiftwidth=4
-    au BufEnter *.xsd,*.wsdl,*.xml setl formatoptions=crq textwidth=120 colorcolumn=120
-augroup END
-
 augroup Binary
     au!
     au BufReadPre *.bin let &bin=1
@@ -530,6 +548,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 " }}}
 
 " Section: Fix constant spelling mistakes {{{
+" consider vim-abolish
 iab teh the
 iab Teh The
 iab taht that
@@ -567,93 +586,17 @@ iab Fone Phone
 set t_Co=256
 " Syntax coloring lines that are too long just slows down the world
 set synmaxcol=2048
-
-colorscheme wombat256mod
-
-if has("gui_running")
-    exe "set guifont=" . g:main_font
-    set background=dark
-    colorscheme BusyBee
-    if has("win32")
-        if !exists("g:vimrcloaded")
-            winpos 0 0
-            if !&diff
-                winsize 130 120
-            else
-                winsize 227 120
-            endif
-            let g:vimrcloaded = 1
-        endif
-    endif
-endif
-:nohls
+set background=dark
+let base16colorspace=256
+colorscheme base16-default
 
 " }}}
 
 " Section: Plugins {{{
-" Section: Syntastic {{{
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_c_checkers = ['ycm']
-let g:syntastic_python_checkers = ['pyflakes']
-let g:syntastic_html_checkers = ['tidy']
-" }}}
-
-" Section: NERDTree {{{
-" Toggle the NERD Tree
-nmap <Leader>3 :NERDTreeToggle<CR>
-
-" Show the bookmarks table on startup
-let NERDTreeShowBookmarks=1
-
-" Don't display these kinds of files
-let NERDTreeIgnore=[ '\.ncb$', '\.suo$', '\.vcproj\.RIMNET', '\.obj$',
-            \ '\.ilk$', '^BuildLog.htm$', '\.pdb$', '\.idb$',
-            \ '\.embed\.manifest$', '\.embed\.manifest.res$',
-            \ '\.intermediate\.manifest$', '^mt.dep$' ]
-" }}}
-
-" Section: Twitvim {{{
-function! TwitVimMappings()
-    let twitvim_enable_perl = 1
-    let twitvim_browser_cmd = 'firefox'
-    nmap <Leader>tw :FriendsTwitter<cr>
-    nmap <Leader>tm :UserTwitter<cr>
-    nmap <Leader>tM :MentionsTwitter<cr>
-    nmap <buffer> U :exe ":UnfollowTwitter " . expand("<cword>")<cr>
-    nmap <buffer> F :exe ":FollowTwitter " . expand("<cword>")<cr>
-    nmap <buffer> 7 :BackTwitter<cr>
-    nmap <buffer> 8 :ForwardTwitter<cr>
-    nmap <buffer> 1 :PreviousTwitter<cr>
-    nmap <buffer> 2 :NextTwitter<cr>
-    nmap <buffer> <Leader>sf :SearchTwitter #scala OR #akka<cr>
-    nmap <buffer> <Leader>ss :SearchTwitter #scala<cr>
-    nmap <buffer> <Leader>sa :SearchTwitter #akka<cr>
-    nmap <buffer> <Leader>sv :SearchTwitter #vim<cr>
-endfunction
-augroup derek_twitvim
-    au!
-    au FileType twitvim call TwitVimMappings()
-augroup END
-" }}}
-
-" Section: FSwitch {{{
-" FSwitch mappings
-nmap <silent> <Leader>of :FSHere<CR>
-nmap <silent> <Leader>ol :FSRight<CR>
-nmap <silent> <Leader>oL :FSSplitRight<CR>
-nmap <silent> <Leader>oh :FSLeft<CR>
-nmap <silent> <Leader>oH :FSSplitLeft<CR>
-nmap <silent> <Leader>ok :FSAbove<CR>
-nmap <silent> <Leader>oK :FSSplitAbove<CR>
-nmap <silent> <Leader>oj :FSBelow<CR>
-nmap <silent> <Leader>oJ :FSSplitBelow<CR>
-" }}}
 
 " Section: cvim {{{
-let  g:C_UseTool_cmake    = 'yes'
-let  g:C_UseTool_doxygen = 'yes'
+"let  g:C_UseTool_cmake    = 'yes'
+"let  g:C_UseTool_doxygen = 'yes'
 " }}}
 
 " Section: YouCompleteMe {{{
@@ -664,27 +607,13 @@ let  g:C_UseTool_doxygen = 'yes'
 " Section: UltiSnips {{{
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<C-e>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+"let g:UltiSnipsExpandTrigger="<C-e>"
+"let g:UltiSnipsJumpForwardTrigger="<c-j>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 " If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+"let g:UltiSnipsEditSplit="vertical"
 
-" }}}
-
-" Section: LatexBox {{{
-let  g:LatexBox_Folding = 1
-let  g:LatexBox_viewer="xpdf"
-let  g:LatexBox_quickfix=2
-let  b:main_tex_file="main.tex"
-let  g:LatexBox_build_dir="out"
-" }}}
-
-" Section: indentLine {{{
-let g:indentLine_char="┆"
-let g:indentLine_enabled=0
-map <Leader>it :IndentLinesToggle<CR>
 " }}}
 
 " Section: airline {{{
@@ -693,7 +622,6 @@ let g:airline#extensions#bufferline#overwrite_variables = 0
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#branch#empty_message = ''
 let g:airline#extensions#branch#displayed_head_limit = 10
-let g:airline#extensions#syntastic#enabled = 1
 let g:airline_section_y='Buf:#%n [%b][0x%B]'
 " }}}
 

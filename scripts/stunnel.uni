@@ -1,0 +1,6 @@
+client = yes
+
+[proxyssl]
+
+accept = 127.0.0.1:8880
+connect = proxyssl.unibo.it:443

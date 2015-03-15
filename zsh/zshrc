@@ -13,6 +13,7 @@ STUFF=$HOME/personal_stuff
 
 #General ones
 source $STUFF/shell/environment
+source /home/jack/repos/base16-shell/base16-default.dark.sh
 source $STUFF/shell/functions
 source $STUFF/shell/aliases
 
