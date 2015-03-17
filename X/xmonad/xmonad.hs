@@ -202,7 +202,7 @@ mymanageHook = (composeAll . concat $
         myWww     = ["Firefox","Google-chrome","Google-chrome-stable","Chromium", "Chromium-browser", "Iceweasel", "Vidalia"]
         myCode	  = ["Xpdf", "Zathura"]
         myMisc    = ["VirtualBox"]
-        myMus	    = [""]
+        myMus	    = ["Audacity"]
         myFloats  = ["JFLAP", "Java", "Eclipse"]
         myNames   = [""]
 

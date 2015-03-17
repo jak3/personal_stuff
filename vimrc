@@ -38,10 +38,13 @@ NeoBundle 'tpope/vim-surround'
 
 NeoBundle 'chriskempson/base16-vim'
 
+NeoBundle 'suan/vim-instant-markdown'
 "NeoBundle 'majutsushi/tagbar'
 "NeoBundle 'vim-scripts/c.vim'
 "NeoBundle 'SirVer/ultisnips'
-"NeoBundle 'Valloric/YouCompleteMe'
+NeoBundle 'Valloric/YouCompleteMe'
+
+NeoBundle '~/personal_stuff/vim/bundle/potion'
 
 " Required:
 call neobundle#end()
@@ -624,6 +627,10 @@ let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#branch#empty_message = ''
 let g:airline#extensions#branch#displayed_head_limit = 10
 let g:airline_section_y='Buf:#%n [%b][0x%B]'
+" }}}
+
+" Section: ctrlp {{{
+ let g:ctrlp_map = '<c-f>'
 " }}}
 
 " }}}
