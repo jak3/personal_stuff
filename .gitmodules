@@ -81,10 +81,6 @@
 	path = vim/bundle/VisIncr
 	url = https://github.com/vim-scripts/VisIncr.git
   ignore = dirty
-[submodule "vim/bundle/YouCompleteMe"]
-	path = vim/bundle/YouCompleteMe
-	url = https://github.com/Valloric/YouCompleteMe.git
-  ignore = dirty
 [submodule "vim/bundle/ultisnips"]
 	path = vim/bundle/ultisnips
 	url = https://github.com/SirVer/ultisnips.git
