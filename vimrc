@@ -38,10 +38,12 @@ NeoBundle 'tpope/vim-surround'
 
 NeoBundle 'chriskempson/base16-vim'
 
+NeoBundle 'lukerandall/haskellmode-vim'
 NeoBundle 'suan/vim-instant-markdown'
-"NeoBundle 'majutsushi/tagbar'
+NeoBundle 'majutsushi/tagbar'
 "NeoBundle 'vim-scripts/c.vim'
-"NeoBundle 'SirVer/ultisnips'
+NeoBundle 'honza/vim-snippets'
+NeoBundle 'SirVer/ultisnips'
 NeoBundle 'Valloric/YouCompleteMe'
 
 NeoBundle '~/personal_stuff/vim/bundle/potion'
@@ -62,6 +64,7 @@ NeoBundleCheck
 
 set completeopt=longest,menuone
 set wildmode=list:longest,list:full
+set shell=zsh
 
 let mapleader = ","
 
@@ -611,12 +614,12 @@ colorscheme base16-default
 " Section: UltiSnips {{{
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-"let g:UltiSnipsExpandTrigger="<C-e>"
-"let g:UltiSnipsJumpForwardTrigger="<c-j>"
-"let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:UltiSnipsExpandTrigger="<C-e>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 " If you want :UltiSnipsEdit to split your window.
-"let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsEditSplit="vertical"
 
 " }}}
 
@@ -631,6 +634,76 @@ let g:airline_section_y='Buf:#%n [%b][0x%B]'
 
 " Section: ctrlp {{{
  let g:ctrlp_map = '<c-f>'
+" }}}
+
+" Section: instant markdown {{{
+let g:instant_markdown_autostart = 0
+" }}}
+
+" Section: tagbar {{{
+nmap <F8> :TagbarToggle<CR>
+let g:tagbar_type_haskell = {
+    \ 'ctagsbin'  : 'hasktags',
+    \ 'ctagsargs' : '-x -c -o-',
+    \ 'kinds'     : [
+        \  'm:modules:0:1',
+        \  'd:data: 0:1',
+        \  'd_gadt: data gadt:0:1',
+        \  't:type names:0:1',
+        \  'nt:new types:0:1',
+        \  'c:classes:0:1',
+        \  'cons:constructors:1:1',
+        \  'c_gadt:constructor gadt:1:1',
+        \  'c_a:constructor accessors:1:1',
+        \  'ft:function types:1:1',
+        \  'fi:function implementations:0:1',
+        \  'o:others:0:1'
+    \ ],
+    \ 'sro'        : '.',
+    \ 'kind2scope' : {
+        \ 'm' : 'module',
+        \ 'c' : 'class',
+        \ 'd' : 'data',
+        \ 't' : 'type'
+    \ },
+    \ 'scope2kind' : {
+        \ 'module' : 'm',
+        \ 'class'  : 'c',
+        \ 'data'   : 'd',
+        \ 'type'   : 't'
+    \ }
+    \ }
+" }}}
+
+" Section: haskell-mode {{{
+au BufEnter *.hs compiler ghc
+au FileType haskell let b:ghc_staticoptions = '-Wall'
+let g:ghc="/usr/bin/ghc"
+let g:haddock_browser="/usr/bin/firefox"
+" }}}
+
+" Section: Vimfiler {{{
+
+" Use vimfiler as the default file explorer.
+let g:vimfiler_as_default_explorer = 1
+
+" Vimfiler options.
+call vimfiler#custom#profile('default', 'context', {
+\ 'safe': 0,
+\ 'auto-cd': 1,
+\ 'auto-expand': 1,
+\ 'no-quit': 1,
+\ })
+
+" {{{ Hotkeys.
+nnoremap <C-e> :<C-u>VimFiler -buffer-name=explorer
+            \ -split -simple -winwidth=35 -toggle<CR>
+" <e>: Edit a file and change working directory to its parent.
+nmap <buffer><expr> e vimfiler#smart_cursor_map(
+\ "\<Plug>(vimfiler_cd_file)",
+\ "\<Plug>(vimfiler_edit_file)")
+" }}}
+
 " }}}
 
 " }}}

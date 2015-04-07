@@ -6,7 +6,7 @@ export JAVA_HOME=/usr/lib64/java
 export MANPATH="${MANPATH}:${JAVA_HOME}/man:\
 /opt/texlive/texmf-dist/doc/man"
 export CLASSPATH=".:/opt/antlr/antlr-4.4-complete.jar:$CLASSPATH"
-export PATH="${PATH}:/opt/texlive/bin/x86_64-linux"
+export PATH="${PATH}"
 export GOPATH="$HOME/repos/gocode"
 
 export HISTCONTROL=ignoredups
@@ -23,8 +23,5 @@ export __GIT_PROMPT_DIR=$STUFF/zsh/
 
 #Export LS_COLORS
 eval `dircolors $HOME/.dircolors`
-
-#set it mapping without problems
-#setxkbmap -layout it -model pc104
 
 stty -ixon

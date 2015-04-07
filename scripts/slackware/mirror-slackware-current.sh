@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# $Id: mirror-slackware-current.sh,v 1.83 2012/08/08 07:47:33 root Exp root $
+# $Id: mirror-slackware-current.sh,v 1.87 2013/10/26 22:43:07 root Exp root $
 #
 # Mirror Slackware-current to our local machine
 #
@@ -51,6 +51,7 @@ set_defaults() {
 RSYNC=${RSYNC:-"/usr/bin/rsync"}
 MKISOFS=${MKISOFS:-"/usr/bin/mkisofs"}
 MD5SUM=${MD5SUM:-"/usr/bin/md5sum"}
+ISOHYBRID=${ISOHYBRID:-"/usr/bin/isohybrid"}
 
 # Your name/email:
 BUILDER=${BUILDER:-"Eric Hameleers <alien@slackware.com>"}
@@ -128,6 +129,11 @@ ONLYDIFF=${ONLYDIFF:-0}
 # Corresponds to the '-p' option.
 PREREMOVE=${PREREMOVE:-0}
 
+# If you want a 'hybrid' ISO image which can be copied directly to a USB stick
+# to create a bootable USB media, set HYBRID to '1'.
+# Corresponds to the '-u' option.
+HYBRID=${HYBRID:-0}
+
 # The value of EXCLUDES is what the script will exclude from the mirroring
 # process; there is no parameter for the script to change this value, but you
 # can use '-X excludefile' to define more excluded directories/files if you
@@ -193,12 +199,12 @@ ORIGSCR="http://www.slackware.com/~alien/tools/mirror-slackware-current.sh"
 # Make sure the PID file is removed when we kill the process
 trap 'rm -f $PIDFILE; exit 1' TERM INT
 
-while getopts "a:b:cehfil:m:no:pr:qs:vwX:" Option
+while getopts "a:b:cehfil:m:no:pr:qs:uvwX:" Option
 do
   case $Option in
     h ) cat <<-"EOH"
 	-----------------------------------------------------------------
-	$Id: mirror-slackware-current.sh,v 1.83 2012/08/08 07:47:33 root Exp root $
+	$Id: mirror-slackware-current.sh,v 1.87 2013/10/26 22:43:07 root Exp root $
 	-----------------------------------------------------------------
 	EOH
         echo "Usage:"
@@ -253,6 +259,7 @@ do
         echo "  -s            Additional ssh options, in case rsync needs to"
         echo "                login to the remote server using ssh. Example:"
         echo "                -s \"-l alien -o IdentityFile=/home/alien/.ssh/id_rsa\""
+        echo "  -u            Create a hybrid ISO (can be dd-ed to USB stick)."
         echo "  -v            Verbose progress indications."
         echo "  -w            Write a .conf file containing script defaults."
         echo "                It will be created in the script's directory,"
@@ -297,6 +304,8 @@ do
     s ) EXTOPTS="${OPTARG}"
         export RSYNC_RSH="ssh $EXTOPTS"
         ;;
+    u ) HYBRID=1
+        ;;
     v ) echo "Enabling verbose output...."
         DEBUG=1
         VERBOSE="-v --progress"
@@ -335,7 +344,7 @@ shift $(($OPTIND - 1))
 #  if one exists.
 # ---------------------------------------------------------------------------
 
-# Sanity checks - 
+# Sanity checks -
 if ! echo "CDROM MINI DVD ALL NONE" | grep -wq $ISO ; then
   echo "Error! Invalid iso_type '-o ${ISO}' passed as parameter!"
   echo "Possible values are 'CDROM', 'MINI', 'DVD', 'ALL' or 'NONE'."
@@ -452,7 +461,7 @@ fi
 # prevented by using the '-X none' parameter:
 # The default value for EXCLUDES is defined in the top section of this script.
 if [ "$EXCLUDEFILE" == "none" ]; then
-  EXCLUDES="" 
+  EXCLUDES=""
 elif [ -r "$EXCLUDEFILE" ]; then
   EXCLUDES="--exclude-from=$EXCLUDEFILE"
 fi
@@ -512,7 +521,7 @@ else
         # we will continue as requested
         [ $DEBUG == 1 ] && echo ", continuing anyway..."
       else
-        # quit the script now. 
+        # quit the script now.
         [ $DEBUG == 1 ] && echo ", exiting now...."
         rm -f $TMP/${SCRIPTID}_${SLACKRELEASE}_ChangeLog.txt
         rm -f $PIDFILE
@@ -521,7 +530,7 @@ else
     else
       echo -n "$(date) [$$]: ChangeLog.txt has been updated"
       if [ $ONLYDIFF -eq 1 ]; then
-        # quit the script now. 
+        # quit the script now.
         echo ", that's all you wanted to know...."
         rm -f $TMP/${SCRIPTID}_${SLACKRELEASE}_ChangeLog.txt
         rm -f $PIDFILE
@@ -599,7 +608,7 @@ else
 #
 # Now create a bootable ISO install images
 # (log the used command line for reference purposes)
-# 
+#
 # ... unless we explicitly don't want ISOs...
 #
   if [ "$ISO" == "NONE" ]; then
@@ -607,6 +616,17 @@ else
     rm -f $PIDFILE
     exit 0
   fi
+
+# Determine whether we add UEFI boot capabilities to the ISO:
+# Note, this excludes 32-bit Slackware since a 32-bit kernel will not boot
+# on UEFI (UEFI starts the system in x86_64 mode):
+if [ -f isolinux/efiboot.img ]; then
+  UEFI_OPTS="-eltorito-alt-boot -no-emul-boot -eltorito-platform 0xEF -eltorito-boot isolinux/efiboot.img"
+  ISOHYBRID_OPTS="-u"
+else
+  UEFI_OPTS=""
+  ISOHYBRID_OPTS=""
+fi
 
 
   if [ "$ISO" == "MINI" -o  "$ISO" == "ALL" ]; then
@@ -635,14 +655,17 @@ else
     -x ./testing \\
     -x ./usb-and-pxe-installers \\
     -x ./zipslack \\
+    -v -d -N \\
     -hide-rr-moved -hide-joliet-trans-tbl \\
-    -v -d -N -no-emul-boot -boot-load-size 4 -boot-info-table \\
+    -no-emul-boot -boot-load-size 4 -boot-info-table \\
+    -sort isolinux/iso.sort \\
     -b isolinux/isolinux.bin \\
     -c isolinux/isolinux.boot \\
-    -sort isolinux/iso.sort \\
     -preparer "Slackware-${RELEASE} build for $ARCH by ${BUILDER}" \\
     -publisher "The Slackware Linux Project - http://www.slackware.com/" \\
-    -A "Slackware-${RELEASE} for ${ARCH} Mini Install CD - build $DATE" .
+    -A "Slackware-${RELEASE} for ${ARCH} Mini Install CD - build $DATE" \\
+    ${UEFI_OPTS} \\
+    .
 
 _EOT_
 
@@ -678,10 +701,19 @@ _EOT_
     -preparer "Slackware-${RELEASE} build for $ARCH by ${BUILDER}" \
     -publisher "The Slackware Linux Project - http://www.slackware.com/" \
     -A "Slackware-${RELEASE} for ${ARCH} Mini Install CD - build $DATE" \
+    ${UEFI_OPTS} \
     . \
   > ${SLACKROOTDIR}/${SLACKRELEASE}-iso/mkisofs_mini.log 2>&1
 
   MKISOERR=$?
+
+  if [ $MKISOERR -eq 0 ]; then
+    # Create a hybrid ISO if requested:
+    if [ $HYBRID -eq 1 -a -x $ISOHYBRID ]; then
+      echo "$(date) [$$]: Creating hybrid ISO."
+      $ISOHYBRID ${ISOHYBRID_OPTS} ${SLACKROOTDIR}/${SLACKRELEASE}-iso/.building-slackware-mini-install.iso
+    fi
+  fi
 
   if [ $PREREMOVE -eq 0 ]; then
     # Deleting the previous ISO after creating the new ISO
@@ -706,7 +738,7 @@ _EOT_
   # In 'full install' mode, additional CD's will be asked for.
   #
   # CD1: bootable INSTALL CD
-  # CD2: d, e, k, x, xap
+  # CD2: d, e, k, t, x, xap
   # CD3: kde
   #
   # Command used to create the ISO's for CD1, CD2 and CD3:
@@ -723,6 +755,7 @@ _EOT_
     -x ./${PKGMAIN}/k \\
     -x ./${PKGMAIN}/kde \\
     -x ./${PKGMAIN}/kdei \\
+    -x ./${PKGMAIN}/t \\
     -x ./${PKGMAIN}/x \\
     -x ./${PKGMAIN}/xap \\
     -x ./pasture \\
@@ -740,6 +773,7 @@ _EOT_
     -preparer "Slackware-${RELEASE} build for $ARCH by ${BUILDER}" \\
     -publisher "The Slackware Linux Project - http://www.slackware.com/" \\
     -A "Slackware-${RELEASE} Install CD1 - build $DATE" \\
+    ${UEFI_OPTS} \\
     .
 
   #CD2
@@ -756,6 +790,7 @@ _EOT_
     /${PKGMAIN}/d/=./${PKGMAIN}/d \\
     /${PKGMAIN}/e/=./${PKGMAIN}/e \\
     /${PKGMAIN}/k/=./${PKGMAIN}/k \\
+    /${PKGMAIN}/t/=./${PKGMAIN}/t \\
     /${PKGMAIN}/x/=./${PKGMAIN}/x \\
     /${PKGMAIN}/xap/=./${PKGMAIN}/xap \\
     .
@@ -796,6 +831,7 @@ _EOT_
     -x ./${PKGMAIN}/k \
     -x ./${PKGMAIN}/kde \
     -x ./${PKGMAIN}/kdei \
+    -x ./${PKGMAIN}/t \
     -x ./${PKGMAIN}/x \
     -x ./${PKGMAIN}/xap \
     -x ./pasture \
@@ -813,10 +849,19 @@ _EOT_
     -preparer "Slackware-${RELEASE} build for ${ARCH} by ${BUILDER}" \
     -publisher "The Slackware Linux Project - http://www.slackware.com/" \
     -A "Slackware-${RELEASE} Install CD1 - build $DATE" \
+    ${UEFI_OPTS} \
     . \
   > ${SLACKROOTDIR}/${SLACKRELEASE}-iso/mkisofs1.log 2>&1
 
   MKISOERR=$?
+
+  if [ $MKISOERR -eq 0 ]; then
+    # Create a hybrid ISO if requested:
+    if [ $HYBRID -eq 1 -a -x $ISOHYBRID ]; then
+      echo "$(date) [$$]: Creating hybrid ISO."
+      $ISOHYBRID ${ISOHYBRID_OPTS} ${SLACKROOTDIR}/${SLACKRELEASE}-iso/.building-slackware-install1.iso
+    fi
+  fi
 
   if [ $PREREMOVE -eq 0 ]; then
     # Deleting the previous ISO after creating the new ISO
@@ -827,7 +872,7 @@ _EOT_
   #rm -f previous*install1.iso
   #touch LATEST_ADDITION_TO_CURRENT
   #mv ${SLACKRELEASE}-install1.iso \
-  #   previous-$(cat LATEST_ADDITION_TO_CURRENT)-install1.iso 
+  #   previous-$(cat LATEST_ADDITION_TO_CURRENT)-install1.iso
   ###
 
   # Make the new ISO "visible"
@@ -858,10 +903,11 @@ _EOT_
     /${PKGMAIN}/d/=./${PKGMAIN}/d \
     /${PKGMAIN}/e/=./${PKGMAIN}/e \
     /${PKGMAIN}/k/=./${PKGMAIN}/k \
+    /${PKGMAIN}/t/=./${PKGMAIN}/t \
     /${PKGMAIN}/x/=./${PKGMAIN}/x \
     /${PKGMAIN}/xap/=./${PKGMAIN}/xap \
   > ${SLACKROOTDIR}/${SLACKRELEASE}-iso/mkisofs2.log 2>&1
-  
+
   MKISOERR2=$?
   MKISOERR=$(($MKISOERR + $MKISOERR2))
 
@@ -874,7 +920,7 @@ _EOT_
   #rm -f previous*install2.iso
   #touch LATEST_ADDITION_TO_CURRENT
   #mv ${SLACKRELEASE}-install2.iso \
-  #   previous-$(cat LATEST_ADDITION_TO_CURRENT)-install2.iso 
+  #   previous-$(cat LATEST_ADDITION_TO_CURRENT)-install2.iso
   ###
 
   # Make the new ISO visible
@@ -904,7 +950,7 @@ _EOT_
     -graft-points \
     /${PKGMAIN}/kde/=./${PKGMAIN}/kde \
   > ${SLACKROOTDIR}/${SLACKRELEASE}-iso/mkisofs3.log 2>&1
-  
+
   MKISOERR3=$?
   MKISOERR=$(($MKISOERR + $MKISOERR3))
 
@@ -917,7 +963,7 @@ _EOT_
   #rm -f previous*install3.iso
   #touch LATEST_ADDITION_TO_CURRENT
   #mv ${SLACKRELEASE}-install3.iso \
-  #   previous-$(cat LATEST_ADDITION_TO_CURRENT)-install3.iso 
+  #   previous-$(cat LATEST_ADDITION_TO_CURRENT)-install3.iso
   ###
 
   # Make the new ISO visible
@@ -928,7 +974,7 @@ _EOT_
   echo "$(date) [$$]: The combined exit code for ISO creation is '${MKISOERR}'. A a non-zero number here means: something goofed along the way."
 
   # Now that we created all CDROM ISO images, let's check for error codes
-  # and show a bit of the error log if warranted: 
+  # and show a bit of the error log if warranted:
   [ $MKISOERR -ne 0 ] && \
     tail -10 ${SLACKROOTDIR}/${SLACKRELEASE}-iso/mkisofs{1,2,3}.log | \
     sed -e 's/^/! /'
@@ -939,7 +985,7 @@ _EOT_
 
   cat <<_EOT_ > ${SLACKROOTDIR}/${SLACKRELEASE}-iso/readme_dvd.mkisofs
   #
-  # Slackware installation as DVD. 
+  # Slackware installation as DVD.
   #
   # Contains: bootable INSTALL DVD (including /extra and /source)
   #
@@ -959,6 +1005,7 @@ _EOT_
     -publisher "The Slackware Linux Project - http://www.slackware.com/" \\
     -A "Slackware-${RELEASE} DVD - build $DATE" \\
     ${DVD_EXCLUDES} \\
+    ${UEFI_OPTS} \\
     .
 
 _EOT_
@@ -985,13 +1032,22 @@ _EOT_
     -publisher "The Slackware Linux Project - http://www.slackware.com/" \
     -A "Slackware-${RELEASE} DVD - build $DATE" \
     ${DVD_EXCLUDES} \
+    ${UEFI_OPTS} \
     . \
     > ${SLACKROOTDIR}/${SLACKRELEASE}-iso/mkisofs-dvd.log 2>&1
 
   MKISOERR=$?
-  [ $MKISOERR -ne 0 ] && \
+
+  if [ $MKISOERR -eq 0 ]; then
+    # Create a hybrid ISO if requested:
+    if [ $HYBRID -eq 1 -a -x $ISOHYBRID ]; then
+      echo "$(date) [$$]: Creating hybrid ISO."
+      $ISOHYBRID ${ISOHYBRID_OPTS} ${SLACKROOTDIR}/${SLACKRELEASE}-iso/.building-slackware-install-dvd.iso
+    fi
+  else
     tail -10 ${SLACKROOTDIR}/${SLACKRELEASE}-iso/mkisofs-dvd.log | \
-    sed -e 's/^/! /'
+      sed -e 's/^/! /'
+  fi
 
   echo "$(date) [$$]: DVD ISO created (exit code ${MKISOERR}) ..."
 

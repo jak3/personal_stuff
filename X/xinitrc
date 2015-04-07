@@ -14,6 +14,7 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 urxvtd -q -f -o
 
 eval $(cat ~/.fehbg)
+setxkbmap -option ctrl:nocaps
 #xscreensaver &
 #/opt/redshift/bin/redshift -c $HOME/personal_stuff/X/redshift.conf &
 
