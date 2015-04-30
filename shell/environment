@@ -5,9 +5,10 @@ export STUFF="$HOME/personal_stuff"
 export JAVA_HOME=/usr/lib64/java
 export MANPATH="${MANPATH}:${JAVA_HOME}/man:\
 /opt/texlive/texmf-dist/doc/man"
-export CLASSPATH=".:/opt/antlr/antlr-4.4-complete.jar:$CLASSPATH"
-export PATH="${PATH}"
+#export CLASSPATH=".:/opt/antlr/antlr-4.4-complete.jar:$CLASSPATH"
+export PATH="${PATH}:${JAVA_HOME}/bin"
 export GOPATH="$HOME/repos/gocode"
+export _JAVA_AWT_WM_NONREPARENTING=1
 
 export HISTCONTROL=ignoredups
 export ANA=jake@anapnea.net #xn--phnix-ibb.net
