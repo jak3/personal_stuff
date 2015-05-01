@@ -513,15 +513,25 @@ command! FreemindToList call FreemindToListF()
 
 " Auto-spell load with file like md, unibo, tex
 au BufRead,BufNewFile *.md,*.unibo,*.tex setl spell spelllang=en_us,it
-au BufNewFile,BufReadPost *.md set filetype=markdown
+au BufNewFile,BufReadPost *.md setl filetype=markdown
 au BufRead,BufNewFile *.pu,*.plantuml setl makeprg=java\ -jar\ ~/misc/plantuml.jar\ -tpng\ -o\ /tmp/\ %
 au BufRead,BufNewFile *.g,*.g3,*.g4 setl makeprg=java\ -jar\ /opt/antlr/antlr-3.5.2-complete.jar\ -o\ src/it/unibo/lpemc/implementation/\ %
-au BufRead,BufNewFile *.fool set syntax=fool
+au BufRead,BufNewFile *.fool setl syntax=fool
 "ANTLR  mkdir\ -p\ out&&java\ -jar\ /opt/antlr/antlr-4.4-complete.jar\ -o\ out\ % \ &&javac\ out/%<*.java
 au BufEnter *.nse setl filetype=lua tabstop=4 shiftwidth=4
 " trick to use fdm syntax+manual ( ty alem0lars )
-au BufReadPre * setlocal foldmethod=syntax
-au BufWinEnter * if &fdm == 'syntax' | setlocal foldmethod=marker | endif
+au BufReadPre * setl foldmethod=syntax
+au BufWinEnter * if &fdm == 'syntax' | setl foldmethod=marker | endif
+
+augroup Python
+    au!
+    au BufRead,BufEnter,BufNewFile *.py setl textwidth=79  " lines longer than 79 columns will be broken
+    au BufRead,BufEnter,BufNewFile *.py setl shiftwidth=4  " operation >> indents 4 columns; << unindents 4 columns
+    au BufRead,BufEnter,BufNewFile *.py setl tabstop=4     " a hard TAB displays as 4 columns
+    au BufRead,BufEnter,BufNewFile *.py setl softtabstop=4 " insert/delete 4 spaces when hitting a TAB/BACKSPACE
+    au BufRead,BufEnter,BufNewFile *.py setl shiftround    " round indent to multiple of 'shiftwidth'
+    au BufRead,BufEnter,BufNewFile *.py setl makeprg=pep8\ %
+augroup END
 
 augroup Binary
     au!
@@ -699,9 +709,10 @@ call vimfiler#custom#profile('default', 'context', {
 nnoremap <C-e> :<C-u>VimFiler -buffer-name=explorer
             \ -split -simple -winwidth=35 -toggle<CR>
 " <e>: Edit a file and change working directory to its parent.
-nmap <buffer><expr> e vimfiler#smart_cursor_map(
-\ "\<Plug>(vimfiler_cd_file)",
-\ "\<Plug>(vimfiler_edit_file)")
+" TODO: Check only in vimfiler window
+"nmap <buffer><expr> e vimfiler#smart_cursor_map(
+"\ "\<Plug>(vimfiler_cd_file)",
+"\ "\<Plug>(vimfiler_edit_file)")
 " }}}
 
 " }}}

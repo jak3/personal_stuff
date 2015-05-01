@@ -13,7 +13,7 @@ Config { font = "xft:Bitstream Vera Sans Mono:size=9:bold:antialias=true"
                         ["-t", "<acstatus> <left>"
                         , "-L", "10", "-H", "80"
                         , "-l", "red", "-h", "green"
-                        , "--", "-O", "<fc=red>⚡⚡⚡⚡⚡</fc>", "-o", "(<timeleft>)"]
+                        , "--", "-O", "<fc=red>⚡</fc>", "-o", "(<timeleft>)"]
                         10
                     ]
        , sepChar = "%"
