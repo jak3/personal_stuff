@@ -48,7 +48,7 @@ map ,t :tabopen http://translate.google.it/#en|it|
 map ,T :tabopen http://translate.google.it/#it|en|
 map ,d :tabopen http://dictionary.reference.com/browse/
 map ,u :tabopen http://www.urbandictionary.com/define.php?term=
-map ,c :tabopen http://dictionary.cambridge.org/dictionary/british/extreme?q=
+map ,c :tabopen http://dictionary.cambridge.org/dictionary/british/
 map ,i :tabopen http://www.treccani.it/vocabolario/
 map ,a :tabopen http://www.asciitable.com/index/asciifull.gif<CR>
 map ,b :tabopen http://slackbuilds.org/result/?search=
