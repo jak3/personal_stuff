@@ -1,4 +1,4 @@
-#!/usb/bin/python
+#!/usr/bin/python
 
 # Module dependent
 from datetime import date
@@ -50,7 +50,14 @@ class Pkgs(object):
         self.pkgs = [(self.getdateobj(m.group(1)), m.group(3), m.group(4))
                      for m in [re.search(self.expr, l)
                      for l in lines if "viewer.php" in l]]
+        # filter data
         self.pkgs = filter(lambda p: p[0] >= self._date, self.pkgs)
+        # filter get
+        if self._get:
+            self.pkgs = filter(lambda p: self.is_in_get(p[2]), self.pkgs)
+        # filter reject
+        if self._reject:
+            self.pkgs = filter(lambda p: self.is_in_reject(p[2]), self.pkgs)
 
     def ftpkgs(self, is64=True, version="current"):
         """ftpkgs:
@@ -70,28 +77,12 @@ class Pkgs(object):
             ftpsingle = [re.search(self.xftp, l).group(0)
                          for l in lines
                          # check the arch
-                         if grep in l
-                         # check if user want to download it
-                         and True is reduce(lambda x, y:
-                                            x or self.strhas(l, y), self._get,
-                                            False if self._get else True)
-                         # check if user want reject it, has priority if
-                         # keyword is in _get and _reject, the pkg will be
-                         # rejected
-                         and False is reduce(lambda x, y:
-                                             x or self.strhas(l, y),
-                                             self._reject,
-                                             False if self._reject else True)
-                         ]
+                         if grep in l]
+            pkgname = ftpsingle[0].split('/')[-1]
             md5single = [re.search(self.xmd5, l).group(1)
                          for l in lines
-                         if re.search(self.xmd5, l) is not None
-                         and True is reduce(lambda x, y:
-                                            x or self.strhas(l,
-                                                             y.split('/')[-1]),
-                                            ftpsingle,
-                                            False)
-                         ]
+                         if l and re.search(self.xmd5, l) is not None and
+                         pkgname in re.search(self.xmd5, l).group(2)]
             self.ftps.extend([(f.split('/')[-1], f, m)
                               for f, m in zip(ftpsingle, md5single)])
 
@@ -131,15 +122,29 @@ class Pkgs(object):
             response.raise_for_status()
         return response.content.splitlines()
 
-    def strhas(self, string, word):
-        """strhas:self explained
+    def is_in_get(self, string):
+        """is_in_get:self explained
 
         :string: whole string, where to search
-        :word: what we want to find
-        :returns: True if string has word False otherwise
+        :returns: True if string has a word in _get, False otherwise
 
         """
-        return True if word in string else False
+        for word in self._get:
+            if word in string:
+                return True
+        return False
+
+    def is_in_reject(self, string):
+        """is_in_reject:self explained
+
+        :string: whole string, where to search
+        :returns: True if string has a word in _reject, False otherwise
+
+        """
+        for word in self._reject:
+            if word in string:
+                return False
+        return True
 
     def getdateobj(self, stringdate):
         """getdateobj: return a date type from a string YYYY-MM-DD

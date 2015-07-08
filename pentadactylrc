@@ -79,7 +79,7 @@ EOF
 " Section: Plugins {{{1
 " loadplugins '\.(js|penta)$'
 " NoScript toggle menu
-map <A-S-s> :set nst!=<A-Tab>
+"map <A-S-s> :set nst!=<A-Tab>
 " }}}
 
 " The lines below were pasted from FileName: zenburn.penta

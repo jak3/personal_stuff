@@ -39,6 +39,24 @@ if [ $SHELL = '/bin/zsh' ];then
     alias su='su -s /bin/zsh'
 fi
 
+if [ $SHELL = '/bin/bash' ];then
+alias po='popd'
+alias pu='pushd'
+alias d='dir -v | head -10'
+alias cd='pushd'
+alias 1='cd -1'
+alias 2='cd -2'
+alias 3='cd -3'
+alias 4='cd -4'
+alias 5='cd -5'
+alias 6='cd -6'
+alias 7='cd -7'
+alias 8='cd -8'
+alias 9='cd -9'
+alias 10='cd -10'
+fi
+
+
 ## Linux commangs
 alias ll="ls -l --group-directories-first"
 alias ls='ls -hF --color=auto'  # add colors for filetype recognition
@@ -85,8 +103,6 @@ alias mv='mv -i'
 alias netrestart='/etc/rc.d/rc.inet1 eth0_restart'
 alias network='wpa_supplicant -Dnl80211 -i wlan0 -c /etc/wpa_supplicant.conf -d > /dev/null &'
 alias path='echo -e ${PATH//:/\\n}'
-alias po='popd'
-alias pu='pushd'
 alias reboot='su -c reboot'
 alias shutdown='su -c shutdown'
 alias sudo='su -c'
