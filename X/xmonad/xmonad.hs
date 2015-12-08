@@ -88,8 +88,10 @@ mykeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_t     ), spawn "urxvtc -e /bin/zsh")
     , ((modm,               xK_f     ), spawn "firefox")
     , ((modm .|. shiftMask, xK_l     ), spawn "$HOME/personal_stuff/scripts/layout_switch.sh")
-    , ((modm, xK_x     ), spawn "xscreensaver-command -lock")
-    , ((modm, xK_s     ), spawn "slock")
+    , ((modm, xK_x                   ), spawn "xscreensaver-command -lock")
+    , ((modm, xK_s                   ), spawn "slock")
+    -- get by xev is XF86Suspend, after get 0x1008ffa7 convert it to decimal
+    , ((0, 269025191                 ), spawn "xset dpms force off")
     , ((modm .|. controlMask, xK_l), spawn "cmus-remote -k +10") -- seek 10s
     , ((modm .|. controlMask, xK_h), spawn "cmus-remote -u") -- pause
     , ((modm .|. controlMask, xK_k), spawn "cmus-remote -r") -- previous song

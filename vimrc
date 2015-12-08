@@ -26,23 +26,25 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Add or remove your Bundles here:
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimfiler.vim'
-NeoBundle 'Shougo/neosnippet.vim'
-NeoBundle 'Shougo/neosnippet-snippets'
+"NeoBundle 'Shougo/neocomplete'
+"NeoBundle 'Shougo/neosnippet'
+"NeoBundle 'Shougo/neosnippet-snippets'
 
-NeoBundle 'mileszs/ack.vim'
+"NeoBundle 'mileszs/ack.vim'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'ctrlpvim/ctrlp.vim'
+"NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'tpope/vim-surround'
 
 NeoBundle 'chriskempson/base16-vim'
 
 NeoBundle 'lukerandall/haskellmode-vim'
-NeoBundle 'suan/vim-instant-markdown'
+"NeoBundle 'suan/vim-instant-markdown'
+NeoBundle 'Rykka/riv.vim'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'vim-scripts/VisIncr'
 "NeoBundle 'vim-scripts/c.vim'
+NeoBundle 'lervag/vimtex'
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'SirVer/ultisnips'
 NeoBundle 'Valloric/YouCompleteMe'
@@ -287,6 +289,9 @@ nmap <silent> <Leader>S :w!<cr>:!aspell check %<cr>:e! <cr>
 nmap <silent> gw :s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>`'
 
 " Underline the current line with '='
+nmap <silent> <Leader>u3 :t.\|s/./#/g\|:nohls<cr>
+
+" Underline the current line with '='
 nmap <silent> <Leader>uL :t.\|s/./=/g\|:nohls<cr>
 
 " Underline the current line with '-'
@@ -515,6 +520,7 @@ command! FreemindToList call FreemindToListF()
 " Auto-spell load with file like md, unibo, tex
 au BufRead,BufNewFile *.md,*.unibo,*.tex setl spell spelllang=en_us,it
 au BufNewFile,BufReadPost *.md setl filetype=markdown
+au BufNewFile,BufReadPost *.tex set filetype=tex
 au BufRead,BufNewFile *.pu,*.plantuml setl makeprg=java\ -jar\ ~/misc/plantuml.jar\ -tpng\ -o\ /tmp/\ %
 au BufRead,BufNewFile *.g,*.g3,*.g4 setl makeprg=java\ -jar\ /opt/antlr/antlr-3.5.2-complete.jar\ -o\ src/it/unibo/lpemc/implementation/\ %
 au BufRead,BufNewFile *.fool setl syntax=fool
@@ -523,7 +529,7 @@ au BufEnter *.nse setl filetype=lua tabstop=4 shiftwidth=4
 " trick to use fdm syntax+manual ( ty alem0lars )
 au BufReadPre * setl foldmethod=syntax
 au BufWinEnter * if &fdm == 'syntax' | setl foldmethod=marker | endif
-
+au FileType haskell let b:ghc_staticoptions = '-Wall'
 augroup Python
     au!
     au BufRead,BufEnter,BufNewFile *.py setl textwidth=79  " lines longer than 79 columns will be broken
@@ -625,7 +631,7 @@ colorscheme base16-default
 " Section: UltiSnips {{{
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<C-e>"
+let g:UltiSnipsExpandTrigger="<C-l>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
@@ -691,31 +697,6 @@ au BufEnter *.hs compiler ghc
 au FileType haskell let b:ghc_staticoptions = '-Wall'
 let g:ghc="/usr/bin/ghc"
 let g:haddock_browser="/usr/bin/firefox"
-" }}}
-
-" Section: Vimfiler {{{
-
-" Use vimfiler as the default file explorer.
-let g:vimfiler_as_default_explorer = 1
-
-" Vimfiler options.
-call vimfiler#custom#profile('default', 'context', {
-\ 'safe': 0,
-\ 'auto-cd': 1,
-\ 'auto-expand': 1,
-\ 'no-quit': 1,
-\ })
-
-" {{{ Hotkeys.
-nnoremap <C-e> :<C-u>VimFiler -buffer-name=explorer
-            \ -split -simple -winwidth=35 -toggle<CR>
-" <e>: Edit a file and change working directory to its parent.
-" TODO: Check only in vimfiler window
-"nmap <buffer><expr> e vimfiler#smart_cursor_map(
-"\ "\<Plug>(vimfiler_cd_file)",
-"\ "\<Plug>(vimfiler_edit_file)")
-" }}}
-
 " }}}
 
 " }}}

@@ -34,6 +34,7 @@ cd_and_ls() {
 
 function firefox() { command firefox "$@" &> /dev/null & }
 function xpdf() { command xpdf "$@" &> /dev/null & }
+function zathura() { command zathura "$@" &> /dev/null & }
 
 #-------------------------------------------------------------
 # File & string-related functions:

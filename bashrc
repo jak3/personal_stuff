@@ -1,7 +1,7 @@
 #--------------------------------------------------------------------------------
 #   This file was maked by cut & paste different bashrc that i found useful. I
-#   also add some personal stuff.             
-#                                                             
+#   also add some personal stuff.
+#
 #   Last Changes : Mon 02 Dec 2013 12:44:15 PM CET
 #   Licence      : GPLv3
 #   Author       : jake
@@ -14,8 +14,8 @@ fi
 
 
 source /home/jack/personal_stuff/shell/functions
-source /home/jack/personal_stuff/shell/aliases 
-source /home/jack/personal_stuff/shell/environment 
+source /home/jack/personal_stuff/shell/aliases
+source /home/jack/personal_stuff/shell/environment
 
 #-------------------------------------------------------------
 # Shell Prompt
@@ -23,7 +23,7 @@ source /home/jack/personal_stuff/shell/environment
 if [ `/usr/bin/whoami` = 'root' ]
 then
     export PS1='\[\033[01;31m\]\u\[\033[00m\]\[\033[01;34m\] \w \[\033[00m\]\$ '
-else  
+else
     export PS1='\[\033[1;32m\]\u\[\033[1;34m\] \w \$\[\033[00m\] '
 fi
 
@@ -36,7 +36,7 @@ fi
 
 #-------------------------------------------------------------
 # Automatic setting of $DISPLAY (if not set already).
-# This works for linux - your mileage may vary. ... 
+# This works for linux - your mileage may vary. ...
 # The problem is that different types of terminals give
 # different answers to 'who am i' (rxvt in particular can be
 # troublesome).
@@ -45,7 +45,7 @@ fi
 if [ -z ${DISPLAY:=""} ]; then
     get_xserver
     if [[ -z ${XSERVER}  || ${XSERVER} == $(hostname) || \
-        ${XSERVER} == "unix" ]]; then 
+        ${XSERVER} == "unix" ]]; then
     DISPLAY=":0.0"          # Display on local host.
     else
     DISPLAY=${XSERVER}:0.0  # Display on remote host.
@@ -102,7 +102,7 @@ date
 if [ -x /usr/games/fortune ]; then
     /usr/games/fortune -s    # Makes our day a bit more fun.... :-)
 fi
- 
+
 
 #-------------------------------------------------------------
 # tailoring 'less'
@@ -120,5 +120,3 @@ fi
 # with the second env, if we type a command starting with a space
 # it wont show up in history
 # HISTSIZE=0 # don't save history
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

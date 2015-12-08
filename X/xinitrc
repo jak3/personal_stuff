@@ -12,15 +12,24 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 [ -f $usermodmap ] && /usr/bin/xmodmap $usermodmap
 
 urxvtd -q -f -o
+export JAVA_HOME="/usr/lib64/java"
+export MANPATH="${MANPATH}:${JAVA_HOME}/man:/opt/texlive/texmf-dist/doc/man"
+export CLASSPATH=".:${JAVA_HOME}/lib64:${JAVA_HOME}/lib:/opt/antlr/antlr-4.4-complete.jar:$CLASSPATH"
+export PATH="${PATH}:${JAVA_HOME}/bin:/opt/texlive/bin:${HOME}/.local/bin"
 
 sh ~/.fehbg &
 setxkbmap -option ctrl:nocaps
 #xscreensaver &
 #/opt/redshift/bin/redshift -c $HOME/personal_stuff/X/redshift.conf &
 
-if [ -z "$DESKTOP_SESSION" -a -x /usr/bin/ck-launch-session ]; then
-  exec ck-launch-session dbus-launch --exit-with-session /usr/bin/xmonad
-else
-  exec /usr/bin/xmonad
-fi
+#if [ -z "$DESKTOP_SESSION" -a -x /usr/bin/ck-launch-session ]; then
+#  exec ck-launch-session dbus-launch --exit-with-session /usr/bin/xmonad
+#else
+#  exec /usr/bin/xmonad
+#fi
 
+if [ -z "$DESKTOP_SESSION" -a -x /usr/bin/ck-launch-session ]; then
+  exec ck-launch-session dbus-launch --exit-with-session /usr/bin/awesome
+else
+  exec /usr/bin/awesome
+fi
