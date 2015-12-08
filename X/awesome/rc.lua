@@ -184,8 +184,8 @@ vicious.register(batwidget, vicious.widgets.bat,
     elseif tonumber(args[2]) > 80 then color = "lime"
     else color = "grey"
     end
-    return "| <span color='" .. color .. "'>" .. args[2] .. "</span> "
-  end, 61, "BAT0")
+    return "| <span color='red'>" .. args[1] .. "</span><span color='" .. color .. "'>" .. args[2] .. "</span> "
+  end, 15, "BAT0")
 
 -- Network info
 netwidget = wibox.widget.textbox()
