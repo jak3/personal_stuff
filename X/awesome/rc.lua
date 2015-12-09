@@ -152,7 +152,7 @@ mytasklist.buttons = awful.util.table.join(
                                           end))
 
 datewidget = wibox.widget.textbox()
-vicious.register(datewidget, vicious.widgets.date, "| <span color='#ee9a00'>%a %d %b %H</span> ", 71)
+vicious.register(datewidget, vicious.widgets.date, "| <span color='#ee9a00'>%H:%M</span> %a <span color='#ee9a00'>%d</span> %b %Y ", 71)
 
 memwidget = wibox.widget.textbox()
 vicious.register(memwidget, vicious.widgets.mem,
