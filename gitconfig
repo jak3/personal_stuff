@@ -1,6 +1,6 @@
 [user]
-    name = jak3
-    email = jak3lsa@gmail.com
+    name =
+    email =
 [alias]
     b = branch -vv
     bc = branch --contains

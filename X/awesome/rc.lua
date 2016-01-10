@@ -11,6 +11,8 @@ local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
+local moses = require("moses")
+local string = require("string")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -57,13 +59,13 @@ local layouts =
 {
     awful.layout.suit.floating,         -- 1
     awful.layout.suit.tile,
-    awful.layout.suit.tile.left, 				-- 3
-    awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,         -- 5
+--    awful.layout.suit.tile.left, 				-- 3
+--    awful.layout.suit.tile.bottom,
+--    awful.layout.suit.tile.top,         -- 5
     awful.layout.suit.fair,
-    awful.layout.suit.fair.horizontal,  -- 7
-    awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
+--    awful.layout.suit.fair.horizontal,  -- 7
+--    awful.layout.suit.spiral,
+--    awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
     awful.layout.suit.max.fullscreen,
     awful.layout.suit.magnifier
@@ -81,8 +83,8 @@ end
 -- {{{ Tags
 tags = {
   names  = { "1:main", "2:⚓", "3:☕", "4:v", "5:♪", 6 , 7 , 8 , 9 },
-  layouts = { layouts[5], layouts[10], layouts[2], layouts[3], layouts[2],
-               layouts[6], layouts[7], layouts[1], layouts[1] }
+  layouts = { layouts[3], layouts[4], layouts[4], layouts[3], layouts[3],
+               layouts[3], layouts[6], layouts[1], layouts[5] }
 }
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
@@ -194,9 +196,14 @@ vicious.register(netwidget, vicious.widgets.net,
     local fmt
 		local color = "<span color='lime'>"
 		local end_color = "</span> "
+    --moses.foldl(moses.select(args, function(key, value)
+    --    return string.match(key, "\{.+down\_kb\}")
+    --  end), function(memo, value)
+    --  return memo+v
+    --end)
     if args["{eth0 carrier}"] > 0 then fmt = '| D/U ' .. color .. args["{eth0 down_kb}"] .. " " .. args["{eth0 up_kb}"] .. end_color
-		elseif args["{wlan0 carrier}"] > 0 then fmt = '| D/U ' .. color .. args["{wlan0 down_kb}"] .. " " .. args["{wlan0 up_kb}"] .. end_color
-		elseif args["{wlan2 carrier}"] > 0 then fmt = '| D/U ' .. color .. args["{wlan2 down_kb}"] .. " " .. args["{wlan2 up_kb}"] .. end_color
+		elseif args["{wlan0 carrier}"] ~= nil and args["{wlan0 carrier}"] > 0 then fmt = '| D/U ' .. color .. args["{wlan0 down_kb}"] .. " " .. args["{wlan0 up_kb}"] .. end_color
+		elseif args["{wlan2 carrier}"] ~= nil and args["{wlan2 carrier}"] > 0 then fmt = '| D/U ' .. color .. args["{wlan2 down_kb}"] .. " " .. args["{wlan2 up_kb}"] .. end_color
 	  else
 			return  '| ⏚ '
 		end

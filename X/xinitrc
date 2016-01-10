@@ -20,7 +20,7 @@ export PATH="${PATH}:${JAVA_HOME}/bin:/opt/texlive/bin:${HOME}/.local/bin"
 sh ~/.fehbg &
 setxkbmap -option ctrl:nocaps
 #xscreensaver &
-#/opt/redshift/bin/redshift -c $HOME/personal_stuff/X/redshift.conf &
+/opt/redshift/bin/redshift -c $HOME/personal_stuff/X/redshift.conf &
 
 #if [ -z "$DESKTOP_SESSION" -a -x /usr/bin/ck-launch-session ]; then
 #  exec ck-launch-session dbus-launch --exit-with-session /usr/bin/xmonad

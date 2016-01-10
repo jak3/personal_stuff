@@ -4,6 +4,7 @@
 from datetime import date
 import requests
 import hashlib
+import os.path
 from subprocess import call
 import re
 
@@ -14,6 +15,8 @@ import sys
 class Pkgs(object):
 
     """ Class to handle Slackware security upgrades """
+
+    fname = 'lastupdate'
 
     root = "http://www.slackware.com/security/"
 
@@ -26,7 +29,7 @@ class Pkgs(object):
 
     xmd5 = '([a-f\d]{32})\s+([^\s]+txz)'
 
-    def __init__(self, date=date.today(), get=[], reject=[]):
+    def __init__(self, data=date.today(), get=[], reject=[]):
         """Init the object fields
 
         :date: default behaviour is to download only today upgrade
@@ -34,10 +37,19 @@ class Pkgs(object):
         :reject: list of keyword to reject pkgs contain them
 
         """
-        self._date = date
         self._get = get
         self._reject = reject
         self.ftps = []
+        if os.path.isfile(self.fname):
+            with open(self.fname, 'r') as f:
+                self._date = self.getdateobj(f.readline())
+                f.close()
+        else:
+            print "[i] Seems the first run, only today or choose a date.\n"
+            self._date = data
+        with open(self.fname, 'w') as f:
+            f.write(data.isoformat())
+            f.close()
         self.getparse()
 
     def getparse(self):
@@ -159,7 +171,7 @@ class Pkgs(object):
 
 if __name__ == '__main__':
     if len(sys.argv) is 1:
-        print "Auto mode, download only today updates"
+        print "[i] Auto mode, download only updates from last run"
         up = Pkgs()
         up.download_and_check()
         sys.exit(0)
