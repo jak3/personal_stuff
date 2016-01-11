@@ -1,6 +1,7 @@
 [user]
     name =
     email =
+    pager =
 [alias]
     b = branch -vv
     bc = branch --contains
@@ -75,20 +76,16 @@
     ui = auto
 
 [diff]
-    tool = clivimdiff
+  tool = vimdiff
+  guitool = gvimdiff
 
-[difftool "clivimdiff"]
-    cmd = gvimdiff -v $LOCAL $REMOTE
+[difftool]
+	prompt = false
 
 [merge]
-    tool = diffconflicts
+  tool = vimdiff
+  guitool = gvimdiff
+  conflictstyle = diff3
 
-[mergetool "diffconflicts"]
-    cmd = $STUFF/scripts/diffconflicts.sh $EDITOR $BASE $LOCAL $REMOTE $MERGED
-    trustExitCode = true
-    keepBackup = false
-
-[mergetool "gdiffconflicts"]
-    cmd = $STUFF/scripts/diffconflicts.sh gvim $BASE $LOCAL $REMOTE $MERGED
-    trustExitCode = true
-    keepBackup = false
+[mergetool]
+  prompt = false
