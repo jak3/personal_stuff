@@ -47,6 +47,7 @@ beautiful.init("/home/jack/.config/awesome/theme/theme.lua")
 terminal = "urxvtc -e /bin/zsh -c \"screen\""
 --terminal = "urxvtc -e /bin/zsh -c \"sleep 0.1;screen\""
 terminal_noscreen = "urxvtc -e /bin/zsh "
+keyboard_swap = "/home/jack/personal_stuff/scripts/keyboard_swap_enit.sh"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = "gvim"
 browser = "firefox"
@@ -304,7 +305,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "=",     function () awful.tag.incmwfact( 0.05)    end),
     awful.key({ modkey,           }, "-",     function () awful.tag.incmwfact(-0.05)    end),
     awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
-    awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end),
+    --awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end),
+    awful.key({ modkey, "Shift"   }, "l",     function () awful.util.spawn(keyboard_swap, false)end),
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
