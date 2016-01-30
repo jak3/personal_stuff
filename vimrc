@@ -523,7 +523,7 @@ au BufRead,BufNewFile *.md,*.unibo,*.tex setl spell spelllang=en_us,it
 au BufNewFile,BufReadPost *.md setl filetype=markdown
 au BufNewFile,BufReadPost *.tex set filetype=tex
 au BufNewFile,BufReadPost *.qa set filetype=prolog
-au BufRead,BufNewFile *.pu,*.plantuml setl makeprg=java\ -jar\ ~/misc/plantuml.jar\ -tpng\ -o\ /tmp/\ %
+au BufRead,BufNewFile *.pu,*.plantuml,*.plant setl makeprg=java\ -jar\ ~/misc/plantuml.jar\ -tpng\ -o\ /tmp/\ %
 au BufRead,BufNewFile *.g,*.g3,*.g4 setl makeprg=java\ -jar\ /opt/antlr/antlr-3.5.2-complete.jar\ -o\ src/it/unibo/lpemc/implementation/\ %
 au BufRead,BufNewFile *.fool setl syntax=fool
 "ANTLR  mkdir\ -p\ out&&java\ -jar\ /opt/antlr/antlr-4.4-complete.jar\ -o\ out\ % \ &&javac\ out/%<*.java

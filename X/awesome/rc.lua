@@ -62,7 +62,7 @@ local layouts =
     awful.layout.suit.tile,
 --    awful.layout.suit.tile.left, 				-- 3
 --    awful.layout.suit.tile.bottom,
---    awful.layout.suit.tile.top,         -- 5
+    awful.layout.suit.tile.top,         -- 5
     awful.layout.suit.fair,
 --    awful.layout.suit.fair.horizontal,  -- 7
 --    awful.layout.suit.spiral,
@@ -84,8 +84,8 @@ end
 -- {{{ Tags
 tags = {
   names  = { "1:main", "2:⚓", "3:☕", "4:v", "5:♪", 6 , 7 , 8 , 9 },
-  layouts = { layouts[3], layouts[4], layouts[4], layouts[3], layouts[3],
-               layouts[3], layouts[6], layouts[1], layouts[5] }
+  layouts = { layouts[4], layouts[5], layouts[5], layouts[4], layouts[4],
+               layouts[4], layouts[7], layouts[1], layouts[6] }
 }
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
