@@ -6,61 +6,48 @@
 " License       : GPLv3
 "-------------------------------------------------------------------------------
 
-" Section: NeoBundle {{{
+" Section: Vundle {{{
 
+" set the runtime path to include Vundle and initialize
 if has('vim_starting')
   if &compatible
     set nocompatible               " Be iMproved
   endif
 
   " Required:
-  set runtimepath+=/home/jack/.vim/bundle/neobundle.vim/
+  set runtimepath+=~/.vim/bundle/Vundle.vim
+  call vundle#begin()
+  call vundle#end()
+
+  "Plugin 'mileszs/ack.vim'
+  Plugin 'bling/vim-airline'
+  Plugin 'vim-airline/vim-airline-themes'
+  Plugin 'tpope/vim-fugitive'
+  "Plugin 'ctrlpvim/ctrlp.vim'
+  Plugin 'tpope/vim-surround'
+
+  Plugin 'chriskempson/base16-vim'
+
+  "Plugin 'artur-shaik/vim-javacomplete2'
+  Plugin 'xolox/vim-misc'
+  Plugin 'xolox/vim-lua-ftplugin'
+  Plugin 'lukerandall/haskellmode-vim'
+  "Plugin 'suan/vim-instant-markdown'
+  Plugin 'Rykka/riv.vim'
+  Plugin 'majutsushi/tagbar'
+  Plugin 'vim-scripts/VisIncr'
+  "Plugin 'vim-scripts/c.vim'
+  Plugin 'lervag/vimtex'
+  Plugin 'honza/vim-snippets'
+  Plugin 'SirVer/ultisnips'
+  Plugin 'Valloric/YouCompleteMe'
+  Plugin 'scrooloose/syntastic'
+  Plugin 'KabbAmine/zeavim.vim'
+
+  Plugin 'jak3/potion'
+
+  filetype plugin indent on
 endif
-
-" Required:
-call neobundle#begin(expand('/home/jack/.vim/bundle'))
-
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" Add or remove your Bundles here:
-NeoBundle 'Shougo/unite.vim'
-"NeoBundle 'Shougo/neocomplete'
-"NeoBundle 'Shougo/neosnippet'
-"NeoBundle 'Shougo/neosnippet-snippets'
-
-"NeoBundle 'mileszs/ack.vim'
-NeoBundle 'bling/vim-airline'
-NeoBundle 'tpope/vim-fugitive'
-"NeoBundle 'ctrlpvim/ctrlp.vim'
-NeoBundle 'tpope/vim-surround'
-
-NeoBundle 'chriskempson/base16-vim'
-
-"NeoBundle 'artur-shaik/vim-javacomplete2'
-NeoBundle 'lukerandall/haskellmode-vim'
-"NeoBundle 'suan/vim-instant-markdown'
-NeoBundle 'Rykka/riv.vim'
-NeoBundle 'majutsushi/tagbar'
-NeoBundle 'vim-scripts/VisIncr'
-"NeoBundle 'vim-scripts/c.vim'
-NeoBundle 'lervag/vimtex'
-NeoBundle 'honza/vim-snippets'
-NeoBundle 'SirVer/ultisnips'
-NeoBundle 'Valloric/YouCompleteMe'
-
-NeoBundle '~/personal_stuff/vim/bundle/potion'
-
-" Required:
-call neobundle#end()
-
-" Required:
-filetype plugin indent on
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
 
 " }}}
 
@@ -473,7 +460,12 @@ function! FillLine( str )
         .s/$/\=(' '.repeat(a:str, reps))/
     endif
 endfunction
+function! FillLineWithMarker()
+    call FillLine('-')
+    .s/.\{4}$/ {{{/
+endfunction
 map <Leader>f :call FillLine( '-' )<cr>
+map <Leader>F :call FillLineWithMarker()<cr>
 
 " }}}
 
@@ -521,15 +513,19 @@ command! FreemindToList call FreemindToListF()
 " Auto-spell load with file like md, unibo, tex
 au BufRead,BufNewFile *.md,*.unibo,*.tex setl spell spelllang=en_us,it
 au BufNewFile,BufReadPost *.md setl filetype=markdown
-au BufNewFile,BufReadPost *.tex set filetype=tex
-au BufNewFile,BufReadPost *.qa set filetype=prolog
+au BufNewFile,BufReadPost *.tex setl filetype=tex
+au BufNewFile,BufReadPost *.xtext setl filetype=antlr foldmethod=marker
+au BufNewFile,BufReadPost *.xtend setl filetype=java
+au BufNewFile,BufReadPost *.qa setl filetype=prolog
 au BufRead,BufNewFile *.pu,*.plantuml,*.plant setl makeprg=java\ -jar\ ~/misc/plantuml.jar\ -tpng\ -o\ /tmp/\ %
 au BufRead,BufNewFile *.g,*.g3,*.g4 setl makeprg=java\ -jar\ /opt/antlr/antlr-3.5.2-complete.jar\ -o\ src/it/unibo/lpemc/implementation/\ %
 au BufRead,BufNewFile *.fool setl syntax=fool
 "ANTLR  mkdir\ -p\ out&&java\ -jar\ /opt/antlr/antlr-4.4-complete.jar\ -o\ out\ % \ &&javac\ out/%<*.java
-au BufEnter *.nse setl filetype=lua tabstop=4 shiftwidth=4
+au BufEnter *.nse setl filetype=lua tabstop=2 shiftwidth=2
 " trick to use fdm syntax+manual ( ty alem0lars )
 au BufReadPre * setl foldmethod=syntax
+au FileType vim setl foldmethod=marker
+au FileType lua setl foldmethod=indent
 " do not handle all filetypes
 " au BufWinEnter * if &fdm == 'syntax' | setl foldmethod=marker | endif
 au FileType haskell let b:ghc_staticoptions = '-Wall'
@@ -702,6 +698,27 @@ let g:ghc="/usr/bin/ghc"
 let g:haddock_browser="/usr/bin/firefox"
 " }}}
 
+" Section: zeal-vim {{{
+let g:zv_zeal_executable = '/home/jack/repos/zeal/build/bin/zeal'
+let g:zv_file_types = {
+            \ '(nse|lua)'             : 'lua',
+            \ 'py'                    : 'python',
+            \ 'rb'                    : 'ruby',
+        \ }
+" }}}
+
+" Section: syntastic {{{
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_lua_checkers = ["luac", "luacheck"]
+let g:syntastic_lua_luacheck_args = "--ignore 'robot' 'log' -g -u --no-unused-args"
+" }}}
 " }}}
 
 "EOF vim: set ts=4 sw=4 tw=80 :
