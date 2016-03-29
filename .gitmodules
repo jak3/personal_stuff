@@ -1,3 +1,0 @@
-[submodule "Gdbinit"]
-	path = Gdbinit
-	url = https://github.com/gdbinit/Gdbinit.git
