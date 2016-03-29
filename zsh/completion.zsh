@@ -1,5 +1,5 @@
 # add in zsh-completions
-fpath=($STUFF/zsh/zsh-completions/src $fpath)
+fpath=($HOME/repos/zsh-completions/src $fpath)
 
 if [ `whoami` != "root" ]
 then
