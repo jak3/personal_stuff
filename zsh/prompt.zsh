@@ -1,8 +1,8 @@
 # http://github.com/olivierverdier/zsh-git-prompt
-source $STUFF/zsh/zsh-git-prompt/zshrc.sh
+# There is now a Haskell implementation as well (<3)
+source $HOME/repos/zsh-git-prompt/zshrc.sh
+GIT_PROMPT_EXECUTABLE="haskell"
 
-#Imported from oh-my-zsh project
-#--- https://raw.github.com/robbyrussell/oh-my-zsh/master/lib/spectrum.zsh
 # A script to make using 256 colors in zsh less painful.
 # P.C. Shyamshankar <sykora@lucentbeing.com>
 # Source http://github.com/sykora/etc/blob/master/zsh/functions/spectrum/
