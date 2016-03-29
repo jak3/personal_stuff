@@ -41,14 +41,15 @@ class Pkgs(object):
         self._reject = reject
         self.ftps = []
         if os.path.isfile(self.fname):
-            with open(self.fname, 'r') as f:
+            with open(self.fname, 'r+') as f:
                 self._date = self.getdateobj(f.readline())
+                f.write(data.isoformat())
                 f.close()
         else:
             print "[i] Seems the first run, only today or choose a date.\n"
             self._date = data
+        print "[i] Last update " + str(self._date)
         with open(self.fname, 'w') as f:
-            f.write(data.isoformat())
             f.close()
         self.getparse()
 

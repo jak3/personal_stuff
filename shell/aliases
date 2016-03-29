@@ -145,6 +145,7 @@ alias dumount="udisksctl unmount -b"
 
 ## Git
 alias gc='git commit -m'
+alias gl='git log --oneline --decorate --graph'
 alias gcheck='git checkout'
 alias ga='git add'
 alias gap='git add --patch'

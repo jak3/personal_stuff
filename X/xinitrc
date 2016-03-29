@@ -29,7 +29,15 @@ setxkbmap -option ctrl:nocaps
 #fi
 
 if [ -z "$DESKTOP_SESSION" -a -x /usr/bin/ck-launch-session ]; then
-  exec ck-launch-session dbus-launch --exit-with-session /usr/bin/awesome
+  exec ck-launch-session dbus-launch --exit-with-session /usr/local/bin/awesome
 else
   exec /usr/bin/awesome
 fi
+
+#if [ -z "$DESKTOP_SESSION" -a -x /usr/bin/ck-launch-session ]; then
+#  #exec ck-launch-session dbus-launch --exit-with-session /usr/bin/i3
+#  exec ck-launch-session dbus-launch --exit-with-session /usr/bin/i3 >~/i3log-$(date +'%F-%k-%M-%S') 2>&1
+#else
+#  exec /usr/bin/i3
+#  #exec /usr/bin/i3 >~/i3log-$(date +'%F-%k-%M-%S') 2>&1
+#fi

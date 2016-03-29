@@ -58,13 +58,13 @@ modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 local layouts =
 {
-    awful.layout.suit.floating,         -- 1
+    awful.layout.suit.floating,
     awful.layout.suit.tile,
---    awful.layout.suit.tile.left, 				-- 3
+--    awful.layout.suit.tile.left,
 --    awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,         -- 5
+    awful.layout.suit.tile.top,
     awful.layout.suit.fair,
---    awful.layout.suit.fair.horizontal,  -- 7
+--    awful.layout.suit.fair.horizontal,
 --    awful.layout.suit.spiral,
 --    awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
@@ -84,7 +84,7 @@ end
 -- {{{ Tags
 tags = {
   names  = { "1:main", "2:⚓", "3:☕", "4:v", "5:♪", 6 , 7 , 8 , 9 },
-  layouts = { layouts[4], layouts[5], layouts[5], layouts[4], layouts[4],
+  layouts = { layouts[2], layouts[5], layouts[2], layouts[2], layouts[4],
                layouts[4], layouts[7], layouts[1], layouts[6] }
 }
 for s = 1, screen.count() do
@@ -302,9 +302,9 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
 
-    awful.key({ modkey, "Shift"   }, "=",     function () awful.tag.incmwfact( 0.05)    end),
-    awful.key({ modkey,           }, "-",     function () awful.tag.incmwfact(-0.05)    end),
-    awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
+    awful.key({ modkey, "Control"   }, "h",     function () awful.tag.incmwfact( 0.05)    end),
+    awful.key({ modkey, "Control"   }, "l",     function () awful.tag.incmwfact(-0.05)    end),
+    --awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
     --awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end),
     awful.key({ modkey, "Shift"   }, "l",     function () awful.util.spawn(keyboard_swap, false)end),
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
@@ -316,11 +316,6 @@ globalkeys = awful.util.table.join(
    	awful.key({ }, "XF86AudioLowerVolume", function () awful.util.spawn("amixer set Master 9%-", false) end),
    	awful.key({ }, "XF86AudioMute"			 , function () awful.util.spawn("amixer set Master toggle", false) end),
    	awful.key({ }, "XF86Suspend"			   , function () awful.util.spawn("xset dpms force off", false) end),
-
-    awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1)         end),
-    awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1)         end),
-    awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1)         end),
-    awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
 
     -- Prompt
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
@@ -429,6 +424,8 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true, tag = tags[1][9] } },
+    { rule = { class = "Argos3" },
+      properties = { floating = true, tag = tags[1][8] } },
     -- Set Firefox to always map on tags number 2 of screen 1.
     { rule = { class = "Firefox" },
        properties = { tag = tags[1][2] } },

@@ -1,0 +1,203 @@
+# more info at http://i3wm.org/docs/userguide.html
+set $mod Mod4
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Font --------------------------------------------------------------------- {{{
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below. ISO 10646 = Unicode
+font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+# font pango:DejaVu Sans Mono 8
+# font pango:Terminus 11px
+font pango: Monospace 8
+
+# }}}
+
+# Workspaces
+set $tag1 "1:main"
+set $tag2 "2:⚓"
+set $tag3 "3:☕"
+set $tag4 "4:v"
+set $tag5 "5:♪"
+set $tag6 "6"
+set $tag7 "7"
+set $tag8 "8"
+set $tag9 "9"
+
+# bindkey ------------------------------------------------------------------ {{{
+# Use xmodmap -pke. To interactively enter a key and see what keysym it is
+# configured to, use xev.
+#bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec i3-sensible-terminal -e /bin/zsh -c screen
+bindsym $mod+Shift+Return exec i3-sensible-terminal -e /bin/zsh
+
+# kill focused window
+bindsym $mod+Shift+c kill
+
+# start dmenu (a program launcher)
+bindsym $mod+r exec dmenu_run
+bindsym $mod+f exec firefox
+# There also is the (new) i3-dmenu-desktop which only displays applications
+# shipping a .desktop file. It is a wrapper around dmenu, so you need that
+# installed.
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+# change focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+m fullscreen
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+Shift+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+# switch to workspace
+bindsym $mod+1 workspace $tag1
+bindsym $mod+2 workspace $tag2
+bindsym $mod+3 workspace $tag3
+bindsym $mod+4 workspace $tag4
+bindsym $mod+5 workspace $tag5
+bindsym $mod+6 workspace $tag6
+bindsym $mod+7 workspace $tag7
+bindsym $mod+8 workspace $tag8
+bindsym $mod+9 workspace $tag9
+bindsym $mod+0 workspace 10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $tag1
+bindsym $mod+Shift+2 move container to workspace $tag2
+bindsym $mod+Shift+3 move container to workspace $tag3
+bindsym $mod+Shift+4 move container to workspace $tag4
+bindsym $mod+Shift+5 move container to workspace $tag5
+bindsym $mod+Shift+6 move container to workspace $tag6
+bindsym $mod+Shift+7 move container to workspace $tag7
+bindsym $mod+Shift+8 move container to workspace $tag8
+bindsym $mod+Shift+9 move container to workspace $tag9
+bindsym $mod+Shift+0 move container to workspace 10
+
+# reload the configuration file
+bindsym $mod+q reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+q exec "i3-nagbar -t warning -m 'Sleeping?' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+t mode "resize"
+
+# Custom KeyBinds
+bindsym Control+Shift+l exec sh /home/jack/personal_stuff/scripts/keyboard_swap_enit.sh
+bindsym Control+mod1+l exec --no-statup-id /opt/slock/slock
+bindsym Print exec --no-startup-id import /tmp/latest-screenshot.png
+bindsym XF86AudioRaiseVolume exec --no-statup-id amixer set Master 9%+
+bindsym XF86AudioLowerVolume exec --no-statup-id amixer set Master 9%-
+bindsym XF86AudioMute exec --no-statup-id amixer set Master toggle
+bindsym XF86Suspend exec --no-statup-id xset dpms force off
+# }}}
+# Theme -------------------------------------------------------------------- {{{
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+  colors {
+	  background #222222
+	  statusline #ffffff
+	  separator #777777
+
+	  focused_workspace  #555555 #555555 #ffffff
+	  active_workspace   #444444 #444444 #ffffff
+	  inactive_workspace #444444 #444444 #cccccc
+	  urgent_workspace   #990000 #990000 #ffffff
+  }
+  position top
+  status_command i3status -c /home/jack/personal_stuff/X/i3/i3status.conf
+}
+
+# Colors
+# class                 border  backgr. text    indicator
+client.focused          #444444 #444444 #ffffff #2e9ef4
+client.focused_inactive #333333 #333333 #ffffff #484e50
+client.unfocused        #222222 #222222 #888888 #292d2e
+client.urgent           #91231c #ff0000 #ffffff #900000
+client.placeholder      #000000 #0c0c0c #ffffff #000000
+
+client.background       #222222
+
+new_window pixel 1
+new_float pixel 1
+
+mouse_warping none
+
+# }}}
+# Custom programs ---------------------------------------------------------- {{{
+assign [class="Firefox"] $tag2
+assign [class="Xpdf"] $tag3
+assign [class="Zathura"] $tag3
+assign [class="MPlayer"] $tag7
+assign [class="gimp"] $tag8
+assign [class="Eclipse"] $tag8
+# }}}
+
+# Startup programs
+#exec --no-startup-id nm-applet
+#exec --no-startup-id feh --bg-fill ~/Pictures/Dark-pattern.jpg

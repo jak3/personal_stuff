@@ -74,6 +74,9 @@ EOF
 command readlater,rl -nargs=0 -description "save page as unread into pinboard" -javascript <<EOF
   dactyl.execute(":open javascript:q=location.href;p=document.title;void(t=open('https://pinboard.in/add?later=yes&noui=yes&jump=close&url='+encodeURIComponent(q)+'&title='+encodeURIComponent(p),'Pinboard','toolbar=no,width=100,height=100'));t.blur();");
 EOF
+
+command irs -nargs=0 -description "Goto IRS course page" tabopen http://apice.unibo.it/xwiki/bin/view/Courses/IRS1516
+command asw -nargs=0 -description "Goto ASW course page" tabopen https://elearning-cds.unibo.it/course/view.php?id=7725
 " }}}
 
 " Section: Plugins {{{1

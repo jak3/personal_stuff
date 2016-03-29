@@ -18,6 +18,9 @@ export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
 export EDITOR='vim'
 export __GIT_PROMPT_DIR=$STUFF/zsh/
 
+# fast directory handling
+source $HOME/.config/temp.env
+
 #Export LS_COLORS
 eval `dircolors $HOME/.dircolors`
 
