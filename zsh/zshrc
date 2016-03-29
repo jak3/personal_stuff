@@ -24,5 +24,6 @@ source $STUFF/zsh/setopt.zsh
 source $STUFF/zsh/zsh_hooks.zsh
 source $STUFF/zsh/history-substring-search.zsh
 source $STUFF/zsh/prompt.zsh
+source /home/jack/repos/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # }}}
