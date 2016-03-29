@@ -1,5 +1,4 @@
 #--------------------------------------------------------------------------------
-#   Last Changes : Thu 05 Dec 2013 01:35:59 PM CET
 #   Licence      : GPLv3
 #   Author       : jake
 #--------------------------------------------------------------------------------
@@ -11,19 +10,20 @@ SAVEHIST=1000
 
 STUFF=$HOME/personal_stuff
 
-#General ones
+# General ones
 source $STUFF/shell/environment
 source /home/jack/repos/base16-shell/base16-default.dark.sh
 source $STUFF/shell/functions
 source $STUFF/shell/aliases
 
-#zsh ones
+# zsh ones
 source $STUFF/zsh/bindkeys.zsh
 source $STUFF/zsh/completion.zsh
 source $STUFF/zsh/setopt.zsh
 source $STUFF/zsh/zsh_hooks.zsh
 source $STUFF/zsh/history-substring-search.zsh
 source $STUFF/zsh/prompt.zsh
+# NB, check the right branch, ATM 0.4.x is working
 source /home/jack/repos/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # }}}
