@@ -77,6 +77,9 @@ EOF
 
 command irs -nargs=0 -description "Goto IRS course page" tabopen http://apice.unibo.it/xwiki/bin/view/Courses/IRS1516
 command asw -nargs=0 -description "Goto ASW course page" tabopen https://elearning-cds.unibo.it/course/view.php?id=7725
+command isac -nargs=0 -description "Goto ISAC course page" tabopen http://apice.unibo.it/xwiki/bin/view/Courses/ISAC1516?language=it
+command wes -nargs=0 -description "Goto WS course page" tabopen http://campus.unibo.it/cgi/lista?annoAccademico=2015&idComponenteAF=377439
+command sec -nargs=0 -description "Goto SEC course page" tabopen http://www.cs.unibo.it/~gdangelo/sicurezza-1516.html
 " }}}
 
 " Section: Plugins {{{1
