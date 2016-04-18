@@ -431,6 +431,8 @@ awful.rules.rules = {
        properties = { tag = tags[1][2] } },
     { rule = { class = "Eclipse" },
        properties = { tag = tags[1][8] } },
+    { rule = { class = "it-unibo-alchemist-Alchemist" },
+       properties = { tag = tags[1][7] } },
     { rule = { class = "Xpdf" },
        properties = { tag = tags[1][3] } },
     { rule = { class = "Zathura" },

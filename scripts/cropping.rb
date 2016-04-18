@@ -4,7 +4,7 @@
 filenames = Dir.glob("*.mp3")
 
 filenames.each do |filename|
-      cmd = "soxi " + filename + " | grep Duration |  grep -o -E \"[0-9]{2}:[0-9]{2}\""
+      cmd = "soxi \"" + filename + "\" | grep Duration |  grep -o -E \"[0-9]{2}:[0-9]{2}\""
       times = `#{cmd}`.split(':')
       tenmin = times[1].to_i / 10
       min = times[1].to_i % 10

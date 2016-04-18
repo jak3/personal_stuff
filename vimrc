@@ -19,7 +19,7 @@ if has('vim_starting')
   call vundle#begin()
   call vundle#end()
 
-  "Plugin 'mileszs/ack.vim'
+  Plugin 'rking/ag.vim'
   Plugin 'bling/vim-airline'
   Plugin 'vim-airline/vim-airline-themes'
   Plugin 'tpope/vim-fugitive'
@@ -62,6 +62,7 @@ let mapleader = ","
 let g:main_font = "Monospace\\ 9"
 let g:small_font = "Monospace\\ 2"
 
+set pastetoggle=<F11>
 " undodir file only to /tmp
 set undofile
 set undodir=/tmp/undo
@@ -76,8 +77,8 @@ set backupdir^=/tmp/filebackups
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
-set expandtab
-set autoindent
+set autoindent " Should be before expandtab or '>' '<'
+set expandtab  " indent commands does not work properly
 
 " Printing options
 set printoptions=header:0,paper:letter
@@ -326,6 +327,12 @@ silent exe "normal! '[V']r w"
 endfunction
 nmap <silent> <Leader>C :set opfunc=ClearText<CR>g@
 vmap <silent> <Leader>C :<C-U>call ClearText(visual(), 1)<CR>
+
+if executable('ag')
+	" Note we extract the column as well as the file and line number
+	set grepprg=ag\ --nogroup\ --nocolor\ --column
+	set grepformat=%f:%l:%c%m
+endif
 
 if !exists('g:bufferJumpList')
     let g:bufferJumpList = {}
@@ -719,6 +726,11 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_lua_checkers = ["luac", "luacheck"]
 let g:syntastic_lua_luacheck_args = "--ignore 'robot' 'log' -g -u --no-unused-args"
 " }}}
+
+" Section: {{{
+
+" }}}
+
 " }}}
 
 "EOF vim: set ts=4 sw=4 tw=80 :
