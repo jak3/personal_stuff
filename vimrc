@@ -12,40 +12,42 @@
 if has('vim_starting')
   if &compatible
     set nocompatible               " Be iMproved
+    filetype off
   endif
 
   " Required:
   set runtimepath+=~/.vim/bundle/Vundle.vim
   call vundle#begin()
-  call vundle#end()
 
-  Plugin 'rking/ag.vim'
+  " Theme
   Plugin 'bling/vim-airline'
-  Plugin 'vim-airline/vim-airline-themes'
-  Plugin 'tpope/vim-fugitive'
-  "Plugin 'ctrlpvim/ctrlp.vim'
-  Plugin 'tpope/vim-surround'
-
   Plugin 'chriskempson/base16-vim'
+  Plugin 'vim-airline/vim-airline-themes'
 
-  "Plugin 'artur-shaik/vim-javacomplete2'
-  Plugin 'xolox/vim-misc'
-  Plugin 'xolox/vim-lua-ftplugin'
-  Plugin 'lukerandall/haskellmode-vim'
-  "Plugin 'suan/vim-instant-markdown'
-  Plugin 'Rykka/riv.vim'
   Plugin 'majutsushi/tagbar'
+  Plugin 'rking/ag.vim'
+  Plugin 'tpope/vim-fugitive'
+  Plugin 'tpope/vim-surround'
   Plugin 'vim-scripts/VisIncr'
-  "Plugin 'vim-scripts/c.vim'
-  Plugin 'lervag/vimtex'
-  Plugin 'honza/vim-snippets'
+
+  Plugin 'KabbAmine/zeavim.vim'
   Plugin 'SirVer/ultisnips'
   Plugin 'Valloric/YouCompleteMe'
+  Plugin 'honza/vim-snippets'
   Plugin 'scrooloose/syntastic'
-  Plugin 'KabbAmine/zeavim.vim'
+
+  Plugin 'Rykka/riv.vim'
+  Plugin 'dhruvasagar/vim-table-mode'
+  Plugin 'lervag/vimtex'
+  Plugin 'lukerandall/haskellmode-vim'
+  Plugin 'suan/vim-instant-markdown'
+  "Plugin 'vim-scripts/c.vim'
+  Plugin 'xolox/vim-lua-ftplugin'
+  Plugin 'xolox/vim-misc' " dependence of vim-lua-ftplugin
 
   Plugin 'jak3/potion'
 
+  call vundle#end()
   filetype plugin indent on
 endif
 
@@ -727,8 +729,9 @@ let g:syntastic_lua_checkers = ["luac", "luacheck"]
 let g:syntastic_lua_luacheck_args = "--ignore 'robot' 'log' -g -u --no-unused-args"
 " }}}
 
-" Section: {{{
-
+" Section: vim-table-mode {{{
+let g:table_mode_corner_corner="+"
+let g:table_mode_header_fillchar="="
 " }}}
 
 " }}}
