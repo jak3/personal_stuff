@@ -4,9 +4,10 @@
 Pragmatic pomodoro notification
 """
 
+import notify2
+import os
 import sys
 import time
-import notify2
 
 notify2.init('psh')
 
@@ -20,4 +21,5 @@ else:
 
 time.sleep(MIN*60)
 note.update('Pomodoro Timer', 'BREAK!', icon='/usr/share/pomodoro/pomi.png')
+os.system("play --no-show-progress --null --channels 1 synth 0.1 sine 1000")
 note.show()
