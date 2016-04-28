@@ -1,0 +1,57 @@
+" vimperatorrc
+" Author:   github.com/jak3
+" License:  GPLv3
+
+colorscheme zenburn-jake
+
+" Core -------------------------------------------------------------------------
+
+set gui=nonavigation
+set tabnumbers
+set hintchars=hjklasdfgyuiopqwertnmzxcvb
+
+																												 " set the mapleader key
+let mapleader = ","
+let g:mapleader = ","
+
+" Search -----------------------------------------------------------------------
+																															" find as you type
+set incsearch
+																													 " highlight the terms
+set hlsearch
+																								" make searches case-insensitive
+set ignorecase
+																				" unless they contain upper-case letters
+set smartcase
+
+" Map --------------------------------------------------------------------------
+
+map <silent> l gt
+map <silent> h gT
+map <silent> s :tabopen google
+map <silent> S :open google
+
+map <silent> <leader>C :tabopen http://meteo.it/previsioni/Cesena/istat-40007<CR>
+map <silent> <leader>I :tabopen http://www.irssi.org/documentation<CR>
+map <silent> <leader>J :jumps<CR>
+map <silent> <leader>t :tabopen http://translate.google.it/#en|it|
+map <silent> <leader>T :tabopen http://translate.google.it/#it|en|
+map <silent> <leader>d :tabopen http://dictionary.reference.com/browse/
+map <silent> <leader>u :tabopen http://www.urbandictionary.com/define.php?term=
+map <silent> <leader>c :tabopen http://dictionary.cambridge.org/dictionary/british/
+map <silent> <leader>i :tabopen http://www.treccani.it/vocabolario/
+map <silent> <leader>a :tabopen http://www.asciitable.com/index/asciifull.gif<CR>
+map <silent> <leader>b :tabopen http://slackbuilds.org/result/?search=
+map <silent> <leader>h :tabopen http://5digits.org/help/pentadactyl/<CR>
+map <silent> <leader>k :tabopen http://www.phrack.org/search.html?key=
+map <silent> <leader>m :tabopen https://pinboard.in/u:jak3<CR>
+map <silent> <leader>w :tabopen http://wayback.archive.org/web/*/
+map <silent> <leader>y :tabopen https://www.youtube.com/results?search_query=
+
+" Commands ---------------------------------------------------------------------
+
+command irs -nargs=0 -description "Goto IRS course page" tabopen http://apice.unibo.it/xwiki/bin/view/Courses/IRS1516
+command asw -nargs=0 -description "Goto ASW course page" tabopen https://elearning-cds.unibo.it/course/view.php?id=7725
+command isac -nargs=0 -description "Goto ISAC course page" tabopen http://apice.unibo.it/xwiki/bin/view/Courses/ISAC1516?language=it
+command wes -nargs=0 -description "Goto WS course page" tabopen http://campus.unibo.it/cgi/lista?annoAccademico=2015&idComponenteAF=377439
+command sec -nargs=0 -description "Goto SEC course page" tabopen http://www.cs.unibo.it/~gdangelo/sicurezza-1516.html
