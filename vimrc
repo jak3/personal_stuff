@@ -42,8 +42,13 @@ if has('vim_starting')
   Plugin 'lukerandall/haskellmode-vim'
   Plugin 'suan/vim-instant-markdown'
   "Plugin 'vim-scripts/c.vim'
-  Plugin 'xolox/vim-lua-ftplugin'
   Plugin 'xolox/vim-misc' " dependence of vim-lua-ftplugin
+  Plugin 'xolox/vim-lua-ftplugin'
+  "Plugin 'ternjs/tern_for_vim.git'
+  Plugin 'pangloss/vim-javascript'
+  Plugin 'mxw/vim-jsx'
+  Plugin 'rust-lang/rust.vim'
+  Plugin 'racer-rust/vim-racer'
 
   Plugin 'jak3/potion'
 
@@ -331,9 +336,9 @@ nmap <silent> <Leader>C :set opfunc=ClearText<CR>g@
 vmap <silent> <Leader>C :<C-U>call ClearText(visual(), 1)<CR>
 
 if executable('ag')
-	" Note we extract the column as well as the file and line number
-	set grepprg=ag\ --nogroup\ --nocolor\ --column
-	set grepformat=%f:%l:%c%m
+    " Note we extract the column as well as the file and line number
+    set grepprg=ag\ --nogroup\ --nocolor\ --column
+    set grepformat=%f:%l:%c%m
 endif
 
 if !exists('g:bufferJumpList')
@@ -522,6 +527,7 @@ command! FreemindToList call FreemindToListF()
 " Auto-spell load with file like md, unibo, tex
 au BufRead,BufNewFile *.md,*.unibo,*.tex setl spell spelllang=en_us,it
 au BufNewFile,BufReadPost *.md setl filetype=markdown
+au BufNewFile,BufReadPost *.rs setl filetype=rust hidden
 au BufNewFile,BufReadPost *.tex setl filetype=tex
 au BufNewFile,BufReadPost *.xtext setl filetype=antlr foldmethod=marker
 au BufNewFile,BufReadPost *.xtend setl filetype=java
@@ -576,6 +582,7 @@ autocmd QuickFixCmdPost    l* nested lwindow
 " autocmd in your .vimrc file. Every time the user issues a :w command, Vim will
 " automatically remove all trailing whitespace before saving.
 autocmd BufWritePre * :%s/\s\+$//e
+autocmd BufWritePre * :retab
 
 " }}}
 
@@ -727,11 +734,29 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_lua_checkers = ["luac", "luacheck"]
 let g:syntastic_lua_luacheck_args = "--ignore 'robot' 'log' -g -u --no-unused-args"
+"let g:syntastic_javascript_checkers = ['jshint']
 " }}}
 
 " Section: vim-table-mode {{{
 let g:table_mode_corner_corner="+"
 let g:table_mode_header_fillchar="="
+" }}}
+
+" Section: vim-javascript {{{
+"let g:javascript_enable_domhtmlcss = 1
+" }}}
+
+" Section: vim-jsx {{{
+let g:jsx_ext_required = 0
+" }}}
+
+" Section: rust.vim {{{
+let g:rustfmt_autosave = 1
+" }}}
+
+" Section: racer-vim {{{
+let g:racer_cmd = "/home/jack/.cargo/bin/racer"
+let $RUST_SRC_PATH="/usr/local/src/rust/src/"
 " }}}
 
 " }}}

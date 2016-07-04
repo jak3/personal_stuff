@@ -54,6 +54,7 @@ map ,a :tabopen http://www.asciitable.com/index/asciifull.gif<CR>
 map ,b :tabopen http://slackbuilds.org/result/?search=
 map ,h :tabopen http://5digits.org/help/pentadactyl/<CR>
 map ,k :tabopen http://www.phrack.org/search.html?key=
+map ,x :tabopen https://login.ezproxy.unibo.it/menu<CR>
 map ,m :tabopen https://pinboard.in/u:jak3<CR>
 map ,w :tabopen http://wayback.archive.org/web/*/
 map ,y :tabopen https://www.youtube.com/results?search_query=
