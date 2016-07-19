@@ -309,6 +309,9 @@ nmap <Leader>bd :bd<cr>
 " Alright... let's try this out
 imap jj <esc>
 
+" Yank to clipboard
+map <Leader>y "+y
+
 "Substitude word under cursor (%s///g)
 nnoremap <Leader>s :%s/<C-r><C-w>//g<Left><Left>
 
