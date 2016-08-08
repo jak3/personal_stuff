@@ -6,23 +6,23 @@ grep --quiet Gentoo /proc/version
 GENTOO=$?
 
 if [ $GENTOO -eq 0 ]; then
-	alias halt='sudo halt'
-	alias poweroff='sudo poweroff'
-	alias reboot='sudo reboot'
-	alias hibernate='dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Hibernate'
-	alias suspend='dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Suspend'
-	alias update-grub='sudo grub-mkconfig -o /boot/grub2/grub.cfg'
-	alias markdown='markdown_py'
-	alias sdc='sudo dispatch-conf'
+  alias halt='sudo halt'
+  alias poweroff='sudo poweroff'
+  alias reboot='sudo reboot'
+  alias hibernate='dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Hibernate'
+  alias suspend='dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Suspend'
+  alias update-grub='sudo grub-mkconfig -o /boot/grub2/grub.cfg'
+  alias markdown='markdown_py'
+  alias sdc='sudo dispatch-conf'
 else
-	alias poweroff='sudo poweroff'
-	alias reboot='sudo reboot'
-	alias hibernate='systemctl hibernate'
-	alias suspend='systemctl suspend'
-	alias wifi-menu='sudo wifi-menu'
-	alias netcfg='sudo netcfg'
-	alias netcfg-menu='sudo netcfg-menu'
-	alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+  alias poweroff='sudo poweroff'
+  alias reboot='sudo reboot'
+  alias hibernate='systemctl hibernate'
+  alias suspend='systemctl suspend'
+  alias wifi-menu='sudo wifi-menu'
+  alias netcfg='sudo netcfg'
+  alias netcfg-menu='sudo netcfg-menu'
+  alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 fi
 
 ## ZSH only
@@ -137,6 +137,9 @@ alias dst="python /home/jack/.dropbox-dist/dropbox.py status"
 alias dropbox="python /home/jack/.dropbox-dist/dropbox.py"
 alias antlr4='java -jar /opt/antlr/antlr-4.4-complete.jar'
 alias grun='java org.antlr.v4.runtime.misc.TestRig'
+alias th='task -work'
+# TODO see task in pending alias ta='task add'
+# TODO see task in pending alias td='task done'
 
 ## Mount
 alias dlist="udisks --enumerate-device-files"

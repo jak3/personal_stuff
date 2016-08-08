@@ -17,14 +17,16 @@ setxkbmap -option ctrl:nocaps
 #xscreensaver &
 /opt/redshift/bin/redshift -c $HOME/personal_stuff/X/redshift.conf &
 
-#if [ -z "$DESKTOP_SESSION" -a -x /usr/bin/ck-launch-session ]; then
-#  exec ck-launch-session dbus-launch --exit-with-session /usr/bin/xmonad
-#else
-#  exec /usr/bin/xmonad
-#fi
-
-if [ -z "$DESKTOP_SESSION" -a -x /usr/bin/ck-launch-session ]; then
-  exec ck-launch-session dbus-launch --exit-with-session /usr/local/bin/awesome
+if [[ 1 -eq 1 ]]; then
+  if [ -z "$DESKTOP_SESSION" -a -x /usr/bin/ck-launch-session ]; then
+    exec ck-launch-session dbus-launch --exit-with-session /usr/bin/xmonad
+  else
+    exec /usr/bin/xmonad
+  fi
 else
-  exec /usr/bin/awesome
+  if [ -z "$DESKTOP_SESSION" -a -x /usr/bin/ck-launch-session ]; then
+    exec ck-launch-session dbus-launch --exit-with-session /usr/local/bin/awesome
+  else
+    exec /usr/bin/awesome
+  fi
 fi
