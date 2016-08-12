@@ -1,57 +1,91 @@
-" vimperatorrc
 " Author:   github.com/jak3
-" License:  GPLv3
+colorscheme zenburn
 
-colorscheme zenburn-jake
-
-" Core -------------------------------------------------------------------------
+" Section: Options {{{1 --------------------------------------------------------
 
 set gui=nonavigation
 set tabnumbers
 set hintchars=hjklasdfgyuiopqwertnmzxcvb
+set status=input,location,bookmark,history,tabcount,position,ssl,zoomlevel
 
-																												 " set the mapleader key
+                                                         " set the mapleader key
 let mapleader = ","
 let g:mapleader = ","
 
-" Search -----------------------------------------------------------------------
-																															" find as you type
+" Section: Search {{{2 ---------------------------------------------------------
+                                                              " find as you type
 set incsearch
-																													 " highlight the terms
+                                                           " highlight the terms
 set hlsearch
-																								" make searches case-insensitive
+                                                " make searches case-insensitive
 set ignorecase
-																				" unless they contain upper-case letters
+                                        " unless they contain upper-case letters
 set smartcase
 
-" Map --------------------------------------------------------------------------
+" Section: Mappings {{{1 -------------------------------------------------------
 
+map a :javascript pinboard_add()<CR>
 map <silent> l gt
 map <silent> h gT
-map <silent> s :tabopen google
-map <silent> S :open google
+map <silent> s :tabopen google<Space>
+map <silent> S :open google<Space>
 
+map <A-r> :restart<CR>
+
+" Usefull URI {{{2
 map <silent> <leader>C :tabopen http://meteo.it/previsioni/Cesena/istat-40007<CR>
 map <silent> <leader>I :tabopen http://www.irssi.org/documentation<CR>
-map <silent> <leader>J :jumps<CR>
-map <silent> <leader>t :tabopen http://translate.google.it/#en|it|
 map <silent> <leader>T :tabopen http://translate.google.it/#it|en|
-map <silent> <leader>d :tabopen http://dictionary.reference.com/browse/
-map <silent> <leader>u :tabopen http://www.urbandictionary.com/define.php?term=
-map <silent> <leader>c :tabopen http://dictionary.cambridge.org/dictionary/british/
-map <silent> <leader>i :tabopen http://www.treccani.it/vocabolario/
 map <silent> <leader>a :tabopen http://www.asciitable.com/index/asciifull.gif<CR>
 map <silent> <leader>b :tabopen http://slackbuilds.org/result/?search=
-map <silent> <leader>h :tabopen http://5digits.org/help/pentadactyl/<CR>
+map <silent> <leader>c :tabopen http://dictionary.cambridge.org/dictionary/british/
+map <silent> <leader>d :tabopen http://dictionary.reference.com/browse/
+map <silent> <leader>i :tabopen http://www.treccani.it/vocabolario/
 map <silent> <leader>k :tabopen http://www.phrack.org/search.html?key=
 map <silent> <leader>m :tabopen https://pinboard.in/u:jak3<CR>
+map <silent> <leader>t :tabopen http://translate.google.it/#en|it|
+map <silent> <leader>u :tabopen http://www.urbandictionary.com/define.php?term=
 map <silent> <leader>w :tabopen http://wayback.archive.org/web/*/
 map <silent> <leader>y :tabopen https://www.youtube.com/results?search_query=
+map <silent> <leader>z :tabopen https://login.ezproxy.unibo.it/menu<CR>
 
-" Commands ---------------------------------------------------------------------
+map <silent> <leader>$ :tablast<CR>
+map <silent> <leader>0 :tabrewind<CR>
+map <silent> <leader>2 :tabduplicate<CR>
+map <silent> <leader>J :jumps<CR>
+map <silent> <leader>l :reloadall<CR>
+map <silent> <leader>n :nohlsearch<CR>
+map <silent> <leader>p :winopen -private google<Space>
+map <silent> <leader>r :javascript pinboard_readlater()<CR>
+map <silent> <leader>s :stopall<CR>
 
+" Plugins {{{2 --------------------------------------------------------
+noremap <C-t> :noscript toggletemp<CR>
+
+" Section: Commands {{{1 -------------------------------------------------------
 command irs -nargs=0 -description "Goto IRS course page" tabopen http://apice.unibo.it/xwiki/bin/view/Courses/IRS1516
-command asw -nargs=0 -description "Goto ASW course page" tabopen https://elearning-cds.unibo.it/course/view.php?id=7725
 command isac -nargs=0 -description "Goto ISAC course page" tabopen http://apice.unibo.it/xwiki/bin/view/Courses/ISAC1516?language=it
-command wes -nargs=0 -description "Goto WS course page" tabopen http://campus.unibo.it/cgi/lista?annoAccademico=2015&idComponenteAF=377439
-command sec -nargs=0 -description "Goto SEC course page" tabopen http://www.cs.unibo.it/~gdangelo/sicurezza-1516.html
+
+" Section: Functions {{{1 ------------------------------------------------------
+" Pinboard {{{ 2 ---------------------------------------------------------------
+" Thanks to http://www.mozdev.org/pipermail/vimperator/2009-July/004526.html
+javascript <<EOF
+function pinboard_add(){
+  with (content) {
+    url=location.href;
+    title=document.title;
+    desc=document.getSelection?document.getSelection():'';
+    open('https://pinboard.in/add?showtags=yes&url='+encodeURIComponent(url)+'&description='+encodeURIComponent(desc)+'&title='+encodeURIComponent(title));
+  }
+}
+function pinboard_readlater(){
+  with (content) {
+    url=location.href;
+    title=document.title;
+    desc=document.getSelection?document.getSelection():'';
+    open('https://pinboard.in/add?later=yes&noui=yes&jump=close&url='+encodeURIComponent(url)+'&description='+encodeURIComponent(desc)+'&title='+encodeURIComponent(title));
+  }
+}
+EOF
+
+" vim: fdm=marker:ft=vim
