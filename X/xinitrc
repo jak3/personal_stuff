@@ -14,19 +14,8 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 urxvtd -q -f -o
 sh ~/.fehbg &
 setxkbmap -option ctrl:nocaps
+unclutter&
 #xscreensaver &
 /opt/redshift/bin/redshift -c $HOME/personal_stuff/X/redshift.conf &
 
-if [[ 1 -eq 1 ]]; then
-  if [ -z "$DESKTOP_SESSION" -a -x /usr/bin/ck-launch-session ]; then
-    exec ck-launch-session dbus-launch --exit-with-session /usr/bin/xmonad
-  else
-    exec /usr/bin/xmonad
-  fi
-else
-  if [ -z "$DESKTOP_SESSION" -a -x /usr/bin/ck-launch-session ]; then
-    exec ck-launch-session dbus-launch --exit-with-session /usr/local/bin/awesome
-  else
-    exec /usr/bin/awesome
-  fi
-fi
+source launch

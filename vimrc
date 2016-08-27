@@ -29,6 +29,7 @@ if has('vim_starting')
   Plugin 'tpope/vim-fugitive'
   Plugin 'tpope/vim-surround'
   Plugin 'vim-scripts/VisIncr'
+  Plugin 'junegunn/vim-easy-align'
 
   Plugin 'KabbAmine/zeavim.vim'
   Plugin 'SirVer/ultisnips'
