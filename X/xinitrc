@@ -18,4 +18,4 @@ unclutter&
 #xscreensaver &
 /opt/redshift/bin/redshift -c $HOME/personal_stuff/X/redshift.conf &
 
-source launch
+source $HOME/personal_stuff/X/launch
