@@ -488,9 +488,11 @@ function! FillLine( str )
         .s/$/\=(' '.repeat(a:str, reps))/
     endif
 endfunction
+
 function! FillLineWithMarker()
     call FillLine('-')
-    .s/.\{4}$/ {{{/
+    " I have used Char-0x7b in order to not broke vimrc
+    .s/.\{4}$/\=" \<Char-0x7b>{{"/
 endfunction
 map <Leader>f :call FillLine( '-' )<cr>
 map <Leader>F :call FillLineWithMarker()<cr>
