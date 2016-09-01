@@ -1,3 +1,6 @@
+term     screen-256color
+terminfo rxvt* 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+
 # Settings
 startup_message off
 deflogin        off
@@ -12,9 +15,6 @@ vbell_msg       "(vbell) dude wait a second! "
 bind h prev
 bind l next
 bind P paste    .
-
-# Terminfo
-terminfo rxvt* 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
 
 # Caption is useful if you use often splitted windows
 # caption always "%{wb}%n%f %t %{wk} %?%-Lw%?%{wb}[%n*%f %t]%?(%u)%?%{wk}%?%+Lw%? %{wk}"

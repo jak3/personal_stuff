@@ -6,56 +6,61 @@
 " License       : GPLv3
 "-------------------------------------------------------------------------------
 
+if &compatible
+  set nocompatible               " Be iMproved
+  filetype off
+endif
+
 " Section: Vundle {{{
 
 " set the runtime path to include Vundle and initialize
-if has('vim_starting')
-  if &compatible
-    set nocompatible               " Be iMproved
-    filetype off
-  endif
+" Required:
+set runtimepath+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-  " Required:
-  set runtimepath+=~/.vim/bundle/Vundle.vim
-  call vundle#begin()
+" Theme
+Plugin 'bling/vim-airline'
+Plugin 'chriskempson/base16-vim'
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'crusoexia/vim-dracula'
+Plugin 'vim-airline/vim-airline-themes'
 
-  " Theme
-  Plugin 'bling/vim-airline'
-  Plugin 'chriskempson/base16-vim'
-  Plugin 'vim-airline/vim-airline-themes'
+" Generic
+Plugin 'junegunn/vim-easy-align'
+Plugin 'majutsushi/tagbar'
+Plugin 'rking/ag.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-git'
+Plugin 'vim-scripts/VisIncr'
+Plugin 'mileszs/ack.vim'
 
-  Plugin 'majutsushi/tagbar'
-  Plugin 'rking/ag.vim'
-  Plugin 'tpope/vim-fugitive'
-  Plugin 'tpope/vim-surround'
-  Plugin 'vim-scripts/VisIncr'
-  Plugin 'junegunn/vim-easy-align'
+" Code
+Plugin 'KabbAmine/zeavim.vim'
+Plugin 'SirVer/ultisnips'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'honza/vim-snippets'
+Plugin 'scrooloose/syntastic'
 
-  Plugin 'KabbAmine/zeavim.vim'
-  Plugin 'SirVer/ultisnips'
-  Plugin 'Valloric/YouCompleteMe'
-  Plugin 'honza/vim-snippets'
-  Plugin 'scrooloose/syntastic'
+" Languages
+Plugin 'lukerandall/haskellmode-vim'
+Plugin 'suan/vim-instant-markdown'
+Plugin 'xolox/vim-lua-ftplugin'
+Plugin 'xolox/vim-misc' " dependence of vim-lua-ftplugin
+Plugin 'Rykka/riv.vim'
+Plugin 'mustache/vim-mustache-handlebars'
 
-  Plugin 'Rykka/riv.vim'
-  Plugin 'dhruvasagar/vim-table-mode'
-  Plugin 'lervag/vimtex'
-  Plugin 'lukerandall/haskellmode-vim'
-  Plugin 'suan/vim-instant-markdown'
-  "Plugin 'vim-scripts/c.vim'
-  Plugin 'xolox/vim-misc' " dependence of vim-lua-ftplugin
-  Plugin 'xolox/vim-lua-ftplugin'
-  "Plugin 'ternjs/tern_for_vim.git'
-  Plugin 'pangloss/vim-javascript'
-  Plugin 'mxw/vim-jsx'
-  Plugin 'rust-lang/rust.vim'
-  Plugin 'racer-rust/vim-racer'
+" Testing
+Plugin 'dhruvasagar/vim-table-mode'
+Plugin 'lervag/vimtex'
+"Plugin 'vim-scripts/c.vim'
 
-  Plugin 'jak3/potion'
+" Personal
+Plugin 'jak3/potion'
 
-  call vundle#end()
-  filetype plugin indent on
-endif
+call vundle#end()
+filetype plugin indent on
 
 " }}}
 
@@ -192,6 +197,8 @@ set grepprg=grep\ -nH\ $*
 set relativenumber
 set number
 
+" set list charactes
+set listchars=tab:>\ ,trail:-,nbsp:+,space:‿,eol:$
 " }}}
 
 " Section: Coding {{{
@@ -219,6 +226,9 @@ nmap <silent> <Leader>wa :1,9000bwipeout<cr>
 
 " Toggle paste mode
 nmap <silent> <Leader>p :set invpaste<CR>:set paste?<CR>
+
+" Yank to clipboard
+map <Leader>y "+y
 
 " cd to the directory containing the file in the buffer
 nmap <silent> <Leader>cd :lcd %:h<CR>
@@ -307,11 +317,11 @@ nmap <silent> <Leader>cu "=strftime("%c")<cr>P
 " Use the bufkill plugin to eliminate a buffer but keep the window layout
 nmap <Leader>bd :bd<cr>
 
+" Swap between most recent buffers
+nmap <Tab> :b#<CR>
+
 " Alright... let's try this out
 imap jj <esc>
-
-" Yank to clipboard
-map <Leader>y "+y
 
 "Substitude word under cursor (%s///g)
 nnoremap <Leader>s :%s/<C-r><C-w>//g<Left><Left>
@@ -631,7 +641,7 @@ set t_Co=256
 set synmaxcol=2048
 set background=dark
 let base16colorspace=256
-colorscheme base16-default
+colorscheme jellybeans " base16-default-dark
 
 " }}}
 
@@ -744,6 +754,12 @@ let g:syntastic_lua_luacheck_args = "--ignore 'robot' 'log' -g -u --no-unused-ar
 " Section: vim-table-mode {{{
 let g:table_mode_corner_corner="+"
 let g:table_mode_header_fillchar="="
+" }}}
+
+" Section: ack {{{
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
 " }}}
 
 " Section: vim-javascript {{{
