@@ -201,7 +201,7 @@ set number
 set listchars=tab:>\ ,trail:-,nbsp:+,space:‿,eol:$
 " }}}
 
-" Section: Coding {{{
+" Section: Coding, makeprg and tags {{{
 
 " Let the syntax highlighting for Java files allow cpp keywords
 let java_allow_cpp_keywords = 1
@@ -466,8 +466,8 @@ endfunction
 " Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
 " files.
 function! AppendModeline()
-  let l:modeline = printf("EOF vim: set ts=%d sw=%d tw=%d :",
-        \ &tabstop, &shiftwidth, &textwidth)
+  let l:modeline = printf("EOF vim: set ts=%d sw=%d tw=%d foldmethod=%s :",
+        \ &tabstop, &shiftwidth, &textwidth, &foldmethod)
   let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
   call append(line("$"), l:modeline)
 endfunction

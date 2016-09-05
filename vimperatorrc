@@ -60,7 +60,7 @@ map <silent> <leader>r :javascript pinboard_readlater()<CR>
 map <silent> <leader>s :stopall<CR>
 
 " Plugins {{{2 --------------------------------------------------------
-noremap <C-t> :noscript toggletemp<CR>
+noremap <C-t> :noscript allowpagetemp<CR>
 
 " Section: Commands {{{1 -------------------------------------------------------
 command irs -nargs=0 -description "Goto IRS course page" tabopen http://apice.unibo.it/xwiki/bin/view/Courses/IRS1516
