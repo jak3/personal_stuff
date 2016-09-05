@@ -35,6 +35,8 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-git'
 Plugin 'vim-scripts/VisIncr'
 Plugin 'mileszs/ack.vim'
+Plugin 'junegunn/vim-peekaboo'
+Plugin 'xolox/vim-easytags'
 
 " Code
 Plugin 'KabbAmine/zeavim.vim'
@@ -47,7 +49,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'lukerandall/haskellmode-vim'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'xolox/vim-lua-ftplugin'
-Plugin 'xolox/vim-misc' " dependence of vim-lua-ftplugin
+Plugin 'xolox/vim-misc' " dependence of vim-lua-ftplugin and easytags
 Plugin 'Rykka/riv.vim'
 Plugin 'mustache/vim-mustache-handlebars'
 
