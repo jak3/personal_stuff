@@ -21,6 +21,8 @@ set hlsearch
 set ignorecase
                                         " unless they contain upper-case letters
 set smartcase
+                           " try to stay in normal mode after loading a web page
+set focuscontent
 
 " Section: Mappings {{{1 -------------------------------------------------------
 
