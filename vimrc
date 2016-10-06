@@ -201,10 +201,6 @@ set number
 " set list charactes
 set listchars=tab:>\ ,trail:-,nbsp:+,space:‿,eol:$
 
-" Whatever colorscheme ensure to have VertSplit thin
-hi VertSplit guibg=bg guifg=bg ctermbg=bg ctermfg=fg
-set fillchars+=vert:│
-
 " }}}
 
 " Section: Coding, makeprg and tags {{{
@@ -656,6 +652,10 @@ set synmaxcol=2048
 set background=dark
 let base16colorspace=256
 colorscheme jellybeans " base16-default-dark
+
+" Whatever colorscheme ensure to have VertSplit thin
+hi VertSplit guibg=bg guifg=bg ctermbg=bg ctermfg=fg
+set fillchars+=vert:│
 
 " }}}
 
