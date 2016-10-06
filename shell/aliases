@@ -49,11 +49,6 @@ alias 2='cd -2'
 alias 3='cd -3'
 alias 4='cd -4'
 alias 5='cd -5'
-alias 6='cd -6'
-alias 7='cd -7'
-alias 8='cd -8'
-alias 9='cd -9'
-alias 10='cd -10'
 fi
 
 
@@ -74,41 +69,44 @@ alias lsd='ls -hFt ~/Downloads/'
 alias ....='cd ../../..'
 alias ...='cd ../../'
 alias ..='cd ..'
-alias bc='bc -q'
-alias bye='shutdown -h now'
 alias c='clear'
 alias ca='clear;history -c;dirs -c'
 alias cd=cd_and_ls
 alias cdd='cd ~/Downloads'
-alias cdb='cd ..'
-alias cdbb='cd ../../'
-alias cdbbb='cd ../../../'
 alias cdl=cd_last_dir
-alias cp='cp -i'
 alias cudir='screen -X eval "chdir $PWD"'
 alias e='exit'
-alias egrep='egrep --color=auto'
-alias eth0='dhcpcd eth0'
-alias fgrep='fgrep --color=auto'
 alias g='git'
-alias gdb='gdb -q'
-alias grep='grep --color=auto'
 alias h='history'
-alias halt='su -c halt'
-alias info='info --vi-keys'
-alias j='jobs -l'
 alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
+
+alias j='jobs -l'
+alias bc='bc -q'
+alias cp='cp -i'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias grep='grep --color=auto'
+alias info='info --vi-keys'
+alias gdb='gdb -q'
 alias mkdir='mkdir -p'
 alias mv='mv -i'
-alias off='xset dpms force off'
-alias netrestart='/etc/rc.d/rc.inet1 eth0_restart'
-alias network='wpa_supplicant -Dnl80211 -i wlan0 -c /etc/wpa_supplicant.conf -d > /dev/null &'
-alias path='echo -e ${PATH//:/\\n}'
-alias reboot='su -c reboot'
-alias shutdown='su -c shutdown'
-alias sudo='su -c'
 alias which='type -a'
-alias wlan1='dhcpcd wlan1'
+
+alias off='xset dpms force off'
+alias path='echo -e ${PATH//:/\\n}'
+alias tt='tmsu tag'
+alias tf='tmsu files'
+alias z='zathura'
+alias t='task'
+alias ta='task add'
+alias td='task done'
+alias th='task -work'
+
+alias sudo='su -c'
+alias reboot='su -c reboot'
+alias bye='shutdown -h now'
+alias shutdown='su -c shutdown'
+alias halt='su -c halt'
 
 ## Typo aliases
 alias xs='cd'
@@ -122,7 +120,7 @@ alias cl=clear
 alias s=ls
 
 ## Utilities
-alias ungcc="gcc -z execstack -fno-stack-protector -fno-pie"
+alias unsgcc="gcc -z execstack -fno-stack-protector -fno-pie"
 alias ocvc="g++ \`pkg-config opencv --cflags --libs\`"
 alias runonce="$STUFF/scripts/run_once.sh"
 alias irc="(sleep 10 && bash $STUFF/scripts/run_once.sh notify-listener.py $STUFF/scripts/notify-listener.py > /dev/null 2>&1) & irssi"
@@ -132,14 +130,10 @@ alias initc="mkdir src; cp $STUFF/templates/Makefile.c ./Makefile"
 alias pass="/bin/true"
 alias to_c_string="hexdump -v -e '\"\\\\\\x\" 1/1 \"%02x\"'"
 alias machete="kill -9"
-alias truecrypt="truecrypt -t"
 alias dst="python /home/jack/.dropbox-dist/dropbox.py status"
 alias dropbox="python /home/jack/.dropbox-dist/dropbox.py"
 alias antlr4='java -jar /opt/antlr/antlr-4.4-complete.jar'
 alias grun='java org.antlr.v4.runtime.misc.TestRig'
-alias th='task -work'
-# TODO see task in pending alias ta='task add'
-# TODO see task in pending alias td='task done'
 
 ## Mount
 alias dlist="udisks --enumerate-device-files"

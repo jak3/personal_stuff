@@ -33,6 +33,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-git'
+Plugin 'tpope/vim-abolish'
 Plugin 'vim-scripts/VisIncr'
 Plugin 'mileszs/ack.vim'
 Plugin 'junegunn/vim-peekaboo'
@@ -180,8 +181,6 @@ set complete=.,w,b,t,i,d
 set showfulltag
 " Set the textwidth to be 80 chars
 set textwidth=80
-" get rid of the silly characters in separators
-set fillchars = ""
 " Add ignorance of whitespace to diff
 set diffopt+=iwhite
 " Enable search highlighting
@@ -201,6 +200,11 @@ set number
 
 " set list charactes
 set listchars=tab:>\ ,trail:-,nbsp:+,space:‿,eol:$
+
+" Whatever colorscheme ensure to have VertSplit thin
+hi VertSplit guibg=bg guifg=bg ctermbg=bg ctermfg=fg
+set fillchars+=vert:│
+
 " }}}
 
 " Section: Coding, makeprg and tags {{{
@@ -542,8 +546,7 @@ command! FreemindToList call FreemindToListF()
 
 " Section: Auto commands {{{
 
-" Auto-spell load with file like md, unibo, tex
-au BufRead,BufNewFile *.md,*.unibo,*.tex setl spell spelllang=en_us,it
+au BufRead,BufNewFile *.rst,*.md,*.mail,*.unibo,*.tex setl spell spelllang=en_us,it autoindent
 au BufNewFile,BufReadPost *.md setl filetype=markdown
 au BufNewFile,BufReadPost *.rs setl filetype=rust hidden
 au BufNewFile,BufReadPost *.tex setl filetype=tex
@@ -605,6 +608,13 @@ autocmd BufWritePre * :retab
 " }}}
 
 " Section: Fix constant spelling mistakes {{{
+" Go back to last misspelled word and pick first suggestion.
+"inoremap <C-l> <Esc>[s1z=`]a
+
+" Select last misspelled word (typing will edit).
+"nnoremap <C-k> <Esc>[sve
+"inoremap <C-k> <Esc>[sve
+"snoremap <C-k> <Esc>b[sviw
 " consider vim-abolish
 iab teh the
 iab Teh The
