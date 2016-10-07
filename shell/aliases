@@ -1,144 +1,82 @@
-# ALIASES
+# [Globals] ---------------------------------------------------------------- {{{
+alias -g G="| grep"
+alias -g L="| less"
+alias -g C="| xsel -bi"
+# }}}
 
-## Distro dependent aliases
-
-grep --quiet Gentoo /proc/version
-GENTOO=$?
-
-if [ $GENTOO -eq 0 ]; then
-  alias halt='sudo halt'
-  alias poweroff='sudo poweroff'
-  alias reboot='sudo reboot'
-  alias hibernate='dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Hibernate'
-  alias suspend='dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Suspend'
-  alias update-grub='sudo grub-mkconfig -o /boot/grub2/grub.cfg'
-  alias markdown='markdown_py'
-  alias sdc='sudo dispatch-conf'
-else
-  alias poweroff='sudo poweroff'
-  alias reboot='sudo reboot'
-  alias hibernate='systemctl hibernate'
-  alias suspend='systemctl suspend'
-  alias wifi-menu='sudo wifi-menu'
-  alias netcfg='sudo netcfg'
-  alias netcfg-menu='sudo netcfg-menu'
-  alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
-fi
-
-## ZSH only
-if [ $SHELL = '/bin/zsh' ];then
-    #{{{ Suffixes...
-
-    #}}}
-
-    #{{{ Globals...
-    alias -g G="| grep"
-    alias -g L="| less"
-    alias -g C="| xsel -bi"
-    #}}}
-    alias su='su -s /bin/zsh'
-fi
-
-if [ $SHELL = '/bin/bash' ];then
-alias po='popd'
-alias pu='pushd'
-alias d='dir -v | head -10'
-alias cd='pushd'
-alias 1='cd -1'
-alias 2='cd -2'
-alias 3='cd -3'
-alias 4='cd -4'
-alias 5='cd -5'
-fi
-
-
-## Linux commangs
-alias ll="ls -l --group-directories-first"
-alias ls='ls -hF --color=auto'  # add colors for filetype recognition
-alias lx='ls -lXB'         # sort by extension
-alias lk='ls -lSr'         # sort by size, biggest last
-alias lc='ls -ltcr'        # sort by and show change time, most recent last
-alias lu='ls -ltur'        # sort by and show access time, most recent last
-alias lt='ls -ltr'         # sort by date, most recent last
-alias lm='ls -al |more'    # pipe through 'more'
-alias lr='ls -lR'          # recursive ls
-alias las='ls -las'
-alias lsd='ls -hFt ~/Downloads/'
-
-# Set current directory ad default dir to new screen windows
-alias ....='cd ../../..'
-alias ...='cd ../../'
-alias ..='cd ..'
-alias c='clear'
-alias ca='clear;history -c;dirs -c'
-alias cd=cd_and_ls
-alias cdd='cd ~/Downloads'
-alias cdl=cd_last_dir
-alias cudir='screen -X eval "chdir $PWD"'
-alias e='exit'
-alias g='git'
-alias h='history'
-alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
-
-alias j='jobs -l'
+# [Generic] ---------------------------------------------------------------- {{{
 alias bc='bc -q'
+alias ca='clear;history -c;dirs -c'
+alias c='clear'
+alias cd=cd_and_ls
 alias cp='cp -i'
+alias e='exit'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
+alias gdb='gdb -q'
+alias g='git'
 alias grep='grep --color=auto'
 alias info='info --vi-keys'
-alias gdb='gdb -q'
+alias j='jobs -l'
+alias las='ls -las'
+alias lc='ls -ltcr'        # sort by and show change time, most recent last
+alias ll="ls -l --group-directories-first"
+alias lr='ls -lR'          # recursive ls
+alias lsd='ls -hFt <%= get_var! :downloads_dir, type: :directory %>'
+alias ls='ls -hF --color=auto'  # add colors for filetype recognition
+alias lt='ls -ltr'         # sort by date, most recent last
+alias lu='ls -ltur'        # sort by and show access time, most recent last
+alias lx='ls -lXB'         # sort by extension
+alias k9="kill -9"
 alias mkdir='mkdir -p'
 alias mv='mv -i'
-alias which='type -a'
-
 alias off='xset dpms force off'
+alias pass="/bin/true"
 alias path='echo -e ${PATH//:/\\n}'
+alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
+alias po='popd'
+alias pu='pushd'
+alias which='type -a'
+# }}}
+
+# [Typos] ------------------------------------------------------------------ {{{
+alias celar=clear
+alias cl=clear
+alias clera=clear
+alias kk='ll'
+alias moer='more'
+alias moew='more'
+alias s=ls
+alias vf='cd'
+alias xs='cd'
+# }}}
+
+# [Utilities] -------------------------------------------------------------- {{{
+alias ungcc="gcc -z execstack -fno-stack-protector -fno-pie"
+alias ocvc="g++ \`pkg-config opencv --cflags --libs\`"
+#alias to_c_string="hexdump -v -e '\"\\\\\\x\" 1/1 \"%02x\"'"
 alias tt='tmsu tag'
 alias tf='tmsu files'
 alias z='zathura'
 alias t='task'
+alias tw='task +<%= get_var! :"taskwarrior.context" %>'
 alias ta='task add'
 alias td='task done'
 alias th='task -work'
-
-alias sudo='su -c'
-alias reboot='su -c reboot'
-alias bye='shutdown -h now'
-alias shutdown='su -c shutdown'
-alias halt='su -c halt'
-
-## Typo aliases
-alias xs='cd'
-alias vf='cd'
-alias moer='more'
-alias moew='more'
-alias kk='ll'
-alias celar=clear
-alias clera=clear
-alias cl=clear
-alias s=ls
-
-## Utilities
 alias unsgcc="gcc -z execstack -fno-stack-protector -fno-pie"
 alias ocvc="g++ \`pkg-config opencv --cflags --libs\`"
-alias runonce="$STUFF/scripts/run_once.sh"
-alias irc="(sleep 10 && bash $STUFF/scripts/run_once.sh notify-listener.py $STUFF/scripts/notify-listener.py > /dev/null 2>&1) & irssi"
-alias mkd="$STUFF/scripts/mkd.sh"
-alias initlatex="mkdir tmp; mkdir bib; touch bib/bib.bib; cp $STUFF/templates/template.tex main.tex; touch main.tex.latexmain"
-alias initc="mkdir src; cp $STUFF/templates/Makefile.c ./Makefile"
 alias pass="/bin/true"
 alias to_c_string="hexdump -v -e '\"\\\\\\x\" 1/1 \"%02x\"'"
-alias machete="kill -9"
+alias k9="kill -9"
 alias dst="python /home/jack/.dropbox-dist/dropbox.py status"
 alias dropbox="python /home/jack/.dropbox-dist/dropbox.py"
 alias antlr4='java -jar /opt/antlr/antlr-4.4-complete.jar'
 alias grun='java org.antlr.v4.runtime.misc.TestRig'
 
-## Mount
-alias dlist="udisks --enumerate-device-files"
-alias dmount="udisksctl mount -b"
-alias dumount="udisksctl unmount -b"
+alias sudo='su -c'
+alias halt='su -c halt'
+alias reboot='su -c reboot'
+alias shutdown='su -c shutdown'
 
 ## Git
 alias gc='git commit -m'
@@ -160,3 +98,12 @@ alias gsa='git stash apply'
 alias gss='git stash save'
 alias gd='git diff'
 alias grm="git ls-files -deleted | xargs git rm"
+
+alias cudir='screen -X eval "chdir $PWD"'
+alias runonce="$STUFF/scripts/run_once.sh"
+alias irc="(sleep 10 && bash $STUFF/scripts/run_once.sh notify-listener.py $STUFF/scripts/notify-listener.py > /dev/null 2>&1) & irssi"
+alias mkd="$STUFF/scripts/mkd.sh"
+alias initlatex="mkdir tmp; mkdir bib; touch bib/bib.bib; cp $STUFF/templates/template.tex main.tex; touch main.tex.latexmain"
+alias initc="mkdir src; cp $STUFF/templates/Makefile.c ./Makefile"
+
+# EOF vim: set ts=2 sw=2 tw=80 foldmethod=marker ft=sh :
