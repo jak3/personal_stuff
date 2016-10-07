@@ -605,42 +605,12 @@ autocmd BufWritePre * :retab
 
 " Section: Fix constant spelling mistakes {{{
 " Go back to last misspelled word and pick first suggestion.
-"inoremap <C-l> <Esc>[s1z=`]a
+inoremap <F2> <Esc>[s1z=`]a
 
 " Select last misspelled word (typing will edit).
-"nnoremap <C-k> <Esc>[sve
-"inoremap <C-k> <Esc>[sve
-"snoremap <C-k> <Esc>b[sviw
-" consider vim-abolish
-iab teh the
-iab Teh The
-iab taht that
-iab Taht That
-iab alos also
-iab Alos Also
-iab aslo also
-iab Aslo Also
-iab becuase because
-iab Becuase Because
-iab bianry binary
-iab Bianry Binary
-iab bianries binaries
-iab Bianries Binaries
-iab charcter character
-iab Charcter Character
-iab charcters characters
-iab Charcters Characters
-iab exmaple example
-iab Exmaple Example
-iab exmaples examples
-iab Exmaples Examples
-iab shoudl should
-iab Shoudl Should
-iab seperate separate
-iab Seperate Separate
-iab fone phone
-iab Fone Phone
-
+nnoremap <C-k> <Esc>[sve
+inoremap <C-k> <Esc>[sve
+snoremap <C-k> <Esc>b[sviw
 " }}}
 
 " Section: Set up the window colors and size {{{
