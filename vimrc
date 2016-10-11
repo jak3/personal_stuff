@@ -201,6 +201,9 @@ set number
 " set list charactes
 set listchars=tab:>\ ,trail:-,nbsp:+,space:‿,eol:$
 
+" Do not resize windows size after close cwindow
+set noequalalways
+
 " }}}
 
 " Section: Coding, makeprg and tags {{{
