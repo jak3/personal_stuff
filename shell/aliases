@@ -56,6 +56,7 @@ alias ungcc="gcc -z execstack -fno-stack-protector -fno-pie"
 alias ocvc="g++ \`pkg-config opencv --cflags --libs\`"
 #alias to_c_string="hexdump -v -e '\"\\\\\\x\" 1/1 \"%02x\"'"
 alias tt='tmsu tag'
+alias tts='tmsu tags'
 alias tf='tmsu files'
 alias z='zathura'
 alias t='task'
