@@ -2,6 +2,8 @@
 alias -g G="| grep"
 alias -g L="| less"
 alias -g C="| xsel -bi"
+alias -g T="| tail"
+alias -g H="| head"
 # }}}
 
 # [Generic] ---------------------------------------------------------------- {{{

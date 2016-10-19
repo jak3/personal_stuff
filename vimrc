@@ -630,6 +630,9 @@ colorscheme jellybeans " base16-default-dark
 hi VertSplit guibg=bg guifg=bg ctermbg=bg ctermfg=fg
 set fillchars+=vert:│
 
+" and hlsearch color minimal
+hi Search ctermbg=bg ctermfg=Red
+
 " }}}
 
 " Section: Plugins {{{
