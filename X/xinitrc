@@ -11,11 +11,16 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 [ -f $userresources ] && /usr/bin/xrdb -merge $userresources
 [ -f $usermodmap ] && /usr/bin/xmodmap $usermodmap
 
-urxvtd -q -f -o
-sh ~/.fehbg &
-setxkbmap -option ctrl:nocaps
-unclutter&
-#xscreensaver &
-/opt/redshift/bin/redshift -c $HOME/personal_stuff/X/redshift.conf &
+export PATH="${PATH}:/sbin/"
 
-source $HOME/personal_stuff/X/launch
+urxvtd -q -f -o
+setxkbmap -option ctrl:nocaps
+unclutter --timeout 3 -b
+syndaemon -dtR
+
+# Start the window manager:
+if [ -z "$DESKTOP_SESSION" -a -x /usr/bin/ck-launch-session ]; then
+  exec ck-launch-session /usr/bin/awesome
+else
+  exec /usr/bin/awesome
+fi
