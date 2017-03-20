@@ -85,7 +85,7 @@ alias tmux='tmux -2'
 
 alias sudo='su -c'
 alias halt='su -c halt'
-alias pm-suspend='su -c pm-suspend'
+alias pms='su -c pm-suspend'
 alias reboot='su -c reboot'
 alias shutdown='su -c shutdown'
 
