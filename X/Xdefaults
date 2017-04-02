@@ -6,81 +6,82 @@
 !   Licence      : GPLv3
 !   Author       : jake
 !--------------------------------------------------------------------------------
+*cursorBlink         : false
 ! urxvt
-URxvt*cursorBlink    : true
-URxvt*iso14755       : false
-URxvt*modifier       : alt
-URxvt*perl-lib       : /home/jack/.urxvt/ext
-URxvt*saveLines      : 120
-URxvt*scrollBar      : false
-URxvt*scrollstyle    : plain
-URxvt*termName       : rxvt-unicode
-URxvt.matcher.button : 1
-URxvt.underlineURLs  : True
-URxvt.urlLauncher    : /usr/bin/firefox
-URxvt.copyCommand    : xsel -ib
+urxvt*iso14755       : false
+urxvt*imLocale       : en_US.UTF-8
+urxvt*modifier       : alt
+urxvt*perl-lib       : /home/jake/.urxvt/ext
+urxvt*saveLines      : 920
+urxvt*scrollBar      : false
+urxvt*scrollstyle    : plain
+urxvt*termName       : rxvt-unicode
+urxvt.matcher.button : 1
+urxvt.underlineURLs  : True
+urxvt.urlLauncher    : /usr/bin/firefox
+urxvt.copyCommand    : xsel -ib
+urxvt.pasteCommand   : xsel -ob
 
 !urxvt extensions
-URxvt.keysym.M-C-v         : perl:clipboard:paste_escaped
-URxvt.keysym.M-Escape      : perl:keyboard-select:activate
-URxvt.keysym.M-c           : perl:clipboard:copy
-URxvt.keysym.M-t           : perl:word-select:select_next
-URxvt.keysym.M-u					 : perl:url-select:select_next
-URxvt.keysym.M-v					 : perl:clipboard:paste
-URxvt.keysym.M-Up					 : perl:font-size:increase
-URxvt.keysym.M-Down				 : perl:font-size:decrease
-URxvt.keysym.M-S-Up				 : perl:font-size:incglobal
-URxvt.keysym.M-S-Down			 : perl:font-size:decglobal
-URxvt.keysym.M-0					 : perl:font-size:reset
-URxvt.pasteCommand         : xsel -ob
-URxvt.perl-ext-common      : default,clipboard,matcher,keyboard-select,url-select,word-translator,font-size
-URxvt.url-select.autocopy  : false
-URxvt.url-select.button    : 1
-URxvt.url-select.launcher  : /usr/bin/firefox
-URxvt.url-select.underline : true
-URxvt.word-select.button   : 1
-URxvt.word-select.launcher : /usr/bin/firefox
+urxvt.keysym.M-C-v         : perl:clipboard:paste_escaped
+urxvt.keysym.M-Escape      : perl:keyboard-select:activate
+urxvt.keysym.M-c           : perl:clipboard:copy
+urxvt.keysym.M-t           : perl:word-select:select_next
+urxvt.keysym.M-u           : perl:url-select:select_next
+urxvt.keysym.M-v           : perl:clipboard:paste
+urxvt.keysym.M-Up          : perl:font-size:increase
+urxvt.keysym.M-Down        : perl:font-size:decrease
+urxvt.keysym.M-S-Up        : perl:font-size:incglobal
+urxvt.keysym.M-S-Down      : perl:font-size:decglobal
+urxvt.keysym.M-0           : perl:font-size:reset
+urxvt.perl-ext-common      : default,clipboard,matcher,keyboard-select,url-select,word-translator,font-size
+urxvt.url-select.autocopy  : false
+urxvt.url-select.button    : 1
+urxvt.url-select.launcher  : /usr/bin/firefox
+urxvt.url-select.underline : true
+urxvt.word-select.button   : 1
+urxvt.word-select.launcher : /usr/bin/firefox
 
-!URxvt*font:    xft:Dejavu Sans Mono:pixelsize=14
-URxvt*font        : xft:Monospace:pixelsize=14
-!URxvt*boldFont:xft:Dejavu Sans Mono:pixelsize=14
-URxvt*boldFont    : xft:Monospace:bold:pixelsize=14
-!Color and % when lost focus
-!URxvt*fadeColor   : #2B2B2B
-!URxvt*fading      : 15
-!Visual bit depth
-!URxvt*depth       : 32 ! DO NOT WORK with ranger w3mimgdisplay
-!Darken (0..99) lighten (101..200) 100 no shading
-URxvt*shading     : 8
-URxvt*transparent : true
-URxvt*colorUL     : #DC9656
+!urxvt*font:    xft:Dejavu Sans Mono:pixelsize=14
+urxvt*font        : xft:Monospace:pixelsize=18
+!urxvt*boldFont:xft:Dejavu Sans Mono:pixelsize=14
+urxvt*boldFont    : xft:Monospace:bold:pixelsize=18
+!color and % when lost focus
+urxvt*fadeColor   : #2B2B2B
+urxvt*fading      : 15
+!visual bit depth
+!urxvt*depth       : 32 ! DO NOT WORK with ranger w3mimgdisplay
+!darken (0..99) lighten (101..200) 100 no shading
+urxvt*shading     : 45
+urxvt*transparent : true
+urxvt*colorUL     : #DC9656
 
 ! black (dark,light)
-URxvt*color0  : #000000
-URxvt*color8  : #585858
+urxvt*color0  : #000000
+urxvt*color8  : #585858
 ! red
-URxvt*color1  : #AB4642
-URxvt*color9  : #AB4642
+urxvt*color1  : #AB4642
+urxvt*color9  : #AB4642
 ! green
-URxvt*color2  : #A1B56C
-URxvt*color10 : #A1B56C
+urxvt*color2  : #A1B56C
+urxvt*color10 : #A1B56C
 ! yellow
-URxvt*color3  : #F7CA88
-URxvt*color11 : #F7CA88
+urxvt*color3  : #F7CA88
+urxvt*color11 : #F7CA88
 ! blue
-URxvt*color4  : #7CAFC2
-URxvt*color12 : #7CAFC2
+urxvt*color4  : #7CAFC2
+urxvt*color12 : #7CAFC2
 ! magenta
-URxvt*color5  : #BA8BAF
-URxvt*color13 : #BA8BAF
+urxvt*color5  : #BA8BAF
+urxvt*color13 : #BA8BAF
 ! cyan
-URxvt*color6  : #86C1B9
-URxvt*color14 : #86C1B9
+urxvt*color6  : #86C1B9
+urxvt*color14 : #86C1B9
 ! white
-URxvt*color7  : #D8D8D8
-URxvt*color15 : #F8F8F8
+urxvt*color7  : #D8D8D8
+urxvt*color15 : #F8F8F8
 
-! URxvt*background:   rgba:0000/0000/0000/dddd
-URxvt*background: #000000
-! URxvt*foreground:   rgba:ff00/ff00/ff00/dddd
-URxvt*foreground: #DEDEDE
+! urxvt*background:   rgba:0000/0000/0000/dddd
+! urxvt*foreground:   rgba:ff00/ff00/ff00/dddd
+urxvt*background: #000000
+urxvt*foreground: #DEDEDE

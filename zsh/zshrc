@@ -8,11 +8,10 @@ SAVEHIST=1000
 
 # SOURCES {{{
 
-STUFF=$HOME/personal_stuff
+STUFF=/home/jake/personal_stuff
 
 # General ones
 source $STUFF/shell/environment
-source /home/jack/repos/base16-shell/base16-default.dark.sh
 source $STUFF/shell/functions
 source $STUFF/shell/aliases
 
@@ -24,6 +23,6 @@ source $STUFF/zsh/zsh_hooks.zsh
 source $STUFF/zsh/history-substring-search.zsh
 source $STUFF/zsh/prompt.zsh
 # NB, check the right branch, ATM 0.4.x is working
-source /home/jack/repos/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /home/jake/.zsh/plugins/repos/zsh-users/zsh-syntax-highlighting-master/zsh-syntax-highlighting.zsh
 
 # }}}

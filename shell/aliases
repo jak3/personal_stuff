@@ -2,6 +2,8 @@
 alias -g G="| grep"
 alias -g L="| less"
 alias -g C="| xsel -bi"
+alias -g T="| tail"
+alias -g H="| head"
 # }}}
 
 # [Generic] ---------------------------------------------------------------- {{{
@@ -60,10 +62,16 @@ alias tts='tmsu tags'
 alias tf='tmsu files'
 alias z='zathura'
 alias t='task'
-alias tw='task +<%= get_var! :"taskwarrior.context" %>'
+alias tw='task +home'
 alias ta='task add'
 alias td='task done'
 alias th='task -work'
+alias tarz='tar xvfz'
+alias sp='sqg -p'
+alias si='sbopkg -i'
+alias ss='sbopkg -s'
+alias sg='sbopkg -g'
+alias ssg='slackpkg search'
 alias unsgcc="gcc -z execstack -fno-stack-protector -fno-pie"
 alias ocvc="g++ \`pkg-config opencv --cflags --libs\`"
 alias pass="/bin/true"
@@ -73,9 +81,11 @@ alias dst="python /home/jack/.dropbox-dist/dropbox.py status"
 alias dropbox="python /home/jack/.dropbox-dist/dropbox.py"
 alias antlr4='java -jar /opt/antlr/antlr-4.4-complete.jar'
 alias grun='java org.antlr.v4.runtime.misc.TestRig'
+alias tmux='tmux -2'
 
 alias sudo='su -c'
 alias halt='su -c halt'
+alias pms='su -c pm-suspend'
 alias reboot='su -c reboot'
 alias shutdown='su -c shutdown'
 

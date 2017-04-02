@@ -1,6 +1,6 @@
 # http://github.com/olivierverdier/zsh-git-prompt
 # There is now a Haskell implementation as well (<3)
-source /home/jack/repos/zsh-git-prompt/zshrc.sh
+source /home/jake/repos/zsh-git-prompt/zshrc.sh
 GIT_PROMPT_EXECUTABLE="haskell"
 
 # A script to make using 256 colors in zsh less painful.

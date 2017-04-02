@@ -21,14 +21,15 @@ call vundle#begin()
 " Theme
 Plugin 'bling/vim-airline'
 Plugin 'chriskempson/base16-vim'
-Plugin 'nanotech/jellybeans.vim'
 Plugin 'crusoexia/vim-dracula'
+Plugin 'mhartington/oceanic-next'
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'vim-airline/vim-airline-themes'
 
 " Generic
 Plugin 'junegunn/vim-easy-align'
 Plugin 'majutsushi/tagbar'
-Plugin 'rking/ag.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
@@ -37,18 +38,19 @@ Plugin 'tpope/vim-abolish'
 Plugin 'vim-scripts/VisIncr'
 Plugin 'mileszs/ack.vim'
 Plugin 'junegunn/vim-peekaboo'
-Plugin 'xolox/vim-easytags'
+"Plugin 'xolox/vim-easytags'
 
 " Code
 Plugin 'KabbAmine/zeavim.vim'
 Plugin 'SirVer/ultisnips'
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 Plugin 'honza/vim-snippets'
 Plugin 'scrooloose/syntastic'
 
 " Languages
 Plugin 'lukerandall/haskellmode-vim'
 Plugin 'suan/vim-instant-markdown'
+Plugin 'gi1242/vim-multimarkdown'
 Plugin 'xolox/vim-lua-ftplugin'
 Plugin 'xolox/vim-misc' " dependence of vim-lua-ftplugin and easytags
 Plugin 'Rykka/riv.vim'
@@ -176,7 +178,7 @@ set wildmenu
 " Make it easier to complete buffers, open files, etc...
 set wildignorecase
 " dictionary for english words
-set dictionary=/usr/share/dict/*
+set dictionary=/usr/share/dict/
 " Same as default except that I remove the 'u' option
 set complete=.,w,b,t,i,d
 " When completing by tag, show the whole tag, not just the function name
@@ -201,7 +203,7 @@ set relativenumber
 set number
 
 " set list charactes
-set listchars=tab:>\ ,trail:-,nbsp:+,space:‿,eol:$
+set listchars=tab:>\ ,trail:-,nbsp:+,space:␣,eol:$
 
 " Do not resize windows size after close cwindow
 set noequalalways
@@ -551,6 +553,7 @@ au BufRead,BufNewFile *.rst,*.md,*.mail,*.unibo,*.tex setl spell spelllang=en_us
 au BufNewFile,BufReadPost *.md setl filetype=markdown
 au BufNewFile,BufReadPost *.rs setl filetype=rust hidden
 au BufNewFile,BufReadPost *.tex setl filetype=tex
+au BufNewFile,BufReadPost *.pt setl filetype=lisp
 au BufNewFile,BufReadPost *.xtext setl filetype=antlr foldmethod=marker
 au BufNewFile,BufReadPost *.xtend setl filetype=java
 au BufNewFile,BufReadPost *.qa setl filetype=prolog
@@ -619,18 +622,25 @@ snoremap <C-k> <Esc>b[sviw
 " }}}
 
 " Section: Set up the window colors and size {{{
-
-" Enable 256 colors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set t_Co=256
-" Syntax coloring lines that are too long just slows down the world
-set synmaxcol=2048
+
 set background=dark
+
 let base16colorspace=256
-colorscheme jellybeans " base16-default-dark
+
+set termguicolors
+
+colorscheme OceanicNext
+let g:airline_theme='oceanicnext'
 
 " Whatever colorscheme ensure to have VertSplit thin
 hi VertSplit guibg=bg guifg=bg ctermbg=bg ctermfg=fg
 set fillchars+=vert:│
+
+" and hlsearch color minimal
+hi Search ctermbg=bg ctermfg=Red
 
 " }}}
 

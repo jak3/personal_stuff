@@ -21,8 +21,6 @@ install:
 		ln -sf ${STUFF}/X/xinitrc ~/.xinitrc
 		# Xdefaults
 		ln -sf ${STUFF}/X/Xdefaults ~/.Xdefaults
-		# GDBinit
-		ln -sf ${STUFF}/gdb/Gdbinit/gdbinit ~/.gdbinit
 		# ScreenRC
 		ln -sf ${STUFF}/screenrc ~/.screenrc
 		# LynxRC
@@ -31,17 +29,8 @@ install:
 		ln -sf ${STUFF}/pentadactylrc ~/.pentadactylrc
 		# PentadactylDIR
 		ln -sf ${STUFF}/pentadactyl ~/.pentadactyl
-		# Xmonad
-		mkdir -p ~/.xmonad
-		ln -sf ${STUFF}/xmonad/ ~/.xmonad/
-		# Zsh Profile
-		ln -sf ${STUFF}/zsh/zprofile ~/.zprofile
-		# ZshRC
-		ln -sf ${STUFF}/zsh/zshrc ~/.zshrc
 		# git-prompt
 		mkdir -p ~/.git-prompt
 		ln -sf ${STUFF}/zsh/gitstatus.py ~/.git-prompt/gitstatus.py
 		# xpdf
 		ln -sf ${STUFF}/xpdfrc ~/.xpdfrc
-
-		# TODO redshift
