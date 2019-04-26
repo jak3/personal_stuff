@@ -185,10 +185,10 @@ mymanageHook :: ManageHook
 mymanageHook = (composeAll . concat $
     [ [resource     =? r            --> doIgnore            |   r   <- myIgnores]
     , [className    =? c            --> doShift  "1:main"   |   c   <- myMain   ]
-    , [className    =? c            --> doShift  "2:⚓"      |   c   <- myWww    ]
-    , [className    =? c            --> doShift  "3:☕"      |   c   <- myCode   ]
-    , [className    =? c            --> doShift	 "4:v"      |   c   <- myMisc   ]
-    , [className    =? c            --> doShift	 "5:♪"      |   c   <- myMus    ]
+    , [className    =? c            --> doShift  "2:⚓"     |   c   <- myWww    ]
+    , [className    =? c            --> doShift  "3:☕"     |   c   <- myCode   ]
+    , [className    =? c            --> doShift  "4:v"      |   c   <- myMisc   ]
+    , [className    =? c            --> doShift  "5:♪"      |   c   <- myMus    ]
     , [className    =? c            --> doShift  "8"        |   c   <- myFloats ]
     , [name         =? n            --> doCenterFloat       |   n   <- myNames  ]
     , [isFullscreen --> doFullFloat ]
@@ -200,11 +200,11 @@ mymanageHook = (composeAll . concat $
         name      = stringProperty "WM_NAME"
 
         myIgnores = ["desktop","desktop_window","notify-osd","stalonetray","trayer"]
-        myMain	  = [""]
+        myMain    = [""]
         myWww     = ["Firefox","Google-chrome","Google-chrome-stable","Chromium", "Chromium-browser", "Iceweasel", "Vidalia"]
-        myCode	  = ["Xpdf", "Zathura"]
+        myCode    = ["Xpdf", "Zathura"]
         myMisc    = ["VirtualBox"]
-        myMus	    = ["Audacity"]
+        myMus     = ["Audacity"]
         myFloats  = ["JFLAP"]
         myNames   = [""]
 

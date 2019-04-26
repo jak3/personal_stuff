@@ -152,6 +152,8 @@ set lazyredraw
 set showcmd
 " Show the current mode
 set showmode
+" Show brackets matching
+set showmatch
 " Hide the mouse pointer while typing
 set mousehide
 " Set up the gui cursor to look nice
