@@ -2,7 +2,7 @@ bind l tabnext
 bind h tabprev
 bind ,q fillcmdline_notrail tabopen https://www.linguee.com/english-italian/search?source=auto&query=
 bind ,w fillcmdline_notrail tabopen http://www.wordreference.com/enit/
-bind ,e fillcmdline_notrail tabopen tabopen https://www.deepl.com/translator#en/it/
+bind ,e fillcmdline_notrail tabopen https://www.deepl.com/translator#en/it/
 bind ,t fillcmdline_notrail tabopen http://translate.google.it/#en|it|
 bind ,T fillcmdline_notrail tabopen http://translate.google.it/#it|en|
 bing ,g fillcmdline_notrail tabopen https://www.goodreads.com/search?q=
