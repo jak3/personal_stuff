@@ -6,21 +6,69 @@
 !   Licence      : GPLv3
 !   Author       : jake
 !--------------------------------------------------------------------------------
-*cursorBlink         : false
-! urxvt
-urxvt*iso14755       : false
-urxvt*imLocale       : en_US.UTF-8
+
+*cursorBlink    : false
+*iso14755       : false
+*imLocale       : en_US.UTF-8
+*saveLines      : 920
+*scrollBar      : false
+*scrollstyle    : plain
+.matcher.button : 1
+.underlineURLs  : True
+.urlLauncher    : /usr/bin/firefox
+.copyCommand    : xsel -ib
+.pasteCommand   : xsel -ob
+!*font:    xft:Dejavu Sans Mono:pixelsize=14
+*font        : xft:Monospace:pixelsize=18
+!*boldFont:xft:Dejavu Sans Mono:pixelsize=14
+*boldFont    : xft:Monospace:bold:pixelsize=18
+
+![color and % when lost focus] --------------------------------------------- {{{
+*fadeColor   : #2B2B2B
+*fading      : 15
+
+!visual bit depth
+!*depth       : 32 ! DO NOT WORK with ranger w3mimgdisplay
+!darken (0..99) lighten (101..200) 100 no shading
+*shading     : 45
+*transparent : true
+*colorUL     : #DC9656
+
+! black (dark,light)
+*color0  : #000000
+*color8  : #585858
+! red
+*color1  : #AB4642
+*color9  : #AB4642
+! green
+*color2  : #A1B56C
+*color10 : #A1B56C
+! yellow
+*color3  : #F7CA88
+*color11 : #F7CA88
+! blue
+*color4  : #7CAFC2
+*color12 : #7CAFC2
+! magenta
+*color5  : #BA8BAF
+*color13 : #BA8BAF
+! cyan
+*color6  : #86C1B9
+*color14 : #86C1B9
+! white
+*color7  : #D8D8D8
+*color15 : #F8F8F8
+
+! *background:   rgba:0000/0000/0000/dddd
+! *foreground:   rgba:ff00/ff00/ff00/dddd
+*background: #000000
+*foreground: #DEDEDE
+! }}}
+
+! [urxvt] ------------------------------------------------------------------ {{{
 urxvt*modifier       : alt
 urxvt*perl-lib       : /home/jake/.urxvt/ext
-urxvt*saveLines      : 920
-urxvt*scrollBar      : false
-urxvt*scrollstyle    : plain
 urxvt*termName       : rxvt-unicode
-urxvt.matcher.button : 1
-urxvt.underlineURLs  : True
-urxvt.urlLauncher    : /usr/bin/firefox
-urxvt.copyCommand    : xsel -ib
-urxvt.pasteCommand   : xsel -ob
 
 !urxvt extensions
 urxvt.keysym.M-C-v         : perl:clipboard:paste_escaped
@@ -42,46 +90,4 @@ urxvt.url-select.underline : true
 urxvt.word-select.button   : 1
 urxvt.word-select.launcher : /usr/bin/firefox
 
-!urxvt*font:    xft:Dejavu Sans Mono:pixelsize=14
-urxvt*font        : xft:Monospace:pixelsize=18
-!urxvt*boldFont:xft:Dejavu Sans Mono:pixelsize=14
-urxvt*boldFont    : xft:Monospace:bold:pixelsize=18
-!color and % when lost focus
-urxvt*fadeColor   : #2B2B2B
-urxvt*fading      : 15
-!visual bit depth
-!urxvt*depth       : 32 ! DO NOT WORK with ranger w3mimgdisplay
-!darken (0..99) lighten (101..200) 100 no shading
-urxvt*shading     : 45
-urxvt*transparent : true
-urxvt*colorUL     : #DC9656
-
-! black (dark,light)
-urxvt*color0  : #000000
-urxvt*color8  : #585858
-! red
-urxvt*color1  : #AB4642
-urxvt*color9  : #AB4642
-! green
-urxvt*color2  : #A1B56C
-urxvt*color10 : #A1B56C
-! yellow
-urxvt*color3  : #F7CA88
-urxvt*color11 : #F7CA88
-! blue
-urxvt*color4  : #7CAFC2
-urxvt*color12 : #7CAFC2
-! magenta
-urxvt*color5  : #BA8BAF
-urxvt*color13 : #BA8BAF
-! cyan
-urxvt*color6  : #86C1B9
-urxvt*color14 : #86C1B9
-! white
-urxvt*color7  : #D8D8D8
-urxvt*color15 : #F8F8F8
-
-! urxvt*background:   rgba:0000/0000/0000/dddd
-! urxvt*foreground:   rgba:ff00/ff00/ff00/dddd
-urxvt*background: #000000
-urxvt*foreground: #DEDEDE
+! }}}

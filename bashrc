@@ -120,3 +120,5 @@ fi
 # with the second env, if we type a command starting with a space
 # it wont show up in history
 # HISTSIZE=0 # don't save history
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

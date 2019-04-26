@@ -1,0 +1,10 @@
+bind l tabnext
+bind h tabprev
+bind ,q fillcmdline_notrail https://www.linguee.com/english-italian/search?source=auto&query=
+bind ,w fillcmdline_notrail http://www.wordreference.com/enit/
+bind ,e fillcmdline_notrail tabopen https://www.deepl.com/translator#en/it/
+bind ,t fillcmdline_notrail http://translate.google.it/#en|it|
+bind ,T fillcmdline_notrail http://translate.google.it/#it|en|
+bing ,g fillcmdline_notrail https://www.goodreads.com/search?q=
+bind ,x fillcmdline_notrail tabopen https://www.oxfordlearnersdictionaries.com/definition/english/
+bind ,c fillcmdline_notrail tabopen http://dictionary.cambridge.org/dictionary/british/

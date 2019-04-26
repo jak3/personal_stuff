@@ -9,6 +9,8 @@
 if &compatible
   set nocompatible               " Be iMproved
   filetype off
+  runtime! ftplugin/man.vim      " man page in a Vim window
+  set rtp+=~/repos/fzf
 endif
 
 " Section: Vundle {{{
@@ -29,6 +31,7 @@ Plugin 'vim-airline/vim-airline-themes'
 
 " Generic
 Plugin 'junegunn/vim-easy-align'
+Plugin 'junegunn/fzf'
 Plugin 'majutsushi/tagbar'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
@@ -40,14 +43,19 @@ Plugin 'mileszs/ack.vim'
 Plugin 'junegunn/vim-peekaboo'
 "Plugin 'xolox/vim-easytags'
 
-" Code
+
+Plugin 'Shougo/deoplete.nvim'
+Plugin 'roxma/nvim-yarp'
+Plugin 'roxma/vim-hug-neovim-rpc'
+
+Plugin 'w0rp/ale'
+Plugin 'rking/ag.vim'
 Plugin 'KabbAmine/zeavim.vim'
 Plugin 'SirVer/ultisnips'
-" Plugin 'Valloric/YouCompleteMe'
 Plugin 'honza/vim-snippets'
-Plugin 'scrooloose/syntastic'
 
 " Languages
+Plugin 'eagletmt/neco-ghc'
 Plugin 'lukerandall/haskellmode-vim'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'gi1242/vim-multimarkdown'
@@ -55,6 +63,10 @@ Plugin 'xolox/vim-lua-ftplugin'
 Plugin 'xolox/vim-misc' " dependence of vim-lua-ftplugin and easytags
 Plugin 'Rykka/riv.vim'
 Plugin 'mustache/vim-mustache-handlebars'
+
+" Typescript
+Plugin 'leafgarland/typescript-vim'
+Plugin 'HerringtonDarkholme/yats.vim'
 
 " Testing
 Plugin 'dhruvasagar/vim-table-mode'
@@ -88,8 +100,8 @@ set undolevels=1000
 set undoreload=10000
 
 " backup file only to /tmp
-set backupdir-=.
-set backupdir^=/tmp/filebackups
+set backupdir=/tmp/vim/backup
+set directory=/tmp/vim/swap
 
 " Tabstops are 2 spaces
 set tabstop=2
@@ -194,7 +206,7 @@ set clipboard+=unnamed
 " Automatically read a file that has changed on disk
 set autoread
 
-set grepprg=grep\ -nH\ $*
+set grepprg=ag\ $*
 
 " set left number column hybrid mode
 set relativenumber
@@ -206,6 +218,11 @@ set listchars=tab:>\ ,trail:-,nbsp:+,space:␣,eol:$
 " Do not resize windows size after close cwindow
 set noequalalways
 
+" Fuzzy file finder
+set path+=**
+
+" Do not consider numbers with leading zero octal
+set nrformats-=octal
 " }}}
 
 " Section: Coding, makeprg and tags {{{
@@ -228,6 +245,9 @@ map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 " }}}
 
 " Section: mapping {{{
+" Test remap CTRL-A (Inc behind cursor) to <Leader>a
+nmap <silent> <Leader>a <C-A>
+
 " Wipe out all buffers
 nmap <silent> <Leader>wa :1,9000bwipeout<cr>
 
@@ -237,9 +257,15 @@ nmap <silent> <Leader>p :set invpaste<CR>:set paste?<CR>
 " Yank to clipboard
 map <Leader>y "+y
 
+" Toggle list
+map <Leader>l :set list!<CR>
+
 " cd to the directory containing the file in the buffer
 nmap <silent> <Leader>cd :lcd %:h<CR>
 nmap <silent> <Leader>md :!mkdir -p %:p:h<CR>
+
+" Turn one line into title caps, make every first letter of a word uppercase:
+nmap <silent> <Leader>t :s-\\v<(.)(\\w*)-\\u\\1\\L\\2-g<CR>:nohls<CR>
 
 " Turn off that stupid highlight search
 nmap <silent> <Leader>n :nohls<CR>
@@ -267,6 +293,7 @@ noremap <silent> <Leader>ch :wincmd h<CR>:close<CR>
 noremap <silent> <Leader>cl :wincmd l<CR>:close<CR>
 noremap <silent> <Leader>cc :close<CR>
 noremap <silent> <Leader>cw :cclose<CR>
+noremap <silent> <Leader>cp :cclose<CR>
 noremap <silent> <Leader>ml <C-W>L
 noremap <silent> <Leader>mk <C-W>K
 noremap <silent> <Leader>mh <C-W>H
@@ -331,7 +358,7 @@ nmap <Tab> :b#<CR>
 imap jj <esc>
 
 "Substitude word under cursor (%s///g)
-nnoremap <Leader>s :%s/<C-r><C-w>//g<Left><Left>
+nnoremap <Leader>s :%s/\\(<C-r><C-w>\\)//g<Left><Left>
 
 " Clear the text using a motion / text object and then move the character to the
 " next word
@@ -482,31 +509,39 @@ nnoremap <silent> <Leader>eo :call AppendModeline()<CR>
 
 " fill rest of line with characters
 function! FillLine( str )
-    " set tw to the desired total length
     let tw = &textwidth
     if tw==0 | let tw = 80 | endif
-    " strip trailing spaces first
+
     .s/[[:space:]]*$//
-    " calculate total number of 'str's to insert
+
     let reps = (tw - col("$")) / len(a:str)
-    " insert them, if there's room, removing trailing spaces (though forcing
-    " there to be one)
+
+
     if reps > 0
         .s/$/\=(' '.repeat(a:str, reps))/
     endif
 endfunction
 
-function! FillLineWithMarker()
-    call FillLine('-')
-    " I have used Char-0x7b in order to not broke vimrc
-    .s/.\{4}$/\=" \<Char-0x7b>{{"/
+function! FillLineHere( str )
+    let tw = &textwidth
+    if tw==0 | let tw = 80 | endif
+
+
+    let reps = (tw - col("$")) / len(a:str)
+    if reps > 0
+        .s/\%#/\=(' '.repeat(a:str, reps))/
+    endif
 endfunction
+
 map <Leader>f :call FillLine( '-' )<cr>
-map <Leader>F :call FillLineWithMarker()<cr>
+map <Leader>F :call FillLine( '=' )<cr>
+map <Leader>h :call FillLineHere( '-' )<cr>
+map <Leader>H :call FillLineHere( '=' )<cr>
 
 " }}}
 
 " Section: Commands {{{
+command! MakeTags !ctags -R
 
 function! DiffCurrentFileAgainstAnother(snipoff, replacewith)
     let currentFile = expand('%:p')
@@ -549,6 +584,7 @@ command! FreemindToList call FreemindToListF()
 
 au BufRead,BufNewFile *.rst,*.md,*.mail,*.unibo,*.tex setl spell spelllang=en_us,it autoindent
 au BufNewFile,BufReadPost *.md setl filetype=markdown
+au BufNewFile,BufReadPost *.ts setl filetype=typescript
 au BufNewFile,BufReadPost *.rs setl filetype=rust hidden
 au BufNewFile,BufReadPost *.tex setl filetype=tex
 au BufNewFile,BufReadPost *.pt setl filetype=lisp
@@ -609,14 +645,24 @@ autocmd BufWritePre * :retab
 
 " }}}
 
+" Section: Abbreviations {{{
+
+ab a' à
+ab e' è
+ab i' ì
+ab o' ò
+ab u' ù
+
+" }}}
+
 " Section: Fix constant spelling mistakes {{{
 " Go back to last misspelled word and pick first suggestion.
 inoremap <F2> <Esc>[s1z=`]a
 
 " Select last misspelled word (typing will edit).
-nnoremap <C-k> <Esc>[sve
-inoremap <C-k> <Esc>[sve
-snoremap <C-k> <Esc>b[sviw
+nnoremap <F3> <Esc>[sve
+inoremap <F3> <Esc>[sve
+snoremap <F3> <Esc>b[sviw
 " }}}
 
 " Section: Set up the window colors and size {{{
@@ -656,7 +702,7 @@ hi Search ctermbg=bg ctermfg=Red
 
 " Section: UltiSnips {{{
 
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+" Trigger configuration. Do not use <tab> if you use completion plugins
 let g:UltiSnipsExpandTrigger="<C-l>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
@@ -774,6 +820,97 @@ let g:rustfmt_autosave = 1
 " Section: racer-vim {{{
 let g:racer_cmd = "/home/jack/.cargo/bin/racer"
 let $RUST_SRC_PATH="/usr/local/src/rust/src/"
+" }}}
+
+" Section: neco-ghc {{{
+" Disable haskell-vim omnifunc
+let g:haskellmode_completion_ghc = 0
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+" }}}
+
+" Section: deoplete {{{
+let g:deoplete#enable_at_startup = 1
+" ───────────────────────────────────────────────── `neopairs` ← Configure ──┤
+" Enable `neopairs`.
+let g:neopairs#enable=1
+" ──────────────────────────────────────── Enable ← `deoplete` ← Configure ──┤
+" Disable autocomplpop.
+let g:acp_enableAtStartup=0
+" Enable deoplete.
+let g:deoplete#enable_at_startup=1
+" ───────────────────────────────────── Behaviour ← `deoplete` ← Configure ──┤
+" Use smartcase.
+let g:deoplete#enable_smart_case=1
+" Enable match camel case.
+let g:deoplete#enable_camel_case=1
+" Refresh the candidates automatically.
+let g:deoplete#enable_refresh_always=1
+" Minimum char completion lengths.
+let g:deoplete#auto_complete_start_length=2
+" Add delay
+let g:deoplete#auto_complete_delay=128
+" Automatically close preview after completion is done.
+autocmd! InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+" ────────────────────────────── Keyword Patterns ← `deoplete` ← Configure ──┤
+let g:deoplete#keyword_patterns = {}
+let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
+" ──────────────────────────────── Input Patterns ← `deoplete` ← Configure ──┤
+let g:deoplete#omni#input_patterns = {}
+" ───────────────────────────────────── Functions ← `deoplete` ← Configure ──┤
+let g:deoplete#omni#functions = {}
+" ─────────────────────────────────────── Hotkeys ← `deoplete` ← Configure ──┤
+" <TAB>: completion.
+"inoremap <silent><expr> <TAB>
+"    \ pumvisible() ? "\<C-n>" :
+"    \ <SID>check_back_space() ? "\<TAB>" :
+"    \ deoplete#mappings#manual_complete()
+
+" <S-TAB>: completion back.
+" inoremap <expr><S-TAB>  pumvisible() ? <C-p> : <C-h>
+"
+" <C-h> or <BS>: Close popup and delete backward char.
+" inoremap <expr><C-h> deoplete#mappings#smart_close_popup().<C-h>
+" inoremap <expr><BS> deoplete#mappings#smart_close_popup().<C-h>
+
+inoremap <expr><C-g> deoplete#mappings#undo_completion()
+
+" <CR>: Close the popup (and save indent).
+inoremap <silent> <CR> <C-r>=<SID>close_popup()<CR>
+" ─────────────────────────────────────────────────────────────────────────────┘
+
+" ───────────────────────────────────────────────────────────────── Internal ──┐
+function! s:close_popup() abort
+  return deoplete#mappings#close_popup() . "\<CR>"
+endfunction
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1] =~ '\s'
+endfunction
+" ─────────────────────────────────────────────────────────────────────────────┘
+" }}}
+
+" Section: ale {{{
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_enter = 1
+let g:ale_lint_on_filetype_changed = 1
+let g:ale_open_list = 1
+let g:ale_lint_on_text_changed = "never"
+
+let g:ale_max_buffer_history_size = 32
+let g:ale_maximum_file_size = 67108864 " 64 MiB
+
+let g:ale_fix_on_save=1
+
+let g:ale_fixers = {
+\   'typescript': ['tslint', 'prettier', 'eslint'],
+\   'json': ['prettier'],
+\}
+
+" }}}
+
+" Section: fzf {{{
+nnoremap <silent> <Leader>e :<C-u>FZF<CR>
 " }}}
 
 " }}}

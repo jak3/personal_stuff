@@ -7,6 +7,9 @@ alias -g H="| head"
 # }}}
 
 # [Generic] ---------------------------------------------------------------- {{{
+alias ....='cd ../../..'
+alias ...='cd ../../'
+alias ..='cd ..'
 alias bc='bc -q'
 alias ca='clear;history -c;dirs -c'
 alias c='clear'
@@ -24,7 +27,7 @@ alias las='ls -las'
 alias lc='ls -ltcr'        # sort by and show change time, most recent last
 alias ll="ls -l --group-directories-first"
 alias lr='ls -lR'          # recursive ls
-alias lsd='ls -hFt <%= get_var! :downloads_dir, type: :directory %>'
+alias lsd='ls -hFt downloads/'
 alias ls='ls -hF --color=auto'  # add colors for filetype recognition
 alias lt='ls -ltr'         # sort by date, most recent last
 alias lu='ls -ltur'        # sort by and show access time, most recent last
@@ -36,6 +39,9 @@ alias off='xset dpms force off'
 alias pass="/bin/true"
 alias path='echo -e ${PATH//:/\\n}'
 alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
+alias v='vim'
+alias vf='vim $(fzf -m)'
+alias vi='vim'
 alias po='popd'
 alias pu='pushd'
 alias which='type -a'
@@ -43,13 +49,13 @@ alias which='type -a'
 
 # [Typos] ------------------------------------------------------------------ {{{
 alias celar=clear
+alias vmi='vim'
 alias cl=clear
 alias clera=clear
 alias kk='ll'
 alias moer='more'
 alias moew='more'
 alias s=ls
-alias vf='cd'
 alias xs='cd'
 # }}}
 
@@ -105,6 +111,7 @@ alias gfo='git pull fetch'
 alias gfom='git fetch origin master'
 alias grfh='git rebase FETCH_HEAD'
 alias gst='git status'
+alias gs='git status -s'
 alias gsa='git stash apply'
 alias gss='git stash save'
 alias gd='git diff'
