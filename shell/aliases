@@ -36,6 +36,7 @@ alias k9="kill -9"
 alias mkdir='mkdir -p'
 alias mv='mv -i'
 alias off='xset dpms force off'
+alias p=popd
 alias pass="/bin/true"
 alias path='echo -e ${PATH//:/\\n}'
 alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
