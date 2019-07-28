@@ -13,71 +13,68 @@ if &compatible
   set rtp+=~/repos/fzf
 endif
 
-" Section: Vundle {{{
+" Section: vim-plug {{{
 
-" set the runtime path to include Vundle and initialize
-" Required:
-set runtimepath+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin()
 
 " Theme
-Plugin 'bling/vim-airline'
-Plugin 'chriskempson/base16-vim'
-Plugin 'crusoexia/vim-dracula'
-Plugin 'mhartington/oceanic-next'
-Plugin 'nanotech/jellybeans.vim'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'vim-airline/vim-airline-themes'
+Plug 'bling/vim-airline'
+Plug 'chriskempson/base16-vim'
+Plug 'crusoexia/vim-dracula'
+Plug 'mhartington/oceanic-next'
+Plug 'nanotech/jellybeans.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'vim-airline/vim-airline-themes'
 
 " Generic
-Plugin 'junegunn/vim-easy-align'
-Plugin 'junegunn/fzf'
-Plugin 'majutsushi/tagbar'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'tpope/vim-git'
-Plugin 'tpope/vim-abolish'
-Plugin 'vim-scripts/VisIncr'
-Plugin 'mileszs/ack.vim'
-Plugin 'junegunn/vim-peekaboo'
-"Plugin 'xolox/vim-easytags'
+Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/fzf'
+Plug 'majutsushi/tagbar'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-git'
+Plug 'tpope/vim-abolish'
+Plug 'vim-scripts/VisIncr'
+Plug 'mileszs/ack.vim'
+Plug 'junegunn/vim-peekaboo'
+"Plug 'xolox/vim-easytags'
+Plug 'ludovicchabant/vim-gutentags'
 
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 
-Plugin 'Shougo/deoplete.nvim'
-Plugin 'roxma/nvim-yarp'
-Plugin 'roxma/vim-hug-neovim-rpc'
-
-Plugin 'w0rp/ale'
-Plugin 'rking/ag.vim'
-Plugin 'KabbAmine/zeavim.vim'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
+Plug 'w0rp/ale'
+Plug 'rking/ag.vim'
+Plug 'KabbAmine/zeavim.vim'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 " Languages
-Plugin 'eagletmt/neco-ghc'
-Plugin 'lukerandall/haskellmode-vim'
-Plugin 'suan/vim-instant-markdown'
-Plugin 'gi1242/vim-multimarkdown'
-Plugin 'xolox/vim-lua-ftplugin'
-Plugin 'xolox/vim-misc' " dependence of vim-lua-ftplugin and easytags
-Plugin 'Rykka/riv.vim'
-Plugin 'mustache/vim-mustache-handlebars'
+Plug 'eagletmt/neco-ghc'
+Plug 'lukerandall/haskellmode-vim'
+Plug 'suan/vim-instant-markdown'
+Plug 'gi1242/vim-multimarkdown'
+Plug 'xolox/vim-lua-ftplugin'
+Plug 'xolox/vim-misc' " dependence of vim-lua-ftplugin and easytags
+Plug 'Rykka/riv.vim'
+Plug 'mustache/vim-mustache-handlebars'
+Plug '2072/PHP-Indenting-for-VIm'
 
 " Typescript
-Plugin 'leafgarland/typescript-vim'
-Plugin 'HerringtonDarkholme/yats.vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'HerringtonDarkholme/yats.vim'
 
 " Testing
-Plugin 'dhruvasagar/vim-table-mode'
-Plugin 'lervag/vimtex'
-"Plugin 'vim-scripts/c.vim'
+Plug 'dhruvasagar/vim-table-mode'
+Plug 'lervag/vimtex'
+"Plug 'vim-scripts/c.vim'
 
 " Personal
-Plugin 'jak3/potion'
+Plug 'jak3/potion'
 
-call vundle#end()
-filetype plugin indent on
+call plug#end()
 
 " }}}
 
