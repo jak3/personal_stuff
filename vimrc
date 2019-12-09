@@ -825,68 +825,6 @@ let g:haskellmode_completion_ghc = 0
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 " }}}
 
-" Section: deoplete {{{
-let g:deoplete#enable_at_startup = 1
-" ───────────────────────────────────────────────── `neopairs` ← Configure ──┤
-" Enable `neopairs`.
-let g:neopairs#enable=1
-" ──────────────────────────────────────── Enable ← `deoplete` ← Configure ──┤
-" Disable autocomplpop.
-let g:acp_enableAtStartup=0
-" Enable deoplete.
-let g:deoplete#enable_at_startup=1
-" ───────────────────────────────────── Behaviour ← `deoplete` ← Configure ──┤
-" Use smartcase.
-let g:deoplete#enable_smart_case=1
-" Enable match camel case.
-let g:deoplete#enable_camel_case=1
-" Refresh the candidates automatically.
-let g:deoplete#enable_refresh_always=1
-" Minimum char completion lengths.
-let g:deoplete#auto_complete_start_length=2
-" Add delay
-let g:deoplete#auto_complete_delay=128
-" Automatically close preview after completion is done.
-autocmd! InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-" ────────────────────────────── Keyword Patterns ← `deoplete` ← Configure ──┤
-let g:deoplete#keyword_patterns = {}
-let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
-" ──────────────────────────────── Input Patterns ← `deoplete` ← Configure ──┤
-let g:deoplete#omni#input_patterns = {}
-" ───────────────────────────────────── Functions ← `deoplete` ← Configure ──┤
-let g:deoplete#omni#functions = {}
-" ─────────────────────────────────────── Hotkeys ← `deoplete` ← Configure ──┤
-" <TAB>: completion.
-"inoremap <silent><expr> <TAB>
-"    \ pumvisible() ? "\<C-n>" :
-"    \ <SID>check_back_space() ? "\<TAB>" :
-"    \ deoplete#mappings#manual_complete()
-
-" <S-TAB>: completion back.
-" inoremap <expr><S-TAB>  pumvisible() ? <C-p> : <C-h>
-"
-" <C-h> or <BS>: Close popup and delete backward char.
-" inoremap <expr><C-h> deoplete#mappings#smart_close_popup().<C-h>
-" inoremap <expr><BS> deoplete#mappings#smart_close_popup().<C-h>
-
-inoremap <expr><C-g> deoplete#mappings#undo_completion()
-
-" <CR>: Close the popup (and save indent).
-inoremap <silent> <CR> <C-r>=<SID>close_popup()<CR>
-" ─────────────────────────────────────────────────────────────────────────────┘
-
-" ───────────────────────────────────────────────────────────────── Internal ──┐
-function! s:close_popup() abort
-  return deoplete#mappings#close_popup() . "\<CR>"
-endfunction
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1] =~ '\s'
-endfunction
-" ─────────────────────────────────────────────────────────────────────────────┘
-" }}}
-
 " Section: ale {{{
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_enter = 1
@@ -931,10 +869,10 @@ set signcolumn=yes
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+      \ pumvisible() ? "<C-n>" :
+      \ <SID>check_back_space() ? "<TAB>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><S-TAB> pumvisible() ? "<C-p>" : "<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -946,7 +884,7 @@ inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <cr> pumvisible() ? "<C-y>" : "<C-g>u<CR>"
 
 " Use `[c` and `]c` to navigate diagnostics
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
@@ -974,10 +912,6 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
-
-" Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!

@@ -18,9 +18,35 @@
 .urlLauncher    : /usr/bin/firefox
 .copyCommand    : xsel -ib
 .pasteCommand   : xsel -ob
-!*font:    xft:Dejavu Sans Mono:pixelsize=14
+
+![rofi - https://github.com/davatorium/rofi] ------------------------------- {{{
+
+! Enable the extended coloring options
+rofi.color-enabled: true
+!                  bg       border   separator
+rofi.color-window: #282828, #a89984, #a89984
+!                  bg       fg       bg-alt   hl-bg    hl-fg
+rofi.color-normal: #282828, #ebdbb2, #32302f, #665c54, #fbf1c7
+rofi.color-active: #d79921, #282828, #d79921, #fabd2f, #282828
+rofi.color-urgent: #cc241d, #282828, #cc241d, #fb4934, #282828
+
+rofi.bw: 1
+rofi.columns: 1
+rofi.fake-transparency: false
+rofi.fixed-num-lines: true
+rofi.font: Hasklig 12
+rofi.lines: 15
+rofi.location: 0
+rofi.padding: 16
+rofi.separator-style: solid
+rofi.sidebar-mode: true
+rofi.width: 50
+rofi.yoffset: 0
+
+! }}}
+
+/* fonts */
 *font        : xft:Monospace:pixelsize=18
-!*boldFont:xft:Dejavu Sans Mono:pixelsize=14
 *boldFont    : xft:Monospace:bold:pixelsize=18
 
 ![color and % when lost focus] --------------------------------------------- {{{
