@@ -13,6 +13,10 @@ if &compatible
   set rtp+=~/repos/fzf
 endif
 
+" weird: https://robertbasic.com/blog/force-python-version-in-vim/
+if has('python3')
+endif
+
 " Section: vim-plug {{{
 
 call plug#begin()
@@ -40,6 +44,7 @@ Plug 'mileszs/ack.vim'
 Plug 'junegunn/vim-peekaboo'
 "Plug 'xolox/vim-easytags'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'vim-syntastic/syntastic'
 
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 
@@ -59,6 +64,7 @@ Plug 'xolox/vim-misc' " dependence of vim-lua-ftplugin and easytags
 Plug 'Rykka/riv.vim'
 Plug 'mustache/vim-mustache-handlebars'
 Plug '2072/PHP-Indenting-for-VIm'
+Plug 'mattn/emmet-vim'
 
 " Typescript
 Plug 'leafgarland/typescript-vim'
@@ -710,6 +716,26 @@ let g:UltiSnipsEditSplit="vertical"
 " }}}
 
 " Section: airline {{{
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '》'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '《'
+let g:airline_symbols.crypt = 'crypt'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.maxlinenr = 'maxln'
+let g:airline_symbols.maxlinenr = 'maxln'
+let g:airline_symbols.branch = 'branch'
+let g:airline_symbols.paste = 'paste'
+let g:airline_symbols.spell = 'spell'
+let g:airline_symbols.notexists = 'Ɇ'
+let g:airline_symbols.whitespace = 'Ξ'
+
+"let g:airline_powerline_fonts = 1
 let g:airline#extensions#bufferline#enabled = 0
 let g:airline#extensions#bufferline#overwrite_variables = 0
 let g:airline#extensions#branch#enabled = 1
