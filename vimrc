@@ -230,16 +230,19 @@ set nrformats-=octal
 
 " Section: Coding, makeprg and tags {{{
 
+" Base64 Decode Selected Text
+vmap <leader>d :<C-U>echo system('base64 --decode','<C-R>*')<CR>
+
 " Let the syntax highlighting for Java files allow cpp keywords
 let java_allow_cpp_keywords = 1
 
-nmap <Leader>ma :set makeprg=gcc\\ -Wall\\ -ggdb3\\ -o\\ %<\\ %
-nmap <Leader>mx :set makeprg=g++\\ -Wall\\ -O3\\ -std=c++11\\ -fopenmp\\ -lstdc++\\ -lm\\ -o\\ %<\\ %
-nmap <Leader>mo :set makeprg=gcc\\ -Wall\\ -O3\\ -std=c11\\ -fopenmp\\ -o\\ %<\\ %
-nmap <Leader>m+ :set makeprg=g++\\ -g3\\ -ggdb\\ -O0\\ -Wall\\ -Wextra\\ -Wno-unused\\ -o\\ %<\\ %\\ -lcryptopp
-nmap <Leader>mt :set makeprg=gcc\\ -Wall\\ -std=c11\\ -ggdb3\\ -o\\ /tmp/%<\\ %
-nmap <Leader>m6 :set makeprg=/opt/mingw-w64-x86_64/bin/x86_64-w64-mingw32-gcc\\ -m32\\ -o\\ %<.exe\\ %
-nmap <Leader>mw :set makeprg=/opt/mingw-w64-i686/bin/i686-w64-mingw32-gcc\\ -o\\ %<.exe\\ %
+nmap <leader>ma :set makeprg=gcc\\ -Wall\\ -ggdb3\\ -o\\ %<\\ %
+nmap <leader>mx :set makeprg=g++\\ -Wall\\ -O3\\ -std=c++11\\ -fopenmp\\ -lstdc++\\ -lm\\ -o\\ %<\\ %
+nmap <leader>mo :set makeprg=gcc\\ -Wall\\ -O3\\ -std=c11\\ -fopenmp\\ -o\\ %<\\ %
+nmap <leader>m+ :set makeprg=g++\\ -g3\\ -ggdb\\ -O0\\ -Wall\\ -Wextra\\ -Wno-unused\\ -o\\ %<\\ %\\ -lcryptopp
+nmap <leader>mt :set makeprg=gcc\\ -Wall\\ -std=c11\\ -ggdb3\\ -o\\ /tmp/%<\\ %
+nmap <leader>m6 :set makeprg=/opt/mingw-w64-x86_64/bin/x86_64-w64-mingw32-gcc\\ -m32\\ -o\\ %<.exe\\ %
+nmap <leader>mw :set makeprg=/opt/mingw-w64-i686/bin/i686-w64-mingw32-gcc\\ -o\\ %<.exe\\ %
 
 " tags
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
@@ -248,67 +251,67 @@ map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 " }}}
 
 " Section: mapping {{{
-" Test remap CTRL-A (Inc behind cursor) to <Leader>a
-nmap <silent> <Leader>a <C-A>
+" Test remap CTRL-A (Inc behind cursor) to <leader>a
+nmap <silent> <leader>a <C-A>
 
 " Wipe out all buffers
-nmap <silent> <Leader>wa :1,9000bwipeout<cr>
+nmap <silent> <leader>wa :1,9000bwipeout<cr>
 
 " Toggle paste mode
-nmap <silent> <Leader>p :set invpaste<CR>:set paste?<CR>
+nmap <silent> <leader>p :set invpaste<CR>:set paste?<CR>
 
 " Yank to clipboard
-map <Leader>y "+y
+map <leader>y "+y
 
 " Toggle list
-map <Leader>l :set list!<CR>
+map <leader>l :set list!<CR>
 
 " cd to the directory containing the file in the buffer
-nmap <silent> <Leader>cd :lcd %:h<CR>
-nmap <silent> <Leader>md :!mkdir -p %:p:h<CR>
+nmap <silent> <leader>cd :lcd %:h<CR>
+nmap <silent> <leader>md :!mkdir -p %:p:h<CR>
 
 " Turn one line into title caps, make every first letter of a word uppercase:
-nmap <silent> <Leader>t :s-\\v<(.)(\\w*)-\\u\\1\\L\\2-g<CR>:nohls<CR>
+nmap <silent> <leader>t :s-\\v<(.)(\\w*)-\\u\\1\\L\\2-g<CR>:nohls<CR>
 
 " Turn off that stupid highlight search
-nmap <silent> <Leader>n :nohls<CR>
+nmap <silent> <leader>n :nohls<CR>
 
 " Show all available VIM servers
-nmap <silent> <Leader>ss :echo serverlist()<CR>
+nmap <silent> <leader>ss :echo serverlist()<CR>
 
 " The following beast is something i didn't write... it will return the
 " syntax highlighting group that the current "thing" under the cursor
 " belongs to -- very useful for figuring out what to change as far as
 " syntax highlighting goes.
-nmap <silent> <Leader>qq :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+nmap <silent> <leader>qq :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " Make shift-insert work like in Xterm
 map <S-Insert> <MiddleMouse>
 map! <S-Insert> <MiddleMouse>
 
 " set text wrapping toggles
-nmap <silent> <Leader>ww :set invwrap<CR>:set wrap?<CR>
+nmap <silent> <leader>ww :set invwrap<CR>:set wrap?<CR>
 
 " Maps to make handling windows a bit easier
-noremap <silent> <Leader>cj :wincmd j<CR>:close<CR>
-noremap <silent> <Leader>ck :wincmd k<CR>:close<CR>
-noremap <silent> <Leader>ch :wincmd h<CR>:close<CR>
-noremap <silent> <Leader>cl :wincmd l<CR>:close<CR>
-noremap <silent> <Leader>cc :close<CR>
-noremap <silent> <Leader>cw :cclose<CR>
-noremap <silent> <Leader>cp :cclose<CR>
-noremap <silent> <Leader>ml <C-W>L
-noremap <silent> <Leader>mk <C-W>K
-noremap <silent> <Leader>mh <C-W>H
-noremap <silent> <Leader>mj <C-W>J
+noremap <silent> <leader>cj :wincmd j<CR>:close<CR>
+noremap <silent> <leader>ck :wincmd k<CR>:close<CR>
+noremap <silent> <leader>ch :wincmd h<CR>:close<CR>
+noremap <silent> <leader>cl :wincmd l<CR>:close<CR>
+noremap <silent> <leader>cc :close<CR>
+noremap <silent> <leader>cw :cclose<CR>
+noremap <silent> <leader>cp :cclose<CR>
+noremap <silent> <leader>ml <C-W>L
+noremap <silent> <leader>mk <C-W>K
+noremap <silent> <leader>mh <C-W>H
+noremap <silent> <leader>mj <C-W>J
 
 " Maps to make handling buffer a bit easier
 noremap <silent> <C-n> :bn<CR>
 noremap <silent> <C-p> :bp<CR>
 
 " Edit the vimrc file
-nmap <silent> <Leader>ev :e $MYVIMRC<CR>
-nmap <silent> <Leader>sv :so $MYVIMRC<CR>
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
 " Make horizontal scrolling easier
 nmap <silent> <C-o> 10zl
@@ -318,41 +321,41 @@ nmap <silent> <C-i> 10zh
 imap <C-J>d <C-r>=substitute(system("uuidgen"), '.$', '', 'g')<CR>
 
 " Search the current file for what's currently in the search register and display matches
-nmap <silent> <Leader>gs :vimgrep /<C-r>// %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
+nmap <silent> <leader>gs :vimgrep /<C-r>// %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
 
 " Search the current file for the word under the cursor and display matches
-nmap <silent> <Leader>gw :vimgrep /<C-r><C-w>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
+nmap <silent> <leader>gw :vimgrep /<C-r><C-w>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
 
 " Search the current file for the WORD under the cursor and display matches
-nmap <silent> <Leader>gW :vimgrep /<C-r><C-a>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
+nmap <silent> <leader>gW :vimgrep /<C-r><C-a>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
 
 " Spellcheck
-nmap <silent> <Leader>S :w!<cr>:!aspell check %<cr>:e! <cr>
+nmap <silent> <leader>S :w!<cr>:!aspell check %<cr>:e! <cr>
 
 " Swap two words
 nmap <silent> gw :s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>`'
 
 " Underline the current line with '='
-nmap <silent> <Leader>u3 :t.\|s/./#/g\|:nohls<cr>
+nmap <silent> <leader>u3 :t.\|s/./#/g\|:nohls<cr>
 
 " Underline the current line with '='
-nmap <silent> <Leader>uL :t.\|s/./=/g\|:nohls<cr>
+nmap <silent> <leader>uL :t.\|s/./=/g\|:nohls<cr>
 
 " Underline the current line with '-'
-nmap <silent> <Leader>ul :t.\|s/./-/g\|:nohls<cr>
+nmap <silent> <leader>ul :t.\|s/./-/g\|:nohls<cr>
 
 " Underline the current line with '~'
-nmap <silent> <Leader>ut :t.\|s/./\\~/g\|:nohls<cr>
+nmap <silent> <leader>ut :t.\|s/./\\~/g\|:nohls<cr>
 
 " Shrink the current window to fit the number of lines in the buffer. Useful
 " for those buffers that are only a few lines
-nmap <silent> <Leader>sw :execute ":resize " . line('$')<cr>
+nmap <silent> <leader>sw :execute ":resize " . line('$')<cr>
 
 " Insert current date
-nmap <silent> <Leader>cu "=strftime("%c")<cr>P
+nmap <silent> <leader>cu "=strftime("%c")<cr>P
 
 " Use the bufkill plugin to eliminate a buffer but keep the window layout
-nmap <Leader>bd :bd<cr>
+nmap <leader>bd :bd<cr>
 
 " Swap between most recent buffers
 nmap <Tab> :b#<CR>
@@ -361,7 +364,7 @@ nmap <Tab> :b#<CR>
 imap jj <esc>
 
 "Substitude word under cursor (%s///g)
-nnoremap <Leader>s :%s/\\(<C-r><C-w>\\)//g<Left><Left>
+nnoremap <leader>s :%s/\\(<C-r><C-w>\\)//g<Left><Left>
 
 " Clear the text using a motion / text object and then move the character to the
 " next word
@@ -383,8 +386,8 @@ silent exe "normal! '[V']r w"
     let &selection = sel_save
     let @@ = reg_save
 endfunction
-nmap <silent> <Leader>C :set opfunc=ClearText<CR>g@
-vmap <silent> <Leader>C :<C-U>call ClearText(visual(), 1)<CR>
+nmap <silent> <leader>C :set opfunc=ClearText<CR>g@
+vmap <silent> <leader>C :<C-U>call ClearText(visual(), 1)<CR>
 
 if executable('ag')
     " Note we extract the column as well as the file and line number
@@ -421,23 +424,23 @@ function! IndentToNextBraceInLineAbove()
     :normal j"vPl
 endfunction
 
-nmap <silent> <Leader>ii :call IndentToNextBraceInLineAbove()<cr>
+nmap <silent> <leader>ii :call IndentToNextBraceInLineAbove()<cr>
 
-nmap <silent> <Leader>mba :call MarkBufferInJumpList(expand('%:p'), 'a')<cr>
-nmap <silent> <Leader>mbb :call MarkBufferInJumpList(expand('%:p'), 'b')<cr>
-nmap <silent> <Leader>mbc :call MarkBufferInJumpList(expand('%:p'), 'c')<cr>
-nmap <silent> <Leader>mbd :call MarkBufferInJumpList(expand('%:p'), 'd')<cr>
-nmap <silent> <Leader>mbe :call MarkBufferInJumpList(expand('%:p'), 'e')<cr>
-nmap <silent> <Leader>mbf :call MarkBufferInJumpList(expand('%:p'), 'f')<cr>
-nmap <silent> <Leader>mbg :call MarkBufferInJumpList(expand('%:p'), 'g')<cr>
-nmap <silent> <Leader>jba :call JumpToBufferInJumpList('a')<cr>
-nmap <silent> <Leader>jbb :call JumpToBufferInJumpList('b')<cr>
-nmap <silent> <Leader>jbc :call JumpToBufferInJumpList('c')<cr>
-nmap <silent> <Leader>jbd :call JumpToBufferInJumpList('d')<cr>
-nmap <silent> <Leader>jbe :call JumpToBufferInJumpList('e')<cr>
-nmap <silent> <Leader>jbf :call JumpToBufferInJumpList('f')<cr>
-nmap <silent> <Leader>jbg :call JumpToBufferInJumpList('g')<cr>
-nmap <silent> <Leader>ljb :call ListJumpToBuffers()<cr>
+nmap <silent> <leader>mba :call MarkBufferInJumpList(expand('%:p'), 'a')<cr>
+nmap <silent> <leader>mbb :call MarkBufferInJumpList(expand('%:p'), 'b')<cr>
+nmap <silent> <leader>mbc :call MarkBufferInJumpList(expand('%:p'), 'c')<cr>
+nmap <silent> <leader>mbd :call MarkBufferInJumpList(expand('%:p'), 'd')<cr>
+nmap <silent> <leader>mbe :call MarkBufferInJumpList(expand('%:p'), 'e')<cr>
+nmap <silent> <leader>mbf :call MarkBufferInJumpList(expand('%:p'), 'f')<cr>
+nmap <silent> <leader>mbg :call MarkBufferInJumpList(expand('%:p'), 'g')<cr>
+nmap <silent> <leader>jba :call JumpToBufferInJumpList('a')<cr>
+nmap <silent> <leader>jbb :call JumpToBufferInJumpList('b')<cr>
+nmap <silent> <leader>jbc :call JumpToBufferInJumpList('c')<cr>
+nmap <silent> <leader>jbd :call JumpToBufferInJumpList('d')<cr>
+nmap <silent> <leader>jbe :call JumpToBufferInJumpList('e')<cr>
+nmap <silent> <leader>jbf :call JumpToBufferInJumpList('f')<cr>
+nmap <silent> <leader>jbg :call JumpToBufferInJumpList('g')<cr>
+nmap <silent> <leader>ljb :call ListJumpToBuffers()<cr>
 
 function! RunSystemCall(systemcall)
     let output = system(a:systemcall)
@@ -456,8 +459,8 @@ function! HighlightAllOfWord(onoff)
         match none /\<%s\>/
     endif
 endfunction
-:nmap <Leader>ha :call HighlightAllOfWord(1)<cr>
-:nmap <Leader>hA :call HighlightAllOfWord(0)<cr>
+:nmap <leader>ha :call HighlightAllOfWord(1)<cr>
+:nmap <leader>hA :call HighlightAllOfWord(0)<cr>
 
 function! LengthenCWD()
 let cwd = getcwd()
@@ -472,7 +475,7 @@ let lengthend = substitute(cwd, '/[^/]*$', '', '')
 exec ":lcd " . lengthend
 endif
 endfunction
-:nmap <Leader>ld :call LengthenCWD()<cr>
+:nmap <leader>ld :call LengthenCWD()<cr>
 
 function! MakeShellcodeFromOpcode()
     silent! %s/ //g
@@ -480,7 +483,7 @@ function! MakeShellcodeFromOpcode()
     silent! %s/\t//g
     silent! s/\(\(.\)\(.\)\)/\\x\1/g
 endfunction
-:nmap <Leader>sh :call MakeShellcodeFromOpcode()<cr>
+:nmap <leader>sh :call MakeShellcodeFromOpcode()<cr>
 
 function! ShortenCWD()
 let cwd = split(getcwd(), '/')
@@ -496,7 +499,7 @@ let filedir = split(expand("%:p:h"), '/')
     endwhile
     exec ":lcd /" . newdir
 endfunction
-:nmap <Leader>sd :call ShortenCWD()<cr>
+:nmap <leader>sd :call ShortenCWD()<cr>
 
 
 " Append modeline after last line in buffer.
@@ -508,7 +511,7 @@ function! AppendModeline()
   let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
   call append(line("$"), l:modeline)
 endfunction
-nnoremap <silent> <Leader>eo :call AppendModeline()<CR>
+nnoremap <silent> <leader>eo :call AppendModeline()<CR>
 
 " fill rest of line with characters
 function! FillLine( str )
@@ -536,10 +539,10 @@ function! FillLineHere( str )
     endif
 endfunction
 
-map <Leader>f :call FillLine( '-' )<cr>
-map <Leader>F :call FillLine( '=' )<cr>
-map <Leader>h :call FillLineHere( '-' )<cr>
-map <Leader>H :call FillLineHere( '=' )<cr>
+map <leader>f :call FillLine( '-' )<cr>
+map <leader>F :call FillLine( '=' )<cr>
+map <leader>h :call FillLineHere( '-' )<cr>
+map <leader>H :call FillLineHere( '=' )<cr>
 
 " }}}
 
@@ -871,7 +874,7 @@ let g:ale_fixers = {
 " }}}
 
 " Section: fzf {{{
-nnoremap <silent> <Leader>e :<C-u>FZF<CR>
+nnoremap <silent> <leader>e :<C-u>FZF<CR>
 " }}}
 
 " Section: coc {{{
