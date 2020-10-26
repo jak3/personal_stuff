@@ -65,6 +65,7 @@ Plug 'Rykka/riv.vim'
 Plug 'mustache/vim-mustache-handlebars'
 Plug '2072/PHP-Indenting-for-VIm'
 Plug 'mattn/emmet-vim'
+Plug 'mzlogin/vim-smali'
 
 " Typescript
 Plug 'leafgarland/typescript-vim'
@@ -232,6 +233,7 @@ set nrformats-=octal
 
 " Base64 Decode Selected Text
 vmap <leader>d :<C-U>echo system('base64 --decode','<C-R>*')<CR>
+vmap <leader>D "=system('base64 --decode','<C-R>*')<C-M>p
 
 " Let the syntax highlighting for Java files allow cpp keywords
 let java_allow_cpp_keywords = 1
@@ -364,7 +366,7 @@ nmap <Tab> :b#<CR>
 imap jj <esc>
 
 "Substitude word under cursor (%s///g)
-nnoremap <leader>s :%s/\\(<C-r><C-w>\\)//g<Left><Left>
+nnoremap <leader>su :%s/\\(<C-r><C-w>\\)//g<Left><Left>
 
 " Clear the text using a motion / text object and then move the character to the
 " next word
@@ -591,6 +593,7 @@ command! FreemindToList call FreemindToListF()
 au BufRead,BufNewFile *.rst,*.md,*.mail,*.unibo,*.tex setl spell spelllang=en_us,it autoindent
 au BufNewFile,BufReadPost *.md setl filetype=markdown
 au BufNewFile,BufReadPost *.ts setl filetype=typescript
+au BufNewFile,BufReadPost *.kt setl filetype=scala
 au BufNewFile,BufReadPost *.rs setl filetype=rust hidden
 au BufNewFile,BufReadPost *.tex setl filetype=tex
 au BufNewFile,BufReadPost *.pt setl filetype=lisp
@@ -854,27 +857,12 @@ let g:haskellmode_completion_ghc = 0
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 " }}}
 
-" Section: ale {{{
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_enter = 1
-let g:ale_lint_on_filetype_changed = 1
-let g:ale_open_list = 1
-let g:ale_lint_on_text_changed = "never"
-
-let g:ale_max_buffer_history_size = 32
-let g:ale_maximum_file_size = 67108864 " 64 MiB
-
-let g:ale_fix_on_save=1
-
-let g:ale_fixers = {
-\   'typescript': ['tslint', 'prettier', 'eslint'],
-\   'json': ['prettier'],
-\}
-
-" }}}
-
 " Section: fzf {{{
 nnoremap <silent> <leader>e :<C-u>FZF<CR>
+" }}}
+
+" Section: ag {{{
+nnoremap <leader>ag :<C-u>Ag<space>
 " }}}
 
 " Section: coc {{{
@@ -993,6 +981,27 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+" }}}
+
+" Section: ALE {{{
+nmap <silent> <leader>ta :ALEToggle<CR>
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_enter = 1
+let g:ale_lint_on_filetype_changed = 1
+let g:ale_open_list = 1
+let g:ale_lint_on_text_changed = "never"
+
+let g:ale_max_buffer_history_size = 32
+let g:ale_maximum_file_size = 67108864 " 64 MiB
+
+let g:ale_fix_on_save=1
+
+let g:ale_fixers = {
+\   'typescript': ['tslint', 'prettier', 'eslint'],
+\   'json': ['prettier'],
+\}
+
+let g:ale_pattern_options = {'[.min.js|.java]$': {'ale_enabled': 0}}
 " }}}
 
 " }}}

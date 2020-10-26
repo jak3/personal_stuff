@@ -28,7 +28,7 @@ alias las='ls -las'
 alias lc='ls -ltcr'        # sort by and show change time, most recent last
 alias ll="ls -l --group-directories-first"
 alias lr='ls -lR'          # recursive ls
-alias lsd='ls -hFt downloads/'
+alias lsd='ls -hFt ~/downloads/'
 alias ls='ls -hF --color=auto'  # add colors for filetype recognition
 alias lt='ls -ltr'         # sort by date, most recent last
 alias lu='ls -ltur'        # sort by and show access time, most recent last
@@ -98,6 +98,13 @@ alias halt='su -c halt'
 alias pms='su -c pm-suspend'
 alias reboot='su -c reboot'
 alias shutdown='su -c shutdown'
+
+## Current
+alias apktool=/opt/android/apktool/apktool
+alias adb=/opt/android/Sdk/platform-tools/adb
+alias genymotion=/opt/android/genymotion/genymotion
+alias ghidra=/opt/reverse/ghidra_9.1.2_PUBLIC/ghidraRun
+alias ida=/opt/reverse/idafree-7.0/ida64
 
 ## Git
 alias gc='git commit -m'

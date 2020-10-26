@@ -26,3 +26,5 @@ source $STUFF/zsh/prompt.zsh
 source /home/jake/.zsh/plugins/repos/zsh-users/zsh-syntax-highlighting-master/zsh-syntax-highlighting.zsh
 
 # }}}
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -1,11 +1,16 @@
 # add in zsh-completions
 fpath=($HOME/repos/zsh-completions/src $fpath)
 
+zmodload -i zsh/complist
+
+autoload -U bashcompinit
+bashcompinit
+
 if [ `whoami` != "root" ]
 then
 autoload -U compinit && compinit
+eval "$(register-python-argcomplete pipx)"
 fi
-zmodload -i zsh/complist
 
 # man zshcontrib
 zstyle ':vcs_info:*' actionformats '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '

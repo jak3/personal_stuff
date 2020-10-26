@@ -12,17 +12,17 @@ git_push_all() {
 }
 
 save_dir() {
-	pwd > ~/.lastdir
+  pwd > ~/.lastdir
 }
 
 cd_last_dir() {
-	cd "`cat ~/.lastdir`"
+  cd "`cat ~/.lastdir`"
 }
 
 cd_and_ls() {
   cd $@
-  if [[ $(ls -C | wc -l) -lt 80 ]] ; then
-    ls --color=auto -hFt
+  if [[ $(ls -C | wc -l) -lt 180 ]] ; then
+    ls --color=auto -hFtr
   else
     echo -e "\e[0;31mLots of items...\e[0m"
   fi
