@@ -46,11 +46,11 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'vim-syntastic/syntastic'
 
-Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'w0rp/ale'
 Plug 'rking/ag.vim'
-Plug 'KabbAmine/zeavim.vim'
+"Plug 'KabbAmine/zeavim.vim' " Offline Docs
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
@@ -59,6 +59,8 @@ Plug 'eagletmt/neco-ghc'
 Plug 'lukerandall/haskellmode-vim'
 Plug 'suan/vim-instant-markdown'
 Plug 'gi1242/vim-multimarkdown'
+"Plug 'gabrielelana/vim-markdown'
+Plug 'tpope/vim-markdown'
 Plug 'xolox/vim-lua-ftplugin'
 Plug 'xolox/vim-misc' " dependence of vim-lua-ftplugin and easytags
 Plug 'Rykka/riv.vim'
@@ -73,7 +75,7 @@ Plug 'HerringtonDarkholme/yats.vim'
 
 " Testing
 Plug 'dhruvasagar/vim-table-mode'
-Plug 'lervag/vimtex'
+"Plug 'lervag/vimtex'
 "Plug 'vim-scripts/c.vim'
 
 " Personal
@@ -118,7 +120,7 @@ set printoptions=header:0,paper:letter
 set wrapscan
 " I'm happy to type the case of things. I tried the ignorecase, smartcase
 " thing but it just wasn't working out for me
-set noignorecase
+set smartcase "noignorecase
 
 " set the forward slash to be the slash of note. Backslashes suck
 set shellslash
@@ -234,6 +236,8 @@ set nrformats-=octal
 " Base64 Decode Selected Text
 vmap <leader>d :<C-U>echo system('base64 --decode','<C-R>*')<CR>
 vmap <leader>D "=system('base64 --decode','<C-R>*')<C-M>p
+vmap <leader>e :<C-U>echo system('base64','<C-R>*')<CR>
+vmap <leader>E "=system('base64','<C-R>*')<C-M>p
 
 " Let the syntax highlighting for Java files allow cpp keywords
 let java_allow_cpp_keywords = 1
@@ -758,6 +762,10 @@ let g:airline_section_y='Buf:#%n [%b][0x%B]'
 let g:instant_markdown_autostart = 0
 " }}}
 
+" Section: tpope/vim-markdown {{{
+let g:markdown_fenced_languages = ['java', 'bash', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'html', 'xml']
+" }}}
+
 " Section: tagbar {{{
 nmap <F8> :TagbarToggle<CR>
 let g:tagbar_type_haskell = {
@@ -800,15 +808,6 @@ let g:ghc="/usr/bin/ghc"
 let g:haddock_browser="/usr/bin/firefox"
 " }}}
 
-" Section: zeal-vim {{{
-let g:zv_zeal_executable = '/home/jack/repos/zeal/build/bin/zeal'
-let g:zv_file_types = {
-            \ '(nse|lua)'             : 'lua',
-            \ 'py'                    : 'python',
-            \ 'rb'                    : 'ruby',
-        \ }
-" }}}
-
 " Section: syntastic {{{
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -829,8 +828,8 @@ let g:table_mode_header_fillchar="="
 " }}}
 
 " Section: ack {{{
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
+if executable('rg')
+  let g:ackprg = 'rg --vimgrep'
 endif
 " }}}
 

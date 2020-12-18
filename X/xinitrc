@@ -5,22 +5,15 @@ usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 
-# Merge in defaults and keymaps
-[ -f $sysresources ] && /usr/bin/xrdb -merge $sysresources
-[ -f $sysmodmap ] && /usr/bin/xmodmap $sysmodmap
-[ -f $userresources ] && /usr/bin/xrdb -merge $userresources
-[ -f $usermodmap ] && /usr/bin/xmodmap $usermodmap
-
-export PATH="${PATH}:/sbin/"
+# merge in defaults and keymaps
+[ -f $sysresources ] && xrdb -merge $sysresources
+[ -f $sysmodmap ] && xmodmap $sysmodmap
+[ -f $userresources ] && xrdb -merge $userresources
+[ -f $usermodmap ] && xmodmap $usermodmap
 
 urxvtd -q -f -o
 setxkbmap -option ctrl:nocaps
 unclutter --timeout 3 -b
 syndaemon -dtR
 
-# Start the window manager:
-if [ -z "$DESKTOP_SESSION" -a -x /usr/bin/ck-launch-session ]; then
-  exec ck-launch-session /usr/bin/awesome
-else
-  exec /usr/bin/awesome
-fi
+exec dbus-launch --exit-with-session awesome
