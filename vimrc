@@ -32,7 +32,8 @@ Plug 'vim-airline/vim-airline-themes'
 
 " Generic
 Plug 'junegunn/vim-easy-align'
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
@@ -57,10 +58,8 @@ Plug 'honza/vim-snippets'
 " Languages
 Plug 'eagletmt/neco-ghc'
 Plug 'lukerandall/haskellmode-vim'
-Plug 'suan/vim-instant-markdown'
-Plug 'gi1242/vim-multimarkdown'
-"Plug 'gabrielelana/vim-markdown'
 Plug 'tpope/vim-markdown'
+Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 Plug 'xolox/vim-lua-ftplugin'
 Plug 'xolox/vim-misc' " dependence of vim-lua-ftplugin and easytags
 Plug 'Rykka/riv.vim'
@@ -487,7 +486,7 @@ function! MakeShellcodeFromOpcode()
     silent! %s/ //g
     silent! %s/  //g
     silent! %s/\t//g
-    silent! s/\(\(.\)\(.\)\)/\\x\1/g
+    silent! s/\(..\)/\\x\1/g
 endfunction
 :nmap <leader>sh :call MakeShellcodeFromOpcode()<cr>
 
@@ -857,7 +856,114 @@ autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 " }}}
 
 " Section: fzf {{{
+let g:fzf_command_prefix = 'Fzf'
+let g:fzf_buffers_jump = 1      " [Buffers] to existing split
+
+function! s:build_location_list(lines) abort
+    call setloclist(0, map(copy(a:lines), '{ "filename": v:val }'))
+    lopen
+endfunction
+
+function! s:build_quickfix_list(lines) abort
+    call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+    copen
+endfunction
+
+" An action can be a reference to a function that processes selected lines
+let g:fzf_action = {
+            \ 'ctrl-l': function('s:build_quickfix_list'),
+            \ 'ctrl-r': function('s:build_location_list'),
+            \ 'ctrl-t': 'tab split',
+            \ 'ctrl-x': 'split',
+            \ 'ctrl-v': 'vsplit'}
+" \ 'ctrl-o': '<S-tab>',
+" \ 'ctrl-i': 'insert_match',
+
+" function! s:insert_match(lines) abort
+"   <c-r>=echo('a:lines')<cr>
+" endfunction
+
 nnoremap <silent> <leader>e :<C-u>FZF<CR>
+nnoremap <leader><c-f> :FzfFiles .<cr>
+nnoremap <leader>F :FzfFiles /<cr>
+nnoremap <leader>fb :FzfBuffers<cr>
+nnoremap <leader>b :FzfBuffers<cr>
+nnoremap <leader>fw :FzfWindows<cr>
+nnoremap <leader>ft :FzfTags<cr>
+nnoremap <leader>f<c-t> :FzfBTags<cr>
+nnoremap <leader>fc :FzfCommit<cr>
+nnoremap <leader>f<c-c> :FzfBCommit<cr>
+nnoremap <leader>fg :FzfGFiles?<cr>
+nnoremap <leader>f<c-g> :FzfGFiles<cr>
+nnoremap <leader>fl :FzfLines<cr>
+nnoremap <leader>f<c-l> :FzfBLines<cr>
+nnoremap <leader>f; :FzfHistory:<cr>
+nnoremap <leader>f/ :FzfHistory/<cr>
+nnoremap <leader>fh :FzfHistory<cr>
+nnoremap <leader>fm :FzfHelptags<cr>
+nnoremap <leader>fs <esc>:FzfSnippets<cr>
+nnoremap <leader>fr <esc>:Rg<cr>
+inoremap <c-x><c-s> <c-o>:FzfSnippets<cr>
+
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+let g:fzf_tags_command = 'ctags -R'
+" Border color
+let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'rounded' } }
+
+let $FZF_DEFAULT_OPTS = '--layout=reverse --info=inline --bind "ctrl-o:toggle+up,ctrl-space:toggle-preview"'
+let $FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/**'"
+"-g '!{node_modules,.git}'
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+  \ { 'fg':      ['fg', 'Normal'],
+  \   'bg':      ['bg', 'Normal'],
+  \   'gutter':  ['bg', 'Normal'],
+  \   'hl':      ['fg', 'Comment'],
+  \   'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \   'bg+':     ['bg', 'Visual', 'CursorColumn'],
+  \   'hl+':     ['fg', 'Statement'],
+  \   'info':    ['fg', 'PreProc'],
+  \   'border':  ['fg', 'vertsplit'],
+  \   'prompt':  ['fg', 'Conditional'],
+  \   'pointer': ['fg', 'Exception'],
+  \   'marker':  ['fg', 'Keyword'],
+  \   'spinner': ['fg', 'Label'],
+  \   'header':  ['fg', 'Comment'] }
+    " \ 'border':  ['fg', 'Conditional'],
+
+"Get Files
+command! -bang -nargs=? -complete=dir Files
+        \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
+
+" Get text in files with Rg
+command! -bang -nargs=* Rg
+    \ call fzf#vim#grep(
+    \   "rg --column --line-number --no-heading --color=always --smart-case --glob '!.git/**' ".shellescape(<q-args>), 1,
+    \   fzf#vim#with_preview(), <bang>0)
+
+" Ripgrep advanced
+function! RipgrepFzf(query, fullscreen) abort
+    let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+    let initial_command = printf(command_fmt, shellescape(a:query))
+    let reload_command = printf(command_fmt, '{q}')
+    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+" Git grep
+command! -bang -nargs=* GGrep
+    \ call fzf#vim#grep(
+    \   'git grep --line-number '.shellescape(<q-args>), 0,
+    \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
 " }}}
 
 " Section: ag {{{
