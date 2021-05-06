@@ -8,14 +8,14 @@
 #--------------------------------------------------------------------------------
 # Trick to use proprely scp
 if [[ $- != *i* ]] ; then
-	# Shell is non-interactive.  Be done now!
-	return
+  # Shell is non-interactive.  Be done now!
+  return
 fi
 
 
-source /home/jack/personal_stuff/shell/functions
-source /home/jack/personal_stuff/shell/aliases
-source /home/jack/personal_stuff/shell/environment
+source ~/personal_stuff/shell/functions
+source ~/personal_stuff/shell/aliases
+source ~/personal_stuff/shell/environment
 
 #-------------------------------------------------------------
 # Shell Prompt

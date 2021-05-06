@@ -767,6 +767,7 @@ let g:markdown_fenced_languages = ['java', 'bash', 'erb=eruby', 'javascript', 'j
 
 " Section: tagbar {{{
 nmap <F8> :TagbarToggle<CR>
+let g:tagbar_sort = 0
 let g:tagbar_type_haskell = {
     \ 'ctagsbin'  : 'hasktags',
     \ 'ctagsargs' : '-x -c -o-',
