@@ -10,19 +10,16 @@ SAVEHIST=1000
 
 STUFF=/home/jake/personal_stuff
 
-# General ones
 source $STUFF/shell/environment
 source $STUFF/shell/functions
 source $STUFF/shell/aliases
 
-# zsh ones
 source $STUFF/zsh/bindkeys.zsh
 source $STUFF/zsh/completion.zsh
 source $STUFF/zsh/setopt.zsh
 source $STUFF/zsh/zsh_hooks.zsh
 source $STUFF/zsh/history-substring-search.zsh
 source $STUFF/zsh/prompt.zsh
-# NB, check the right branch, ATM 0.4.x is working
 source /home/jake/.zsh/plugins/repos/zsh-users/zsh-syntax-highlighting-master/zsh-syntax-highlighting.zsh
 
 # }}}

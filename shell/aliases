@@ -1,10 +1,10 @@
 # [Globals] ---------------------------------------------------------------- {{{
-alias -g G="| grep"
-alias -g V="| grep -v"
-alias -g L="| less"
 alias -g C="| xsel -bi"
-alias -g T="| tail"
+alias -g G="| grep"
 alias -g H="| head"
+alias -g L="| less"
+alias -g T="| tail"
+alias -g V="| grep -v"
 alias -g Z="| fzf"
 # }}}
 
@@ -13,128 +13,127 @@ alias ....='cd ../../..'
 alias ...='cd ../../'
 alias ..='cd ..'
 alias bc='bc -q'
-alias ca='clear;history -c;dirs -c'
 alias c='clear'
+alias ca='clear;history -c;dirs -c'
 alias cd=cd_and_ls
 alias cp='cp -i'
 alias cpb='/usr/bin/cp --backup=t'
 alias e='exit'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
-alias gdb='gdb -q'
 alias g='git'
+alias gdb='gdb -q'
 alias grep='grep --color=auto'
 alias info='info --vi-keys'
 alias j='jobs -l'
+alias k9="kill -9"
 alias las='ls -las'
 alias lc='ls -ltcr'        # sort by and show change time, most recent last
+alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
 alias ll="ls -l --group-directories-first"
 alias lr='ls -lR'          # recursive ls
-alias lsd='ls -hFtv ~/downloads/'
 alias ls='ls -hFv --color=auto'  # add colors for filetype recognition
+alias lsd='ls -hFtv ~/downloads/'
 alias lt='ls -ltr'         # sort by date, most recent last
 alias lu='ls -ltur'        # sort by and show access time, most recent last
 alias lx='ls -lXB'         # sort by extension
-alias k9="kill -9"
 alias mkdir='mkdir -p'
 alias mv='mv -i'
 alias off='xset dpms force off'
 alias p=popd
 alias pass="/bin/true"
 alias path='echo -e ${PATH//:/\\n}'
-alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
-alias v='vim'
-alias vf='vim $(fzf -m)'
-alias vi='vim'
-alias vd='vimdiff'
 alias po='popd'
 alias pu='pushd'
+alias v='vim'
+alias vd='vimdiff'
+alias vf='vim $(fzf -m)'
+alias vi='vim'
 alias which='type -a'
 # }}}
 
 # [Typos] ------------------------------------------------------------------ {{{
 alias celar=clear
-alias vmi='vim'
 alias cl=clear
 alias clera=clear
 alias kk='ll'
 alias moer='more'
 alias moew='more'
 alias s=ls
+alias vmi='vim'
 alias xs='cd'
 # }}}
 
 # [Utilities] -------------------------------------------------------------- {{{
-alias ungcc="gcc -z execstack -fno-stack-protector -fno-pie"
-alias ocvc="g++ \`pkg-config opencv --cflags --libs\`"
 #alias to_c_string="hexdump -v -e '\"\\\\\\x\" 1/1 \"%02x\"'"
-alias tt='tmsu tag'
-alias tts='tmsu tags'
-alias tf='tmsu files'
-alias z='zathura'
-alias t='task'
-alias tw='task +home'
-alias ta='task add'
-alias td='task done'
-alias th='task -work'
-alias tarz='tar xvfz'
-alias 7zz='7z -tzip'
-alias sp='sqg -p'
-alias si='sbopkg -i'
-alias ss='sbopkg -s'
-alias sg='sbopkg -g'
-alias ssg='slackpkg search'
-alias unsgcc="gcc -z execstack -fno-stack-protector -fno-pie"
+alias ag=rg
+alias antlr4='java -jar /opt/antlr/antlr-4.4-complete.jar'
+alias dropbox="python /home/jack/.dropbox-dist/dropbox.py"
+alias dst="python /home/jack/.dropbox-dist/dropbox.py status"
+alias grun='java org.antlr.v4.runtime.misc.TestRig'
+alias halt='su -c halt'
+alias k9="kill -9"
+alias ocvc="g++ \`pkg-config opencv --cflags --libs\`"
 alias ocvc="g++ \`pkg-config opencv --cflags --libs\`"
 alias pass="/bin/true"
-alias to_c_string="hexdump -v -e '\"\\\\\\x\" 1/1 \"%02x\"'"
-alias k9="kill -9"
-alias dst="python /home/jack/.dropbox-dist/dropbox.py status"
-alias dropbox="python /home/jack/.dropbox-dist/dropbox.py"
-alias antlr4='java -jar /opt/antlr/antlr-4.4-complete.jar'
-alias grun='java org.antlr.v4.runtime.misc.TestRig'
-alias tmux='tmux -2'
-
-alias sudo='su -c'
-alias halt='su -c halt'
 alias pms='su -c "loginctl suspend"'
 alias reboot='su -c reboot'
+alias sg='sbopkg -g'
 alias shutdown='su -c shutdown'
+alias si='sbopkg -i'
+alias sp='sqg -p'
+alias ss='sbopkg -s'
+alias ssg='slackpkg search'
+alias sudo='su -c'
+alias t='task'
+alias ta='task add'
+alias tar=extract
+alias td='task done'
+alias tf='tmsu files'
+alias th='task -work'
+alias tmux='tmux -2'
+alias to_c_string="hexdump -v -e '\"\\\\\\x\" 1/1 \"%02x\"'"
+alias tt='tmsu tag'
+alias tts='tmsu tags'
+alias tw='task +home'
+alias ungcc="gcc -z execstack -fno-stack-protector -fno-pie"
+alias unsgcc="gcc -z execstack -fno-stack-protector -fno-pie"
+alias z='zathura'
 
 ## Current
-alias apktool=/opt/android/apktool/apktool
 alias adb=/opt/android/Sdk/platform-tools/adb
+alias apktool=/opt/android/apktool/apktool
 alias genymotion=/opt/android/genymotion/genymotion
 alias ghidra=/opt/reverse/ghidra_9.1.2_PUBLIC/ghidraRun
 alias ida=/opt/reverse/idafree-7.0/ida64
 
 ## Git
-alias gc='git commit -m'
-alias gl='git log --oneline --decorate --graph'
-alias gcheck='git checkout'
 alias ga='git add'
 alias gap='git add --patch'
-alias gpa='git_push_all'
-alias gp='git push'
-alias gpo='git push origin'
-alias gpom='git push origin master'
-alias gplo='git pull origin'
-alias gplom='git pull origin master'
+alias gc='git commit -m'
+alias gcheck='git checkout'
+alias gd='git diff'
 alias gfo='git pull fetch'
 alias gfom='git fetch origin master'
+alias gl='git log --oneline --decorate --graph'
+alias gp='git push'
+alias gpa='git_push_all'
+alias gplo='git pull origin'
+alias gplom='git pull origin master'
+alias gpo='git push origin'
+alias gpom='git push origin master'
 alias grfh='git rebase FETCH_HEAD'
-alias gst='git status'
+alias grm="git ls-files -deleted | xargs git rm"
 alias gs='git status -s'
 alias gsa='git stash apply'
 alias gss='git stash save'
-alias gd='git diff'
-alias grm="git ls-files -deleted | xargs git rm"
+alias gst='git status'
 
 alias cudir='screen -X eval "chdir $PWD"'
-alias runonce="$STUFF/scripts/run_once.sh"
+alias initc="mkdir src; cp $STUFF/templates/Makefile.c ./Makefile"
+alias initlatex="mkdir tmp; mkdir bib; touch bib/bib.bib; cp $STUFF/templates/template.tex main.tex; touch main.tex.latexmain"
 alias irc="(sleep 10 && bash $STUFF/scripts/run_once.sh notify-listener.py $STUFF/scripts/notify-listener.py > /dev/null 2>&1) & irssi"
 alias mkd="$STUFF/scripts/mkd.sh"
-alias initlatex="mkdir tmp; mkdir bib; touch bib/bib.bib; cp $STUFF/templates/template.tex main.tex; touch main.tex.latexmain"
-alias initc="mkdir src; cp $STUFF/templates/Makefile.c ./Makefile"
+alias runonce="$STUFF/scripts/run_once.sh"
 
 # EOF vim: set ts=2 sw=2 tw=80 foldmethod=marker ft=sh :

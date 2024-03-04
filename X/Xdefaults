@@ -85,8 +85,8 @@ rofi.yoffset: 0
 *color7  : #D8D8D8
 *color15 : #F8F8F8
 
-! *background:   rgba:0000/0000/0000/dddd
-! *foreground:   rgba:ff00/ff00/ff00/dddd
+!*background:   rgba:0000/0000/0000/dddd
+!*foreground:   rgba:ff00/ff00/ff00/dddd
 *background: #000000
 *foreground: #DEDEDE
 ! }}}

@@ -11,13 +11,13 @@ export FIZZY_DIR=${HOME}/.fizzy
 export FZF_DEFAULT_COMMAND='ag -l -g ""'
 export FZF_CTRL_T_COMMAND='ag -l -g ""'
 
-export MANPATH="${MANPATH}:${JAVA_HOME}/man:/opt/texlive/2018/texmf-dist/doc/man"
+export MANPATH="${MANPATH}:${JAVA_HOME}/man:/opt/texlive/2022/texmf-dist/doc/man"
 
 sbin="/sbin"
 java="${JAVA_HOME}/bin"
 android="/opt/android/apktool:/opt/android/Sdk/platform-tools:/opt/android/Sdk/build-tools/30.0.2"
 lcl="${HOME}/.local/bin"
-tex="/opt/texlive/2018/bin/x86_64-linux"
+tex="/opt/texlive/2022/bin/x86_64-linux"
 
 export PATH="${PATH}:${sbin}:${java}:${android}:${lcl}:${tex}"
 #export CLASSPATH=".:${JAVA_HOME}/lib64:${JAVA_HOME}/lib:/opt/antlr/antlr-4.4-complete.jar:$CLASSPATH"

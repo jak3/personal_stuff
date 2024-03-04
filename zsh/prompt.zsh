@@ -43,4 +43,4 @@ $(git_super_status)%f %{$reset_color%}%{$FG[220]%}%~ %{$reset_color%}%{$FG[124]%
  %{$reset_color%}'
 RPROMPT='%{$FG[172]%}[%{$reset_color%}%(?,%{$FG[220]%}%?%{$reset_color%},%{$FG[124]%}%?%{$reset_color%})%{$FG[172]%}] %{$reset_color%}%{$FG[226]%}%n%{$reset_color%}'
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
