@@ -1,8 +1,3 @@
--- Thanks {{{
--- lcpz) https://github.com/lcpz/awesome-copycats
--- awesomewm docs) https://awesomewm.org/doc/api/documentation/17-porting-tips.md.html
--- }}}
---
 -- Requires {{{
 
 -- If LuaRocks is installed, make sure that packages installed through it are
@@ -70,7 +65,7 @@ local function run_once(cmd_arr)
     end
 end
 
-run_once({ "urxvtc", "firefox", "copyq", "megasync", "start-pulseaudio-x11" })
+-- run_once({ "urxvtc", "firefox", "copyq", "megasync", "start-pulseaudio-x11" })
 
 -- }}}
 
@@ -134,17 +129,15 @@ awful.util.tasklist_buttons = gears.table.join(
 
 -- thanks to https://github.com/lcpz/awesome-copycats
 local chosen_theme = "powerarrow-dark"
-beautiful.init(string.format("%s/.config/awesome4/themes/%s/mytheme.lua", os.getenv("HOME"), chosen_theme))
+beautiful.init(string.format("%s/.config/awesome/themes/%s/mytheme.lua", os.getenv("HOME"), chosen_theme))
 
 -- }}}
 
 -- {{{ Menu
 
--- Yeah, ATM i do not need a menu, rofi and shell is enought
 myawesomemenu = {
    { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
    { "manual", string.format("%s -e man awesome", terminal_only) },
-   { "Manual", string.format("%s -e man awesome", terminal_only) },
    { "edit config", string.format("%s -e %s %s", terminal_only, editor, awesome.conffile) },
    { "restart", awesome.restart },
    { "quit", function() awesome.quit() end },
@@ -265,6 +258,7 @@ globalkeys = gears.table.join(
           if client.focus then client.focus:raise() end
       end,
       {description = "focus right", group = "client"}),
+
   -- Default client focus
   -- awful.key({ modkey,        }, "j",
   --       function ()
@@ -368,16 +362,18 @@ globalkeys = gears.table.join(
 
   -- Run predefined programs.
   awful.key({ modkey, "Shift"   }, "l",
-            awful.spawn(terminal_only .. "-e $HOME/personal_stuff/scripts/keyboard_swap_enit.sh"),
+            function() awful.util.spawn_with_shell(string.format("%s/personal_stuff/scripts/keyboard_swap_enit.sh",
+                                      os.getenv("HOME"))) end,
             {description = "swap keyboard layout", group = "launcher"}),
   awful.key({ modkey, "Shift"   }, "0",     function()
                                               klidx = klidx % #(klayout) + 1
-                                              os.execute(string.format(
-                                                "setxkbmap " .. klayout[klidx]
+                                              awful.util.spawn_with_shell(string.format(
+                                                "setxkbmap %s", klayout[klidx]
                                               ))
-                                              pic = "$HOME/.config/awesome/il-keyboard-layout.png"
+                                              pic = string.format("%s/.config/awesome/il-keyboard-layout.png",
+                                                                  os.getenv("HOME"))
                                               if klidx == 2 then
-                                                awful.spawn(string.format(
+                                                awful.util.spawn_with_shell(string.format(
                                                   "sxiv -g $(identify -format '%%wx%%h' %s) %s &", pic, pic))
                                               else
                                                 os.execute(string.format("pkill -f il-keyboard-layout"))
@@ -390,23 +386,25 @@ globalkeys = gears.table.join(
             { description = "run rofimoji", group = "launcher" }),
 
   -- XF86
-  awful.key({ }, "XF86MonBrightnessDown",      function ()
-                                    os.execute(string.format(
-                                      --"xbacklight -dec 5"
-                                      "xrandr --output eDP-1 --gamma 1:.5:.5 --brightness .4"
-                                    ))
-                                   end,
+  awful.key({ }, "XF86MonBrightnessDown",
+              function ()
+                os.execute(string.format(
+                --"xbacklight -dec 5"
+                "xrandr --output eDP-1 --gamma 1:.5:.5 --brightness .4"
+                ))
+              end,
             {description = "reduce brightness and color", group = "XF86" }),
-  awful.key({ }, "XF86MonBrightnessUp",      function ()
-                                    os.execute(string.format(
-                                      --"xbacklight -inc 5"
-                                      "xrandr --output eDP-1 --brightness 1"
-                                    ))
-                                   end,
+  awful.key({ }, "XF86MonBrightnessUp",
+              function ()
+                os.execute(string.format(
+                --"xbacklight -inc 5"
+                "xrandr --output eDP-1 --brightness 1"
+                ))
+              end,
             {description = "reduce brightness and color", group = "XF86" }),
-  awful.key({ }, "XF86Sleep",      function ()
+  awful.key({ }, "XF86Sleep", function ()
                                      awful.util.spawn_with_shell("loginctl suspend")
-                                   end,
+                              end,
             {description = "Suspend pc using loginctl", group = "XF86" }),
   -- Manage audio settings. Da valutare se tenere tutte le sink sincronizzate
   awful.key({ }, "XF86AudioRaiseVolume",  function ()
@@ -438,18 +436,21 @@ globalkeys = gears.table.join(
             {description = "Mute all sinks", group = "XF86" }),
 
   -- Spotify
-  awful.key({ }, "KP_Right", function ()
-    awful.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next")
-                                  end,
-            {description = "Next Spotify Song", group = "Spotify" }),
-  awful.key({ }, "KP_Left", function ()
-    awful.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous")
-                                  end,
-            {description = "Previous Spotify Song", group = "Spotify" }),
-  awful.key({ }, "XF86AudioPlay", function ()
-    awful.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause")
-                                  end,
-            {description = "PlayPause Spotify", group = "Spotify" }),
+  awful.key({ }, "KP_Right",
+    function ()
+      awful.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next")
+    end,
+    {description = "Next Spotify Song", group = "Spotify" }),
+  awful.key({ }, "KP_Left",
+    function ()
+      awful.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous")
+    end,
+    {description = "Previous Spotify Song", group = "Spotify" }),
+  awful.key({ }, "XF86AudioPlay",
+    function ()
+      awful.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause")
+    end,
+    {description = "PlayPause Spotify", group = "Spotify" }),
 
   --[[ Cmus
   awful.key({ modkey, "Control" }, "s", function ()
@@ -576,7 +577,6 @@ awful.rules.rules = {
     -- Floating clients.
     { rule_any = {
         instance = {
-          "DTA",  -- Firefox addon DownThemAll.
           "copyq",  -- Includes session name in class.
           "pinentry",
         },
@@ -599,28 +599,28 @@ awful.rules.rules = {
           "ConfigManager",  -- Thunderbird's about:config.
           "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
         }
-      }, properties = { floating = true }},
+      }, properties = { floating = true, placement = awful.placement.bottom }},
 
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = true }
+      }, properties = { titlebars_enabled = false }
     },
 
   { rule = { class = "gimp" },
-    properties = { floating = true, tag = "9" } },
+    properties = { floating = true, tag = awful.util.tagnames[9] } },
 
   -- Set Firefox to always map on tags number 2 of screen 1.
   { rule = { class = "Firefox" },
-     properties = { tag = "2" } },
+     properties = { tag = awful.util.tagnames[2] } },
 
   { rule = { class = "Tor Browser" },
-     properties = { tag = "2" } },
+     properties = { tag = awful.util.tagnames[2] } },
 
   { rule = { class = "Zathura" },
-     properties = { tag = "3" } },
+     properties = { tag = awful.util.tagnames[3] } },
 
   { rule = { class = "Spotify" },
-     properties = { tag = "5" } },
+     properties = { tag = awful.util.tagnames[5] } },
 
 }
 
@@ -652,7 +652,7 @@ client.connect_signal("request::titlebars", function(c)
 
     -- Default
     -- buttons for the titlebar
-    local buttons = mytable.join(
+    local buttons = gears.table.join(
         awful.button({ }, 1, function()
             c:emit_signal("request::activate", "titlebar", {raise = true})
             awful.mouse.client.move(c)
@@ -663,7 +663,7 @@ client.connect_signal("request::titlebars", function(c)
         end)
     )
 
-    awful.titlebar(c, { size = 16 }) : setup {
+    awful.titlebar(c, { size = 13 }) : setup {
         { -- Left
             awful.titlebar.widget.iconwidget(c),
             buttons = buttons,
