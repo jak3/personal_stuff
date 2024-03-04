@@ -1,3 +1,8 @@
+-- Thanks {{{
+-- lcpz) https://github.com/lcpz/awesome-copycats
+-- awesomewm docs) https://awesomewm.org/doc/api/documentation/17-porting-tips.md.html
+-- }}}
+--
 -- Requires {{{
 
 -- If LuaRocks is installed, make sure that packages installed through it are
@@ -65,7 +70,7 @@ local function run_once(cmd_arr)
     end
 end
 
--- run_once({ "urxvtc", "firefox", "copyq", "megasync", "start-pulseaudio-x11" })
+run_once({ "urxvtc", "firefox", "copyq", "megasync", "start-pulseaudio-x11" })
 
 -- }}}
 
