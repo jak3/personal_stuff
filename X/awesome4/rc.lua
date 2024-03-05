@@ -65,7 +65,7 @@ local function run_once(cmd_arr)
     end
 end
 
--- run_once({ "urxvtc", "firefox", "copyq", "megasync", "start-pulseaudio-x11" })
+run_once({ "urxvtc", "firefox", "copyq", "megasync", "start-pulseaudio-x11" })
 
 -- }}}
 
@@ -90,9 +90,9 @@ awful.util.tagnames = {
 awful.layout.layouts = {
   awful.layout.suit.tile,
   awful.layout.suit.max,
+  awful.layout.suit.max,
   awful.layout.suit.corner.nw,
   awful.layout.suit.floating,
-  awful.layout.suit.max,
   awful.layout.suit.fair,
   awful.layout.suit.corner.nw,
   awful.layout.suit.floating,
@@ -599,28 +599,30 @@ awful.rules.rules = {
           "ConfigManager",  -- Thunderbird's about:config.
           "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
         }
-      }, properties = { floating = true, placement = awful.placement.bottom }},
+      },
+      properties = { floating = true, placement = awful.placement.bottom }
+  },
 
-    -- Add titlebars to normal clients and dialogs
-    { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = false }
-    },
+  -- Add titlebars to normal clients and dialogs
+  { rule_any   = {type = { "normal", "dialog" }},
+    properties = { titlebars_enabled = false }
+  },
+
+  { rule_any = { class = {"Firefox", "Tor Browser"} },
+    properties = { tag = awful.util.tagnames[2] }
+  },
+
+  { rule_any = { class = {"Zathura", "calibre"} },
+    properties = { tag = awful.util.tagnames[3] }
+  },
 
   { rule = { class = "gimp" },
-    properties = { floating = true, tag = awful.util.tagnames[9] } },
-
-  -- Set Firefox to always map on tags number 2 of screen 1.
-  { rule = { class = "Firefox" },
-     properties = { tag = awful.util.tagnames[2] } },
-
-  { rule = { class = "Tor Browser" },
-     properties = { tag = awful.util.tagnames[2] } },
-
-  { rule = { class = "Zathura" },
-     properties = { tag = awful.util.tagnames[3] } },
+    properties = { floating = true, tag = awful.util.tagnames[9] }
+  },
 
   { rule = { class = "Spotify" },
-     properties = { tag = awful.util.tagnames[5] } },
+     properties = { tag = awful.util.tagnames[5] }
+  }
 
 }
 
