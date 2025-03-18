@@ -5,21 +5,29 @@ export STUFF="$HOME/personal_stuff"
 #export GOPATH="$HOME/repos/gocode"
 
 #export _JAVA_AWT_WM_NONREPARENTING=1
-export JAVA_HOME="/usr/lib64/java"
+export JAVA_HOME="/opt/java/jdk-23"
+export ANDROID_SDK_HOME="/opt/android/Sdk"
+export RANGER_LOAD_DEFAULT_RC=FALSE
 export W3MIMGDISPLAY_PATH=/usr/libexec/w3m/w3mimgdisplay
 export FIZZY_DIR=${HOME}/.fizzy
 export FZF_DEFAULT_COMMAND='ag -l -g ""'
 export FZF_CTRL_T_COMMAND='ag -l -g ""'
 
-export MANPATH="${MANPATH}:${JAVA_HOME}/man:/opt/texlive/2022/texmf-dist/doc/man"
+export MANPATH="${MANPATH}:${JAVA_HOME}/man:/opt/texlive/2024/texmf-dist/doc/man"
 
 sbin="/sbin"
 java="${JAVA_HOME}/bin"
-android="/opt/android/apktool:/opt/android/Sdk/platform-tools:/opt/android/Sdk/build-tools/30.0.2"
+flutter="/opt/android/flutter/bin"
+firebase="/opt/android/firebase/"
+pubcache="${HOME}/.pub-cache/bin"
+android="/opt/android/apktool:/opt/android/android-studio/bin:/opt/android/Sdk/platform-tools:/opt/android/Sdk/emulator:/opt/android/Sdk/cmdline-tools/latest/bin"
 lcl="${HOME}/.local/bin"
-tex="/opt/texlive/2022/bin/x86_64-linux"
+tex="/opt/texlive/2024/bin/x86_64-linux"
+cabal="${HOME}/.cabal/bin"
+ghcup="${HOME}/.ghcup/bin"
 
-export PATH="${PATH}:${sbin}:${java}:${android}:${lcl}:${tex}"
+export PATH="${firebase}:${flutter}:${java}:${PATH}:${sbin}:${android}:${lcl}:${tex}:${cabal}:${ghcup}:${pubcache}"
+export CHROME_EXECUTABLE="/usr/bin/chromium"
 #export CLASSPATH=".:${JAVA_HOME}/lib64:${JAVA_HOME}/lib:/opt/antlr/antlr-4.4-complete.jar:$CLASSPATH"
 
 export HISTCONTROL=ignoredups

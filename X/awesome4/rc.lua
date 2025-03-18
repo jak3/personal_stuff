@@ -65,7 +65,7 @@ local function run_once(cmd_arr)
     end
 end
 
-run_once({ "urxvtc", "firefox", "copyq", "megasync", "start-pulseaudio-x11" })
+run_once({ "urxvtc -e /bin/zsh -c tmux", "firefox", "copyq", "megasync", "start-pulseaudio-x11" })
 
 -- }}}
 
@@ -91,12 +91,12 @@ awful.layout.layouts = {
   awful.layout.suit.tile,
   awful.layout.suit.max,
   awful.layout.suit.max,
-  awful.layout.suit.corner.nw,
-  awful.layout.suit.floating,
   awful.layout.suit.fair,
+  awful.layout.suit.max,
   awful.layout.suit.corner.nw,
+  awful.layout.suit.fair.horizontal,
   awful.layout.suit.floating,
-  awful.layout.suit.max.fullscreen
+  awful.layout.suit.max.fullscreen,
 }
 
 awful.util.taglist_buttons = gears.table.join(
@@ -228,50 +228,50 @@ globalkeys = gears.table.join(
   awful.key({ modkey,        }, "Escape", awful.tag.history.restore,
             {description = "go back", group = "tag"}),
   -- Non-empty tag browsing
-  awful.key({ altkey }, "Left", function () lain.util.tag_view_nonempty(-1) end,
-            {description = "view  previous nonempty", group = "tag"}),
-  awful.key({ altkey }, "Right", function () lain.util.tag_view_nonempty(1) end,
-            {description = "view  previous nonempty", group = "tag"}),
+  awful.key({ altkey }, "h", awful.tag.viewprev,
+            {description = "view previous tag", group = "tag"}),
+  awful.key({ altkey }, "l", awful.tag.viewnext,
+            {description = "view next tag", group = "tag"}),
 
   -- By-direction client focus TESTING
-  awful.key({ modkey }, "j",
-      function()
-          awful.client.focus.global_bydirection("down")
-          if client.focus then client.focus:raise() end
-      end,
-      {description = "focus down", group = "client"}),
-  awful.key({ modkey }, "k",
-      function()
-          awful.client.focus.global_bydirection("up")
-          if client.focus then client.focus:raise() end
-      end,
-      {description = "focus up", group = "client"}),
-  awful.key({ modkey }, "h",
-      function()
-          awful.client.focus.global_bydirection("left")
-          if client.focus then client.focus:raise() end
-      end,
-      {description = "focus left", group = "client"}),
-  awful.key({ modkey }, "l",
-      function()
-          awful.client.focus.global_bydirection("right")
-          if client.focus then client.focus:raise() end
-      end,
-      {description = "focus right", group = "client"}),
+  -- awful.key({ modkey }, "j",
+  --     function()
+  --         awful.client.focus.global_bydirection("down")
+  --         if client.focus then client.focus:raise() end
+  --     end,
+  --     {description = "focus down", group = "client"}),
+  -- awful.key({ modkey }, "k",
+  --     function()
+  --         awful.client.focus.global_bydirection("up")
+  --         if client.focus then client.focus:raise() end
+  --     end,
+  --     {description = "focus up", group = "client"}),
+  -- awful.key({ modkey }, "h",
+  --     function()
+  --         awful.client.focus.global_bydirection("left")
+  --         if client.focus then client.focus:raise() end
+  --     end,
+  --     {description = "focus left", group = "client"}),
+  -- awful.key({ modkey }, "l",
+  --     function()
+  --         awful.client.focus.global_bydirection("right")
+  --         if client.focus then client.focus:raise() end
+  --     end,
+  --     {description = "focus right", group = "client"}),
 
   -- Default client focus
-  -- awful.key({ modkey,        }, "j",
-  --       function ()
-  --           awful.client.focus.byidx( 1)
-  --       end,
-  --           {description = "focus next by index", group = "client"}
-  -- ),
-  -- awful.key({ modkey,        }, "k",
-  --       function ()
-  --           awful.client.focus.byidx(-1)
-  --       end,
-  --           {description = "focus previous by index", group = "client"}
-  --   ),
+  awful.key({ modkey,        }, "j",
+        function ()
+            awful.client.focus.byidx( 1)
+        end,
+            {description = "focus next by index", group = "client"}
+  ),
+  awful.key({ modkey,        }, "k",
+        function ()
+            awful.client.focus.byidx(-1)
+        end,
+            {description = "focus previous by index", group = "client"}
+    ),
 
   -- Layout manipulation.
   awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
@@ -344,7 +344,7 @@ globalkeys = gears.table.join(
             {description = "dropdown application", group = "launcher"}),
   -- Widgets popups
   awful.key({ altkey, }, "c", function () if beautiful.cal then beautiful.cal.show(7) end end,
-            {description = "show calendar", group = "widgets"}),
+          {description = "show calendar", group = "widgets"}),
 
   -- Menu.
   awful.key({ modkey, }, "w",      function ()
@@ -616,7 +616,7 @@ awful.rules.rules = {
     properties = { tag = awful.util.tagnames[3] }
   },
 
-  { rule = { class = "gimp" },
+  { rule_any = { class = {"gimp", "geeqie"} },
     properties = { floating = true, tag = awful.util.tagnames[9] }
   },
 

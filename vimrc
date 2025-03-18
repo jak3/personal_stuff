@@ -31,8 +31,8 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'vim-airline/vim-airline-themes'
 
 " IDE
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
+" Plug 'prabirshrestha/vim-lsp'
+" Plug 'mattn/vim-lsp-settings'
 
 " Generic
 Plug 'junegunn/vim-easy-align'
@@ -52,8 +52,9 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'vim-syntastic/syntastic'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'yaegassy/coc-pylsp', {'do': 'yarn install --frozen-lockfile'}
 
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 Plug 'rking/ag.vim'
 "Plug 'KabbAmine/zeavim.vim' " Offline Docs
 Plug 'SirVer/ultisnips'
@@ -72,6 +73,7 @@ Plug '2072/PHP-Indenting-for-VIm'
 Plug 'mattn/emmet-vim'
 Plug 'mzlogin/vim-smali'
 Plug 'masukomi/vim-markdown-folding'
+Plug 'Exafunction/codeium.vim'
 
 " install https://github.com/jszakmeister/markdown2ctags.git
 " into ~/.vim/plugged/tagbar-ext.vim/bin/markdown2ctags.py
@@ -107,7 +109,7 @@ let g:small_font = "Monospace\\ 2"
 set pastetoggle=<F11>
 " undodir file only to /tmp
 set undofile
-set undodir=/tmp/undo
+set undodir=/tmp/vim/undo
 set undolevels=1000
 set undoreload=10000
 
@@ -250,7 +252,7 @@ vmap <leader>E "=system('base64','<C-R>*')<C-M>p
 " Let the syntax highlighting for Java files allow cpp keywords
 let java_allow_cpp_keywords = 1
 
-nmap <leader>ma :set makeprg=gcc\\ -Wall\\ -ggdb3\\ -o\\ %<\\ %
+nmap <leader>ma :set makeprg=gcc\\ -Wall\\ -ggdb3\\ -o\\ %<.elf\\ %
 nmap <leader>mx :set makeprg=g++\\ -Wall\\ -O3\\ -std=c++11\\ -fopenmp\\ -lstdc++\\ -lm\\ -o\\ %<\\ %
 nmap <leader>mo :set makeprg=gcc\\ -Wall\\ -O3\\ -std=c11\\ -fopenmp\\ -o\\ %<\\ %
 nmap <leader>m+ :set makeprg=g++\\ -g3\\ -ggdb\\ -O0\\ -Wall\\ -Wextra\\ -Wno-unused\\ -o\\ %<\\ %\\ -lcryptopp
@@ -615,7 +617,7 @@ au BufNewFile,BufReadPost *.pt setl filetype=lisp
 au BufNewFile,BufReadPost *.xtext setl filetype=antlr foldmethod=marker
 au BufNewFile,BufReadPost *.xtend setl filetype=java
 au BufNewFile,BufReadPost *.qa setl filetype=prolog
-au BufRead,BufNewFile *.pu,*.plantuml,*.plant setl makeprg=java\ -jar\ ~/misc/plantuml.jar\ -tpng\ -o\ /tmp/\ %
+au BufRead,BufNewFile *.pu,*.plantuml,*.plant,*.puml setl makeprg=java\ -jar\ ~/misc/plantuml.jar\ -tpng\ -o\ /tmp/\ %
 au BufRead,BufNewFile *.g,*.g3,*.g4 setl makeprg=java\ -jar\ /opt/antlr/antlr-3.5.2-complete.jar\ -o\ src/it/unibo/lpemc/implementation/\ %
 au BufRead,BufNewFile *.fool setl syntax=fool
 "ANTLR  mkdir\ -p\ out&&java\ -jar\ /opt/antlr/antlr-4.4-complete.jar\ -o\ out\ % \ &&javac\ out/%<*.java
@@ -635,6 +637,7 @@ augroup Python
     au BufRead,BufEnter,BufNewFile *.py setl softtabstop=4 " insert/delete 4 spaces when hitting a TAB/BACKSPACE
     au BufRead,BufEnter,BufNewFile *.py setl shiftround    " round indent to multiple of 'shiftwidth'
     au BufRead,BufEnter,BufNewFile *.py setl makeprg=pep8\ %
+    au BufRead,BufEnter,BufNewFile *.py let g:codeium_disable_bindings = 0
 augroup END
 
 augroup Binary
@@ -828,7 +831,7 @@ set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_lua_checkers = ["luac", "luacheck"]
 let g:syntastic_lua_luacheck_args = "--ignore 'robot' 'log' -g -u --no-unused-args"
@@ -1144,6 +1147,9 @@ let g:lsp_settings = {
 \     }
 \   },
 \}
+" }}}
+" Section: codeium {{{
+let g:codeium_disable_bindings = 0
 " }}}
 
 " }}}

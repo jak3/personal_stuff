@@ -16,4 +16,9 @@ setxkbmap -option ctrl:nocaps
 unclutter --timeout 3 -b
 syndaemon -dtR
 
+# waiting after upgrade to kernel 6.9.5 suspend seems broken
+#xset -dpms
+#xset s off
+#xset s noblank
+
 exec dbus-launch --exit-with-session awesome
