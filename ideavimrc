@@ -1,1 +1,154 @@
-set clipboard+=unnamed
+" .ideavimrc
+" You can find a list of commands here: https://jb.gg/h38q75
+" Find more examples here: https://jb.gg/share-ideavimrc
+" Docs: https://github.com/JetBrains/ideavim/tree/master/doc
+" Share: https://github.com/JetBrains/ideavim/discussions/303?sort=top
+
+" Source your .vimrc
+source ~/.vim/vimrc/glob.vim
+
+nmap <leader>ev :e ~/.ideavimrc<CR>
+" IdeaVim
+set ideajoin
+set ideamarks
+sethandler <C-C> n-v:ide i:vim
+
+" Plugins
+Plug 'tpope/vim-commentary'
+Plug 'preservim/nerdtree'
+nmap <leader>p :NERDTreeToggle<CR>
+Plug 'vim-scripts/ReplaceWithRegister'
+Plug 'vim-scripts/argtextobj.vim'
+Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-surround'
+
+map <space> <nop>
+map H ^
+map J }
+map K {
+map L $
+map Q gq
+map U <C-R>
+
+imap <C-d> <Esc>
+map <C-j> <Esc>
+map <leader>J Ji <ESC>
+map <leader>i ~hi
+
+nmap <C-a> ggVG"+y
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
+nmap <leader>n :noh<CR>
+
+vmap <leader>u d~h
+
+" Tab
+map <leader>sh <Action>(MoveTabLeft)
+map <leader>sj <Action>(MoveTabDown)
+map <leader>sk <Action>(MoveTabUp)
+map <leader>sl <Action>(MoveTabRight)
+nmap <leader>sh <Action>(MoveTabLeft)
+nmap <leader>sj <Action>(MoveTabDown)
+nmap <leader>sk <Action>(MoveTabUp)
+nmap <leader>sl <Action>(MoveTabRight)
+nmap <C-Tab> <Action>(PreviousTab)
+nmap <Tab> <Action>(NextTab)
+nmap <leader>1 <Action>(GoToTab1)
+nmap <leader>2 <Action>(GoToTab2)
+nmap <leader>3 <Action>(GoToTab3)
+nmap <leader>4 <Action>(GoToTab4)
+nmap <leader>5 <Action>(GoToTab5)
+nmap <leader>6 <Action>(GoToTab6)
+nmap <leader>7 <Action>(GoToTab7)
+nmap <leader>8 <Action>(GoToTab8)
+nmap <leader>9 <Action>(GoToTab9)
+nmap <leader>h <Action>(Vcs.ShowTabbedFileHistory)
+nmap <leader>mt <Action>(EditorTabPopupMenu)
+
+" Goto
+nmap <leader>a <Action>(GotoAction)
+nmap [g <Action>(GotoPreviousError)
+nmap ]g <Action>(GotoNextError)
+nmap [u <Action>(GotoPrevElementUnderCaretUsage)
+nmap ]u <Action>(GotoNextElementUnderCaretUsage)
+nmap gD <Action>(GotoTypeDeclaration)
+nmap gd <Action>(GotoDeclaration)
+nmap gf <Action>(GotoFile)
+nmap gc <Action>(GotoClass)
+nmap gi <Action>(GotoImplementation)
+nmap go <Action>(GotoSuperMethod)
+nmap gs <Action>(GotoSymbol)
+
+" IntelliJ Actions
+map <leader>C <Action>(CommentByBlockComment)
+map <leader>c <Action>(CommentByLineComment)
+map <leader>sH <Action>(SplitHorizontally)
+map <leader>sV <Action>(SplitVertically)
+nmap <C-i> <Action>(Forward)
+nmap <C-o> <Action>(Back)
+nmap <C-p> <Action>(JumpToLastWindow)
+nmap <M-i> <Action>(PrevSplitter)
+nmap <M-o> <Action>(NextSplitter)
+nmap <leader>db <Action>(ToggleLineBreakpoint)
+nmap <leader>rc <Action>(ReformatCode)
+nmap <leader>ic <Action>(InspectCode)
+nmap <leader>ma <Action>(AnalyzeMenu)
+nmap <leader>mb <Action>(BuildMenu)
+nmap <leader>mc <Action>(CodeMenu)
+nmap <leader>mf <Action>(FindMenuGroup)
+nmap <leader>mg <Action>(GoToMenu)
+nmap <leader>mm <Action>(MainMenu)
+nmap <leader>ms <Action>(ScopeViewPopupMenu)
+nmap <leader>mw <Action>(ToolWindowsGroup)
+nmap <leader>of <Action>(OpenFile)
+nmap <leader>oi <Action>(OptimizeImports)
+nmap <leader>rc <Action>(ContextRun)
+nmap <leader>re <Action>(Refactorings.QuickListPopupAction)
+nmap <leader>rf <Action>(RecentFiles)
+nmap <leader>rl <Action>(RecentLocations)
+nmap <leader>rn <Action>(RenameElement)
+nmap <leader>rp <Action>(ManageRecentProjects)
+nmap <leader>sH <Action>(SplitHorizontally)
+nmap <leader>sV <Action>(SplitVertically)
+nmap <leader>sf <Action>(ShowFilePath)
+nmap <leader>sh <Action>(LocalHistory.ShowHistory)
+nmap <leader>si <Action>(SelectIn)
+nmap <leader>so <Action>(SelectAllOccurrences)
+nmap <leader>ss <Action>(osmedile.intellij.stringmanip.PopupChoiceAction)
+nmap <leader>sw <Action>($SearchWeb)
+nmap <leader>tc <Action>(Terminal.OpenInTerminal)
+nmap <leader>tt <Action>(ActivateTerminalToolWindow)
+nmap <leader>uw <Action>(Unwrap)
+nmap <leader>v <Action>(VcsGroups)
+nmap <leader>ww <Action>(HideAllWindows)
+nmap <leader>xa <Action>(CloseAllEditors)
+nmap <leader>xo <Action>(CloseAllEditorsButActive)
+nmap <leader>xp <Action>(CloseAllUnpinnedEditors)
+nmap <leader>xx <Action>(CloseContent)
+nmap <C-w> <Action>(CloseContent)
+nmap <leader>yp <Action>(CopyAbsolutePath)
+nmap <leader>z <Action>(ToggleZenMode)
+nmap [c <Action>(JumpToLastChange)
+nmap [m <Action>(MethodUp)
+nmap [o <Action>(PreviousOccurence)
+nmap \\cg <Action>(Github.Create.Gist)
+nmap \\cs <Action>(one.util.ideaplugin.screenshoter.CopyImageAction)
+nmap \\jl <Action>(EditorJoinLines)
+nmap \\v <Action>(VimActions)
+nmap ]c <Action>(JumpToNextChange)
+nmap ]m <Action>(MethodDown)
+nmap ]o <Action>(NextOccurence)
+nmap gI <Action>(QuickImplementations)
+nmap gR <Action>(FindUsages)
+nmap gT <Action>(TextSearchAction)
+nmap ga <Action>(SearchEverywhere)
+nmap gn <Action>(ShowNavBar)
+nmap gr <Action>(ShowUsages)
+nmap mm <Action>(ToggleBookmark)
+nmap ms <Action>(ShowBookmarks)
+nmap zA <Action>(ExpandAllRegions)
+nmap za <Action>(CollapseAllRegions)
+nmap zz <Action>(ExpandCollapseToggleAction)
+xmap <leader>sw <Action>(SurroundWith)
